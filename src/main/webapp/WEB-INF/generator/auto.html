@@ -1,0 +1,36 @@
+<script type="text/javascript" src="/king-rx/theme/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/king-rx/generator/theme/jquery-1.11.2.min.js"></script>
+<script>
+
+	//http://localhost:8081/king-rx/generator/gotoGener
+	function generatorFormSubmit(){
+		$.formSubmit('generator','',function(){///king-rx/generator/gen
+			alert("操你大爷");
+		});
+	}
+</script>
+<div style="height:100%;width:100%;overflow:hidden;">
+	<div class="grid_form_style">
+	<form id="generator_form" method="post" action="/king-rx/generator/gen">
+		<div>
+			<label>我就要这三个东西. 不过分吧?  注意包名</label>
+			<label style="background-color:green">例如：cn.com.taiji.dto.tablename ==> 会在dto,domain,repository下创建tablename文件夹并生成对应文件</label>
+			<label style="background-color:green">例如：cn.com.taiji.dto ==> 直接在dto,domain,repository下生成对应文件</label><br/>
+			<label>系统自动生成: 实体类dto, 实体类table, Repository, service, action, html页面. </label>
+		</div>
+		<div>
+			<label for="tableName">表名</label>
+			<input type="text" id="tableName" class="easyui-validatebox" required="true" name="tableName" />
+			<label for="entityName">实体名称首字母大写驼峰规则</label>
+			<input type="text" id="entityName" class="easyui-validatebox" required="true" name="entityName"  />
+			<label for="packageName">包名小写</label>
+			<input type="text" class="easyui-validatebox" required="true" name="packageName" />
+		</div>
+		<div> 
+		     <input type="submit" class="easyui-linkbutton" value="生成"/>
+			<!-- <a href="javascript:void(0)" class="easyui-linkbutton" onclick="generatorFormSubmit()"  iconCls='icon-ok'>生成</a> -->
+			<a href="javascript:void(0);" class="easyui-linkbutton" onclick="$.closeWin('menu_grid')" iconCls="icon-no">关闭</a>
+		</div>
+	</form>
+	</div>
+</div>

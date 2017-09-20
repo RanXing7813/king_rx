@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/> 
+    <title>Jeecg 快速开发平台</title>
+    <meta name="keywords" content="JEECG,后台bootstrap框架,会员中心主题,后台HTML,响应式后台"/>
+    <meta name="description" content="JEECG是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术"/>
+    
+    <link rel="stylesheet" type="text/css" href="/theme/easyui/themes/default/easyui.css" 	th:href="@{/theme/easyui/themes/default/easyui.css}"/>   
+	<link rel="stylesheet" type="text/css" href="../theme/easyui/themes/icon.css" 			th:href="@{/theme/easyui/themes/icon.css}"/>   
+	<link rel="stylesheet" type="text/css" href="../theme/easyui/demo/demo.css" 			th:href="@{/theme/easyui/demo/demo.css}"/>
+	<link rel="stylesheet" type="text/css" href="../theme/easyui/themes/color.css" 			th:href="@{/theme/easyui/themes/color.css}"/>
+	<!-- src="../static/js/myJs.js" -->
+	<script type="text/javascript" src="/theme/easyui/jquery.min.js" 				  th:src="@{/theme/easyui/jquery.min.js}"></script>
+	<script type="text/javascript" src="/theme/easyui/jquery.easyui.min.js"  		  th:src="@{/theme/easyui/jquery.easyui.min.js}" ></script>  
+	<script type="text/javascript" src="/theme/easyui/locale/easyui-lang-zh_CN.js" 	  th:src="@{/theme/easyui/locale/easyui-lang-zh_CN.js}" ></script>
+	
+</head>
+
+
+<body class="easyui-layout" >  
+    <!--begin 头部 --> 
+    <div data-options="region:'north',split:true" style="height:100px" onclick="ff()">
+    	头部
+    </div><!--end 头部 -->
+      
+    <!-- 中间 -->
+    <div data-options="region:'center',split:true">   
+    	<!-- 布局  -->
+        <div class="easyui-layout" id="cc" data-options="fit:true">  
+        	<!-- 左边菜单栏 --> 
+            <div data-options="region:'west',title:'west Title',split:true"      style="width:180px"> 
+           	 	左边菜单栏
+           	 	<ul>
+           	 		<li><a href="javascript:ff()">点我加载list1页面</a></li>
+           	 		<li><a href="javascript:dd()">点我加载list2页面</a></li>
+           	 	
+           	 	</ul>
+            </div>   
+            <div data-options="region:'south'" style="height:30px;">页底</div>
+            <!-- 中间内容 --> 
+            <div  data-options="region:'center',split:true" id="centerTowest">
+	            <div class="easyui-layout" data-options="fit:true">
+	            	<!-- <div data-options="region:'south',title:'South Title',split:true" style="height:100px;">页底</div>  -->  
+					<div data-options="region:'north',title:'North Title',split:true" style="height:100px;">导航</div>   
+					<div data-options="region:'center'">
+								<div id="tb" style="padding:5px;height:auto">
+								<div style="margin-bottom:5px">
+									<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="obj.add();">添加</a>
+									<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="obj.edit();">修改</a>
+									<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="obj.del();">删除</a>
+									
+									<a href="#"	class="easyui-linkbutton" iconCls="icon-save" plain="true" style="display:none;" id="save" onclick="obj.save();">保存 </a>
+								    <a href="#"	class="easyui-linkbutton" iconCls="icon-redo" plain="true" style="display:none;" id="redo" onclick="obj.redo();">取消编辑</a>
+									
+								</div>
+								<form id="serchFrom" >
+								<div style="padding:0 0 0 7px;">
+									查 询 帐 号 ： <input	class="textbox"	name="inspectionName"
+									style="width:150px"/>
+									创建时间从：<input class="easyui-datetimebox" name="date_from"
+									style="width:150px"/>
+										到	：	<input	class="easyui-datetimebox"	name="date_to"
+									style="width:150px"/>
+									<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="obj.search();">查询</a>
+									<a href="#" class="easyui-linkbutton" iconCls="icon-clear"  onclick="obj.reset();">重置</a>
+								</div>
+								</form>
+							</div>
+			            	
+							<table id="dg"></table> 
+					</div>
+				</div>
+            </div><!-- 中间内容 -->   
+            
+            
+        </div>   
+    </div>   
+    
+</body>  
+<script th:inline="javascript">var contextRoot = /*[[@{/}]]*/ '';</script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+var link1 = /*[[@{/login/IndexController!getList.json}]]*/
+var link2 = /*[[@{/login/IndexController!getList2.json}]]*/
+var linkRemove = /*[[@{/login/IndexController!remove.json}]]*/
+var linkNewData = /*[[@{/login/IndexController!newData.json}]]*/
+	var map = {} ;
+	//传递表单的值 
+	
+ /* $.post(
+        "login/IndexController!loginNew.html",null,
+        function(result){
+            $("#centerTowest").html(result);
+        }
+    );  */
+/*]]>*/
+</script>
+<script type="text/javascript" src="/theme/page/index.js" th:src="@{/theme/page/index.js?v=1}" />
+</html>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:repository="http://www.springframework.org/schema/data/repository"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.5.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+		<!-- JDBC配置 -->
+		<bean id="jdbcTemplate2" class="org.springframework.jdbc.core.JdbcTemplate">
+			<property name="dataSource">
+				<ref bean="dataSource" />
+			</property>
+		</bean>
+		<!-- <bean id="JobService" class="cn.com.king.web.action.log.InitFilter" init-method="initss"></bean> -->
+		
+	<!-- ***************************************数据源1*****************************************************-->		
+	
+		<!--允许使用注解方式配置事务 -->  
+		<tx:annotation-driven transaction-manager="transactionManager" />
+
+	    <!--service端使用inject方式查询扫描 --> <!-- 数据源1的实体放在db1包路径下 -->
+		<jpa:repositories base-package="cn.com.king.repository.db1"
+		 			 entity-manager-factory-ref="entityManagerFactory"
+								transaction-manager-ref="transactionManager">
+		</jpa:repositories>
+		
+		 <!-- JPA 事务管理 --> 
+		<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+			<property name="dataSource" ref="dataSource1" /> 
+			<property name="entityManagerFactory" ref="entityManagerFactory" />
+			<qualifier value="dataSource1EM"/> 
+		</bean>
+		<!-- JPA 实体管理工厂 --> 
+		<bean id="entityManagerFactory"
+				class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+				<property name="dataSource" ref="dataSource1" />
+				<!-- 对应存放db2的配置   及  表实体 -->
+				<property name="persistenceXmlLocation" value="classpath:META-INF/persistence-mysql.xml" />
+				<!-- 必须  -->
+				<property name="persistenceUnitName" value="db1"></property>
+				<property name="packagesToScan" value="cn.com.king.domain.db1*" />
+		</bean>
+		
+<!-- *******************************************数据源2****************************************************** -->		
+		<tx:annotation-driven transaction-manager="transactionManager2" />
+										<!--  数据源2的实体放在db2包路径下 -->
+		<jpa:repositories base-package="cn.com.king.repository.db2"  
+					entity-manager-factory-ref="entityManagerFactory2"
+								transaction-manager-ref="transactionManager2"/>
+		
+		
+		<bean id="transactionManager2" class="org.springframework.orm.jpa.JpaTransactionManager">
+			<property name="dataSource" ref="dataSource2" /> 
+			<property name="entityManagerFactory" ref="entityManagerFactory2" />
+			<qualifier value="dataSource2EM"/> 
+		</bean>
+		
+		<bean id="entityManagerFactory2"
+		               
+				class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+				<property name="dataSource" ref="dataSource2" />
+				<property name="persistenceXmlLocation" value="classpath:META-INF/persistence-mysql2.xml" /> 
+				<!-- 必须  -->
+				<property name="persistenceUnitName" value="db2"></property>
+				<property name="packagesToScan" value="cn.com.king.domain.db2*" />
+		</bean>
+		
+	<!-- 事务 -->
+    <!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED" />
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="insert*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            
+            <tx:method name="modify*" propagation="REQUIRED" />
+            <tx:method name="remove*" propagation="REQUIRED" />
+            <tx:method name="approve*" propagation="REQUIRED" />
+            <tx:method name="apply*" propagation="REQUIRED" />
+            <tx:method name="accept*" propagation="REQUIRED" />
+            <tx:method name="cancel*" propagation="REQUIRED" />
+            <tx:method name="batch*" propagation="REQUIRED" />
+            
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="query*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="load*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+        </tx:attributes>
+    </tx:advice> -->
+    
+    <!-- 事务入口 -->
+   <!--  <aop:config proxy-target-class="true">
+        <aop:pointcut expression="execution(* cn.com.king.web.service.**.*(..))"  advice-ref="txAdvice"/>
+    </aop:config> -->
+		
+		
+</beans>

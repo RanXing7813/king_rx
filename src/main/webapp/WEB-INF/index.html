@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/> 
+    <title>Jeecg 快速开发平台</title>
+    <meta name="keywords" content="JEECG,后台bootstrap框架,会员中心主题,后台HTML,响应式后台"/>
+    <meta name="description" content="JEECG是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术"/>
+    
+    <link rel="stylesheet" type="text/css" href="../theme/easyui/themes/default/easyui.css" th:href="@{/theme/easyui/themes/default/easyui.css}"/>   
+	<link rel="stylesheet" type="text/css" href="../theme/easyui/themes/icon.css" 			th:href="@{/theme/easyui/themes/icon.css}"/>   
+	<link rel="stylesheet" type="text/css" href="../theme/easyui/demo/demo.css" 			th:href="@{/theme/easyui/demo/demo.css}"/>
+	<link rel="stylesheet" type="text/css" href="../theme/easyui/themes/color.css" 			th:href="@{/theme/easyui/themes/color.css}"/>
+	<!-- src="../static/js/myJs.js" -->
+	<script type="text/javascript" src="../theme/easyui/jquery.min.js" 				  th:src="@{/theme/easyui/jquery.min.js}"></script>
+	<script type="text/javascript" src="../theme/easyui/jquery.easyui.min.js"  		  th:src="@{/theme/easyui/jquery.easyui.min.js}" ></script>  
+	<script type="text/javascript" src="../theme/easyui/locale/easyui-lang-zh_CN.js"  th:src="@{/theme/easyui/locale/easyui-lang-zh_CN.js}" ></script>
+	
+</head>
+
+
+<body class="easyui-layout" >  
+   <div class="guideWrap">
+		<div class="servicesPop">
+			<div class="fn-text-center mt-35 mb-25">
+				<img src="theme/img/login/log-logo.png" />
+			</div>
+			<div id="serFocus">
+				<div class="box">
+					<div class="logBox fn-left">
+						<img src="theme/img/login/ico1.png" />
+						<p>SYSTEM</p>
+						<h1>
+							<br />政务信息资源<br />共享平台
+						</h1>
+					</div>
+					<div class="login fn-left">
+						<div class="fn-clear mb-15 ml-25">
+							<ul class="tabTit">
+								<li class="tab-on">欢迎您登录</li>
+							</ul>
+						</div>
+						<div id="tabCont0">
+							<div class="fn-clear">
+							<form name="form" action="login/HomeController!loginNew.html" method="POST">
+								<div class="mb-15 ml-25">
+									<input class="wd-280 input usernameIco" type="text"
+										name="username" placeholder="请输入用户名"/>
+								</div>
+								<div class="mb-15 ml-25">
+									<input class="wd-280 input keyIco" type="password"
+										name="password" placeholder="请输入密码"/>
+								</div>
+								<div class="mb-15 ml-25 fn-clear">
+									<input class="wd-120 yzm fn-left" type="text" name="vcode"
+										placeholder="请输入验证码" /> <a href="###" class="fn-right mr-25">
+										<img src="verifycode" id="codeimg" style="height:44px;width:175px;" onclick="this.src='verifycode?'+Math.random()"/>
+									</a>
+								</div>
+								</form>
+								 
+									     <a class="mb-15 ml-25 btn-login"    href='javascript:document.form.submit();'>登 录</a>
+								<div class="forgotPassword mb-15 mr-25 fn-text-right">
+									<p class="ml-25 fn-text-right">
+											<!-- 	<input type="checkbox" />&nbsp;记住密码 -->
+									</p>
+									<input type="hidden" th:name="${_csrf.parameterName}"
+										th:value="${_csrf.token}" th:if="${_csrf}" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+</body>  
+<script>
+/* $('#dg').datagrid({    
+    url:'rsm!listGetMonitor4.json',     
+    columns:[[    
+        {field:'inspectionName',title:'代码',width:100}
+    ]]    
+});   */
+function ff(){
+	/*  $('#dg').datagrid({    
+		    url:'rsm/ss/PortalsIndexController!listGetMonitor4.json',     
+		    columns:[[    
+		        {field:'inspectionName',title:'代码',width:100}
+		    ]] 
+	 });  */
+ $.post(
+        "loginNew.html",null,
+      //  dataType:"html",
+        function(result){
+            $("#centerTowest").html(result);
+        }
+    ); 
+	//load("rsm!getMonitor_list.html");
+}	
+
+</script>
+
+</html>

@@ -1,0 +1,280 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
+  <parent>
+		<groupId>io.spring.platform</groupId>
+		<artifactId>platform-bom</artifactId>
+		<version>1.0.0.RELEASE</version>
+  </parent>
+  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>demo-1</groupId>
+  <artifactId>demo</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>demo Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+<dependencies>  
+		<!-- <dependency> -->
+		   <!--     <groupId>com.hope.cloud</groupId> --> <!--自定义-->
+		   <!--     <artifactId>cloud</artifactId> -->    <!--自定义-->
+		   <!--     <version>1.0</version> --> <!--自定义-->
+		   <!--     <scope>system</scope>  --><!--system，类似provided，需要显式提供依赖的jar以后，Maven就不会在Repository中查找它-->
+		   <!--     <systemPath>${basedir}/lib/cloud.jar</systemPath>  --><!--项目根目录下的lib文件夹下-->
+		<!-- </dependency>  -->
+
+        <!-- objMapper  -->
+		<dependency>
+		  <groupId>com.fasterxml.jackson.core</groupId>
+		  <artifactId>jackson-annotations</artifactId>
+		  <version>2.7.1</version>
+		  </dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.7.1-1</version>
+		</dependency>
+		<dependency>  
+        <groupId>com.fasterxml.jackson.core</groupId>  
+        <artifactId>jackson-core</artifactId>  
+        <version>2.7.1</version>  
+	    </dependency>  
+	    <dependency>  
+	        <groupId>org.codehaus.jackson</groupId>  
+	        <artifactId>jackson-core-asl</artifactId>  
+	        <version>1.9.13</version>  
+	    </dependency>  
+		
+		
+		
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+<dependency>
+    <groupId>commons-lang</groupId>
+    <artifactId>commons-lang</artifactId>
+    </dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-joda</artifactId>
+			<version>2.6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.6.2</version>
+		</dependency>
+		<dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+		<!-- objMapper  -->
+		
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!--  <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8.7</version>
+            <scope>test</scope>
+        </dependency> -->
+		<dependency>  
+		            <groupId>org.springframework</groupId>  
+		            <artifactId>spring-test</artifactId>  
+		            <version> 3.2.4.RELEASE  </version>  
+		            <scope>provided</scope>  
+		</dependency>   
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId><!-- 需要Spring Framework 5.0.0或更高版本 -->
+		</dependency>
+		
+		<!-- Servlet 3.0 -->
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jsp-api</artifactId>
+			<scope>provided</scope>
+			
+		</dependency>
+
+		<!-- @Inject @Named、@Qualifier和@Provider用法-->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+		</dependency>
+		
+		<!-- @Resource @PostConstruct、@PreDestroy-->
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>jsr250-api</artifactId>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+		</dependency>
+		
+		<!-- *******************spring4 + thymeleaf ************** -->
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring4</artifactId>
+		</dependency>
+		
+		
+		<!-- 代码生成工具 -->  
+        <dependency>  
+            <groupId>com.googlecode.rapid-framework</groupId>  
+            <artifactId>rapid-generator</artifactId>  
+            <version>4.0.6</version>  
+        </dependency>  
+       <!-- 代码生成器扩展包 -->  
+        <dependency>  
+            <groupId>com.googlecode.rapid-framework</groupId>  
+            <artifactId>rapid-generator-ext</artifactId>  
+            <version>4.0.6</version>  
+        </dependency>  
+  
+        <!-- 代码生成器模板,模板根目录通过 classpath:generator/template/rapid 可以引用 -->  
+        <dependency>  
+            <groupId>com.googlecode.rapid-framework</groupId>  
+            <artifactId>rapid-generator-template</artifactId>  
+            <version>4.0.6</version>  
+        </dependency>  
+		 <!-- freemarker -->  
+        <dependency>  
+            <groupId>org.freemarker</groupId>  
+            <artifactId>freemarker</artifactId>  
+            <version>2.3.16</version>  
+        </dependency>  
+		<dependency>
+   			 <groupId>org.codehaus.jackson</groupId>
+   			 <artifactId>jackson-mapper-asl</artifactId>
+   			 <version>1.9.13</version>
+		</dependency>
+		
+		<!-- ******************* 阿里多数据源 app-config ************** -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.26</version>
+		</dependency>
+		
+		<!-- ***********************数据库驱动************************ -->
+		<!--sybase 数据库  -->
+		<dependency>
+			<groupId>jconn3</groupId>
+			<artifactId>jconn3</artifactId>
+			<version>6.05</version>
+		</dependency>
+		
+		<!--oracle 数据库  -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.3</version>
+		</dependency>
+		
+		<!-- sql server 2005 及以上 -->
+		<dependency>
+			<groupId>sqljdbc4</groupId>
+			<artifactId>sqljdbc4</artifactId>
+			<version>4</version>
+		</dependency>
+		
+		<!--mysql 数据库  -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+	
+		
+		
+		<!-- *****************hibernate-entitymanager  entityManagerFactory******************  -->
+		 <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+             <version>4.3.0.Final</version>
+         </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.0.Final</version>
+        </dependency>
+
+       <!--  <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            </dependency> -->
+		
+	   <!-- ***************** 超详细日志输出  ******************  -->
+		<!-- <dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.13</version>
+		</dependency> -->
+		
+		
+		<!-- ***************** slf4j  ****************** -->
+		<dependency>
+		  <groupId>org.slf4j</groupId>
+		  <artifactId>slf4j-api</artifactId>
+		  <version>1.7.21</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.slf4j</groupId>
+		  <artifactId>slf4j-log4j12</artifactId>
+		  <version>1.7.21</version>
+		</dependency>
+
+		
+		
+		
+		
+	</dependencies>
+  <build>
+    <finalName>demo</finalName>
+  </build>
+</project>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+     
+    <!-- <link rel="stylesheet" type="text/css" href="theme/easyui/themes/default/easyui.css" />   
+	<link rel="stylesheet" type="text/css" href="theme/easyui/themes/icon.css" />   
+	<link rel="stylesheet" type="text/css" href="theme/easyui/demo/demo.css"/>
+	<link rel="stylesheet" type="text/css" href="theme/easyui/themes/color.css" />
+	<script type="text/javascript" src="theme/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="theme/easyui/jquery.easyui.min.js"></script>  
+	<script type="text/javascript" src="theme/easyui/locale/easyui-lang-zh_CN.js"></script> -->
+    <!--常用的一些组件业务脚本函数-->
+    <script>
+        function initEditor() {
+		// $('#Content').ckeditor();
+        }
+    </script>
+     
+    <script type="text/javascript">
+    	var isAddOrEdit = 'add';//标识是新增还是编辑对话框弹出，用于删除附件的操作
+    	var url;//新增或者更新的连接
+    	var ID;//ID值，新增为空，编辑或者查看为具体ID
+    	
+        $(function () {            
+            initEditor();     //初始化CKEditor
+            var queryData = {  };//可添加一些预设条件
+           // InitGrid(queryData);//初始化Datagrid表格数据 
+            InitDictItem();   //初始化字典信息
+            
+            BindSearchEvent();//绑定查询按钮事件
+        });
+
+        //初始化字典信息
+        function InitDictItem() {
+            //BindDictItem("Titles", "职称");
+            //BindDictItem("Rank", "职务");            
+			
+			//树控件的绑定操作
+            //$('#CustID').combotree({
+            //    url: '/Monitor/GetTreeJson'
+            //});
+
+			//下拉列表绑定操作
+            //$('#CustID').combobox({
+            //    url: '/Monitor/GetDictJson',
+            //    valueField: 'ID',
+            //    textField: 'FullName'
+            //});
+        }
+        
+        //实现对DataGird控件的绑定操作
+        function InitGrid(queryData) {
+            $('#grid').datagrid({   //定位到Table标签，Table标签的ID是grid
+                url: 'rsm!listGetMonitor.json',   //指向后台的Action来获取当前用户的信息的Json格式的数据 
+                title: '', 
+                iconCls: 'icon-view',
+                height: 650,
+                width: function () { return document.body.clientWidth * 0.9 },//自动宽度
+                nowrap: true,
+                autoRowHeight: true,
+                striped: true,
+                collapsible: true,
+                pagination: true,
+                pageSize: 50,
+                pageList: [50, 100, 200],
+                rownumbers: true,
+                //sortName: 'ID',    //根据某个字段给easyUI排序
+                sortOrder: 'asc',
+                remoteSort: false,
+                idField: 'ID',
+                queryParams: queryData,  //异步查询的参数
+                columns: [[
+	                { field: 'ck', checkbox: true },   //选择
+                     { title: '主键Id', field: 'Config_id', width: 80, sortable: true },
+                      { title: '巡检类别', field: 'Inspection_type', width: 80, sortable: true },
+                      { title: '巡检名称', field: 'Inspection_name', width: 80, sortable: true },
+                      { title: '事件配置', field: 'Eventconfig', width: 80, sortable: true },
+                      { title: '计划类别 分为每到什么、每隔多少时间', field: 'Plan_type', width: 80, sortable: true },
+                      { title: '执行的频率', field: 'Execute', width: 80, sortable: true },
+                      { title: '通知方式 2邮件以及1短信 可都选', field: 'Inform', width: 80, sortable: true },
+                      { title: '通知对象ID', field: 'Inform_id', width: 80, sortable: true },
+                      { title: '通知对象', field: 'Inform_name', width: 80, sortable: true },
+                      { title: 'createdId', field: 'CreatedId', width: 80, sortable: true },
+                      { title: 'createdName', field: 'CreatedName', width: 80, sortable: true },
+                      { title: '创建时间', field: 'CreatedTime', width: 80, sortable: true },
+                      { title: 'updateId', field: 'UpdateId', width: 80, sortable: true },
+                      { title: 'updateName', field: 'UpdateName', width: 80, sortable: true },
+                      { title: '修改时间', field: 'UpdateTime', width: 80, sortable: true },
+                      { title: '状态   1启用 0停用', field: 'Status', width: 80, sortable: true },
+                      { title: 'clob', field: 'Clob', width: 80, sortable: true },
+                      { title: '0 删除  1不删除', field: 'IsDelete', width: 80, sortable: true },
+                      { title: '连接结果展示', field: 'SystemResult', width: 80, sortable: true },
+                      { title: 'url连接路径', field: 'Url', width: 80, sortable: true },
+                      { title: '备注，记录错误日志 发送短信和邮件使用', field: 'Remarks1', width: 80, sortable: true },
+                  ]],
+                toolbar: [{
+                    id: 'btnAdd',
+                    text: '添加',
+                    iconCls: 'icon-add',
+                    handler: function () {                        
+                        ShowAddDialog();//实现添加记录的页面
+                    }
+                }, '-', {
+                    id: 'btnEdit',
+                    text: '修改',
+                    iconCls: 'icon-edit',
+                    handler: function () {                        
+                        ShowEditOrViewDialog();//实现修改记录的方法
+                    }
+                }, '-', {
+                    id: 'btnDelete',
+                    text: '删除',
+                    iconCls: 'icon-remove',
+                    handler: function () {                        
+                        Delete();//实现直接删除数据的方法
+                    }
+                }, '-', {
+                    id: 'btnView',
+                    text: '查看',
+                    iconCls: 'icon-table',
+                    handler: function () {                        
+                        ShowEditOrViewDialog("view");//实现查看记录详细信息的方法
+                    }
+                }, '-', {
+                    id: 'btnReload',
+                    text: '刷新',
+                    iconCls: 'icon-reload',
+                    handler: function () {
+                        //实现刷新栏目中的数据
+                        $("#grid").datagrid("reload");
+                    }
+                }],
+                onDblClickRow: function (rowIndex, rowData) {
+                    $('#grid').datagrid('uncheckAll');
+                    $('#grid').datagrid('checkRow', rowIndex);
+                    ShowEditOrViewDialog();
+                }
+            });
+            
+            var heightMargin = $("#toolbar").height() + 60;
+            var widthMargin = $(document.body).width() - $("#tb").width();
+            // 第一次加载时和当窗口大小发生变化时，自动变化大小
+           /*  $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
+            $(window).resize(function () {
+                $('#grid').resizeDataGrid(heightMargin, widthMargin, 0, 0);
+            }); */
+        };
+
+        //绑定搜索按钮的的点击事件
+        function BindSearchEvent() {
+            //按条件进行查询数据，首先我们得到数据的值
+            $("#btnSearch").click(function () {
+                //得到用户输入的参数
+                //取值有几种方式：$("#id").combobox('getValue'), $("#id").datebox('getValue'), $("#id").val(),combotree('getValue'),numberbox('getValue'), 
+                //字段增加WHC_前缀字符，避免传递如URL这样的Request关键字冲突
+                var queryData = {
+                    WHC_monitorid: $("#txtMonitorid").val(),
+                     WHC_systemName: $("#txtSystemName").val(),
+                     WHC_systemUrl: $("#txtSystemUrl").val(),
+                     WHC_systemResult: $("#txtSystemResult").val(),
+                     WHC_systemStatus: $("#txtSystemStatus").val(),
+                  //   WHC_logTime: $("#txtLogTime").datebox('getValue') + "~" + $("#txtLogTime2").datebox('getValue'),
+                     WHC_faultMethod: $("#txtFaultMethod").val(),
+                     WHC_messageMethod: $("#txtMessageMethod").val(),
+                  //   WHC_isDelete: $("#txtIsDelete").numberbox('getValue')
+                  }
+                //将值传递给DataGrid
+                InitGrid(queryData);
+                
+                //传递给导出操作
+              //  exportCondition = queryData;
+                
+                return false;
+            });
+        }
+
+        //实现删除数据的方法
+        function Delete() {
+        }
+
+        //弹出新增对话框
+        function ShowAddDialog() {
+        }
+        
+        //修改或查看明细信息（绑定显示数据）
+        function ShowEditOrViewDialog(view) {
+        }
+
+        //绑定添加按钮的事件
+        function SaveEntity() {
+        }
+        
+        //绑定编辑详细信息的方法
+        function BindEditInfo(ID) {
+        }
+
+        //绑定查看详细信息的方法
+        function BindViewInfo(ID) {          
+        }
+
+        //显示导入界面
+        function ShowImport() {
+        }
+        
+        //导出Excel数据
+        var exportCondition;
+        function ShowExport() {
+        }
+    </script>
+
+    <style>
+        table.view {border:1px solid #A8CFEB;border-collapse: collapse;margin-bottom:5px;width:99%;height:99%}
+        .view th{ padding-left:10px;padding-right:5px;padding-top:5px;padding-bottom:5px;width: 100px;border: 1px solid silver;background-color:#F1F6FF;}
+        .view td{ padding-left:10px;padding-right:5px;padding-top:5px;padding-bottom:5px;width: 150px;border: 1px solid silver;background-color:#FAFCFF;}
+    </style>
+    </head>
+<body>
+   <input type="button"  value="查询" id="btnSearch" data-option="icon-serch"/>
+    <div id="pnlToolbar"></div>
+                
+        <table id="grid" style="width: 940px" title="用户操作" data-options="iconCls:'icon-view'">            
+        </table>
+
+
+</body>
+</html>

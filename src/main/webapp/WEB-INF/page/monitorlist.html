@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>Client Side Pagination in DataGrid - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="theme/easyui/themes/default/easyui.css"/>
+	<link rel="stylesheet" type="text/css" href="theme/easyui/themes/icon.css"/>
+	<link rel="stylesheet" type="text/css" href="theme/easyui/demo/demo.css"/>
+	<script type="text/javascript" src="theme/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="theme/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>Client Side Pagination in DataGrid</h2>
+	<p>This sample shows how to implement client side pagination in DataGrid.</p>
+	<div style="margin:20px 0;"><div id="ft" style="padding:2px 5px;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true"></a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true"></a>
+	</div></div>
+	
+	<table id="dg" title="Client Side Pagination" style="width:700px;height:300px" data-options="
+				rownumbers:true,
+				singleSelect:true,
+				autoRowHeight:false,
+				pagination:true,
+				pageSize:10">
+		<thead>
+			<tr>
+				<th field="inv" width="80">Inv No</th>
+				<th field="date" width="100">Date</th>
+				<th field="name" width="80">Name</th>
+				<th field="amount" width="80" align="right">Amount</th>
+				<th field="price" width="80" align="right">Price</th>
+				<th field="cost" width="100" align="right">Cost</th>
+				<th field="note" width="110">Note</th>
+			</tr>
+		</thead>
+	</table>
+	    <script type="text/javascript" src="theme/js/jquery.min.js"></script>
+
+</body>
+</html>

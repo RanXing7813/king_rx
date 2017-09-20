@@ -1,0 +1,133 @@
+﻿/*
+*OrangeTree
+*(*)为不能修改样式
+*/
+
+/*OrangeTree
+************************************************************************************/
+.OrangeTree
+{
+	margin: 0px;padding: 0px;overflow: auto; /*(*)*/
+	font-family:verdana,Arial,Helvetica,sans-serif;font-size: 12px;color: black;
+	
+	/*滚动条 for IE*/
+	
+	/*scrollbar-3dlight-color: yellow; /*立体滚动条亮边颜色*/
+	/*scrollbar-arrow-color: red; /*上下三角头颜色*/
+	/*scrollbar-base-color: blue;	/*滚动条基本颜色*/
+	/*scrollbar-darkshadow-color: green; /*立体滚动条强阴影颜色*/
+	/*scrollbar-face-color: peru; /*立体滚动条凸出部分的颜色*/
+	/*scrollbar-highlight-color: powderblue; /*滚动条空白部分的颜色*/
+	/*scrollbar-shadow-color: black; /*滚动条阴影的颜色*/
+	
+	/*test*/
+}
+/*common
+************************************************************************************/
+.OrangeTree span
+{
+	width: 100%;display: block;/*(*)*/
+	height: 32px;line-height: 32px;
+}
+.OrangeTree ul,.OrangeTree li
+{
+	list-style: none;margin: 0px;padding: 0px;/*(*)*/
+}
+
+.OrangeTree a:link
+{
+	color: black;
+	text-decoration: none;
+}
+.OrangeTree a:hover
+{
+	color: black;
+	text-decoration: none;
+}
+.OrangeTree a:active
+{
+	color: black;
+	text-decoration: none;
+}
+.OrangeTree a:visited 
+{
+	color: black;
+	text-decoration: none;
+}
+/*首级菜单
+************************************************************************************/
+/*默认样式*/
+.OrangeTree .first_node
+{
+	cursor:pointer; /*(*)*/
+	background: url(../img/demo/first_node_bg.png) repeat-x;font-size: 14px;font-weight: bold;text-align: center; 
+}
+/*鼠标移动上的样式*/
+.OrangeTree .first_node_hover
+{
+	
+}
+/*鼠标点击并展开的样式*/
+.OrangeTree .first_node_click
+{
+	background: url(../img/demo/first_node_click_bg.png) repeat-x;
+}
+/*首下的之菜单*/
+.OrangeTree .first_node_subItem
+{
+	text-align:center;
+}
+/*父级菜单
+************************************************************************************/
+.OrangeTree .Item
+{
+	background: url(../img/demo/item_node_bg.png) repeat-x;
+}
+.OrangeTree .Item_node
+{
+	cursor: pointer; /*(*)*/
+	font-size: 13px;font-weight: bold;
+}
+.OrangeTree .Item_node_hover
+{
+	
+}
+.OrangeTree .Item_node_click
+{
+	
+}
+/*父级菜单默认图标*/
+.OrangeTree .Item_Img_bg
+{
+	display:inline;margin-right: 7px;
+}
+/*子级菜单
+************************************************************************************/
+.OrangeTree .subItem
+{
+	
+}
+/*默认样式*/
+.OrangeTree .subItem span
+{
+	cursor:default; /*(*)*/
+	background-repeat: repeat-x;
+}
+/*鼠标移动上的样式*/
+.OrangeTree .subItem .subItem_node_hover
+{
+	
+}
+/*鼠标点击后的样式*/
+.OrangeTree .subItem .subItem_node_click
+{
+	background: url(../img/demo/subItem_node_click.png) repeat-x;
+}
+/*图标*/
+.OrangeTree .subItem .subItem_Img_bg
+{
+	display:inline;margin-right: 7px;
+}
+/*test
+***********************************************************************************/
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/aop  
+            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- 启动对@AspectJ注解的支持  -->
+	<aop:aspectj-autoproxy  proxy-target-class="true"/>
+	<context:component-scan base-package="cn.com.king.web.action.log.LogCotroller" /> 
+	<!-- <context:component-scan base-package="cn.com.taiji.web.action.log.MyLogDemo" /> -->
+	
+	
+	 <!--将日志类注入到bean中。-->  
+<!-- 	<bean id="myLog" class="cn.com.taiji.web.log.MyLog"></bean>
+    <bean id="logService" class="cn.com.taiji.web.service.impl.LogServiceImpl"></bean>
+    <aop:config>  
+         <aop:aspect id="logServiceAop" ref="logService">
+               <aop:pointcut id="myPointcut" expression="execution(* cn.com.taiji.web.service.**.*(..))"/>  
+               <aop:before method="log" pointcut-ref="myPointcut" />
+         	   <aop:after method="logArg" pointcut-ref="myPointcut" /> 
+               <aop:after-returning method="logArgAndReturn" returning="returnObj" pointcut-ref="myPointcut"/>
+         </aop:aspect>  
+         <aop:aspect id="myLogAop" ref="myLog">
+             <aop:pointcut id="myLogAopPointcut" expression="execution(* cn.com.taiji.web.service.**.*(..))"/>  
+            <aop:before method="before" pointcut-ref="myLogAopPointcut" />
+            <aop:after method="after" pointcut-ref="myLogAopPointcut"/> 
+        </aop:aspect> 
+    </aop:config>  
+	 -->
+	
+	
+</beans>

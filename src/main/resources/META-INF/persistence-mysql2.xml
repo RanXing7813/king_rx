@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+
+	<persistence-unit name="db2" transaction-type="RESOURCE_LOCAL">
+				<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<!-- <mapping-file>META-INF/orm-mysql2.xml</mapping-file> --><!-- 映射实体类文件  -->
+		<!-- <exclude-unlisted-classes/> -->
+		<properties>
+		 	<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.max_fetch_depth" value="3" /><!-- 设置外连接抓取树的最大深度 -->
+			<property name="hibernate.hbm2ddl.auto" value="no" /><!-- 对数据库表进行增删操作  -->
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="false" />
+		</properties>
+	</persistence-unit>
+</persistence>
+
+
+
+<!-- Hibernate配置属性 （hibernate.max_fetch_depth）
+hibernate.dialect	Hibernate方言（Dialect）的类名 - 可以让Hibernate使用某些特定的数据库平台的特性
+取值. full.classname.of.Dialect
+hibernate.default_schema	在生成的SQL中，scheml/tablespace的全限定名
+取值. SCHEMA_NAME
+hibernate.session_factory_name	把SessionFactory绑定到JNDI中去.
+取值. jndi/composite/name
+hibernate.use_outer_join	允许使用外连接抓取.
+取值. true | false
+hibernate.max_fetch_depth	设置外连接抓取树的最大深度
+取值. 建议设置为0到3之间
+hibernate.jdbc.fetch_size	一个非零值，用来决定JDBC的获取量大小。(会调用calls Statement.setFetchSize()).
+hibernate.jdbc.batch_size	一个非零值，会开启Hibernate使用JDBC2的批量更新功能
+取值. 建议值在 5 和 30之间。
+hibernate.jdbc.use_scrollable_resultset	允许Hibernate使用JDBC2提供的可滚动结果集。只有在使用用户自行提供的连接时，这个参数才是必需的。否则Hibernate会使用连接的元数据(metadata)。
+取值. true | false
+hibernate.jdbc.use_streams_for_binary	在从JDBC读写binary（二进制）或者serializable（可序列化）类型时,是否使用stream(流）. 这是一个系统级别的属性。
+取值. true | false
+hibernate.cglib.use_reflection_optimizer	是否使用CGLIB来代替运行时反射操作。（系统级别属性，默认为在可能时都使用CGLIB）.在调试的时候有时候使用反射会有用。
+取值. true | false
+hibernate.jndi.<propertyName>	把propertyName这个属性传递到JNDI InitialContextFactory去 (可选)
+hibernate.connection.isolation	事务隔离级别 (可选)
+取值. 1, 2, 4, 8
+hibernate.connection.<propertyName>	把 propertyName这个JDBC 属性传递到DriverManager.getConnection()去.
+hibernate.connection.provider_class	指定一个自定义的ConnectionProvider类名
+取值. classname.of.ConnectionProvider
+hibernate.cache.provider_class	指定一个自定义的CacheProvider缓存提供者的类名
+取值. classname.of.CacheProvider
+hibernate.transaction.factory_class	指定一个自定义的TransactionFactory类名，Hibernate Transaction API将会使用.
+取值. classname.of.TransactionFactory
+jta.UserTransaction	JTATransactionFactory 用来获取JTA UserTransaction的JNDI名.
+取值. jndi/composite/name
+hibernate.transaction.manager_lookup_class	TransactionManagerLookup的类名 - 当在JTA环境中，JVM级别的缓存被打开的时候使用.
+取值. classname.of.TransactionManagerLookup
+hibernate.query.substitutions	把Hibernate查询中的一些短语映射为SQL短语。（比如说短语可能是函数或者字符） .
+取值. hqlLiteral=SQL_LITERAL, hqlFunction=SQLFUNC
+hibernate.show_sql	把所有的SQL语句都输出到控制台(可以作为log功能的一个替代).
+取值. true | false
+hibernate.hbm2ddl.auto	自动输出schema创建DDL语句.
+取值. update | create | create-drop -->

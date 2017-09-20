@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="renderer" content="webkit"/>
+
+    <title>Jeecg 快速开发平台</title>
+
+    <meta name="keywords" content="JEECG,后台bootstrap框架,会员中心主题,后台HTML,响应式后台"/>
+    <meta name="description" content="JEECG是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术"/>
+
+    <link rel="shortcut icon" href="images/favicon.ico"  />
+    <link href="plug-in-ui/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet"/>
+    <link href="plug-in-ui/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet"/>
+    <link rel="stylesheet" href="plug-in/ace/assets/css/font-awesome.min.css" />
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="plug-in/ace/assets/css/font-awesome-ie7.min.css" />
+    <![endif]-->
+    <!-- Sweet Alert -->
+    <link href="plug-in-ui/hplus/css/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+    <link href="plug-in-ui/hplus/css/animate.css" rel="stylesheet"/>
+    <link href="plug-in-ui/hplus/css/style.css?v=4.1.0" rel="stylesheet"/>
+    <!--右键菜单-->
+    <link href="plug-in/hplus/smartMenu.css" rel="stylesheet"/>
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+<div id="wrapper">
+    <!--左侧导航开始-->
+    <nav class="navbar-default navbar-static-side" role="navigation" style="z-index: 1991;">
+        <div class="nav-close"><i class="fa fa-times-circle"></i>
+        </div>
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <span><img alt="image" class="img-circle" src="plug-in/login/images/jeecg-aceplus.png" /></span>
+                        
+                    </div>
+                    <div class="logo-element">JEECG - left
+                    </div>
+                </li>
+
+                <li><a href="#" class="" >
+                <i class="fa icon-download-alt"></i>
+                <span class="menu-text">插件模块</span>
+                <span class="fa arrow"></span>
+                </a>
+                  	<ul  class="nav nav-second-level" >
+                		<li> <a class="J_menuItem" href="p3/wxActInvite.do?list">
+                		<span class="menu-text">普通列表</span></a></li>
+                		<li> <a class="J_menuItem" href="demo/jpDemoOrderMain.do?list">
+                		<span class="menu-text">订单管理</span></a></li>
+                		<li> <a class="J_menuItem" href="p3/auth.do?list">
+                		<span class="menu-text">树形列表</span></a></li>
+                		<li> <a class="J_menuItem" href="https://www.baidu.com">
+                		<span class="menu-text">百度</span></a></li>
+                		<li> <a class="J_menuItem" href="mail/p3MailJformInnerMail.do?toSendMail">
+                		<span class="menu-text">我的邮箱</span></a></li>
+                	</ul></li>
+                <li><a href="#" class="" ><i class="fa fa-pie-chart"></i>
+                <span class="menu-text">移动报表</span><span class="fa arrow"></span></a>
+	                <ul  class="nav nav-second-level" >
+	                	<li> <a class="J_menuItem" href="cgDynamGraphController.do">
+	                	<span class="menu-text">折线图</span></a></li>
+	                	<li> <a class="J_menuItem" href="cgDynamGraphController.do">
+	                	<span class="menu-text">面积图 </span></a></li>
+	                	<li> <a class="J_menuItem" href="cgDynamGraphController.do">
+	                	<span class="menu-text">条状图</span></a></li>
+	                	<li> <a class="J_menuItem" href="cgDynamGraphController.do">
+	                	<span class="menu-text">3D柱状图</span></a></li>
+	                	<li> <a class="J_menuItem" href="cgDynamGraphController.do">
+	                	<span class="menu-text">2D柱状图</span></a></li>
+	                	<li> <a class="J_menuItem" href="cgDynamGraphController.do">
+	                	<span class="menu-text">2D饼图</span></a></li>
+	                	<li> <a class="J_menuItem" href="cgDynamGraphController.do">
+	                	<span class="menu-text">3D饼图</span></a></li>
+	                	<li> <a class="J_menuItem" href="cgDynamGraphController.do">
+	                	<span class="menu-text">综合报表</span></a></li></ul></li>
+	                	<li><a href="#" class="" ><i class="fa fa-bar-chart-o"></i>
+	                	<span class="menu-text">统计报表</span><span class="fa arrow"></span></a>
+	                       <ul  class="nav nav-second-level" >
+	                	<li> <a class="J_menuItem" href="cgDynamGraphController.do">
+	                       	<span class="menu-text">用户分析</span></a></li>
+	                	<li> <a class="J_menuItem" href="cgDynamGraphController.do">
+	                       	<span class="menu-text">数据报表</span></a></li>
+	                	<li> <a class="J_menuItem" href="cgDynamGraphController.do">
+	                       	<span class="menu-text">图形报表</span></a></li>
+	                       </ul>
+	                     </li>
+
+            </ul>
+        </div>
+    </nav>
+    <!--左侧导航结束-->
+    <!--右侧部分开始-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        
+        
+        		 <a class="" href="#" id="2222">2222</a>
+
+        
+            <nav  role="navigation" style="margin-bottom: 0">
+               
+                <div  style="height: 60px;"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
+                        <div class="form-group">
+                            <input type="text" placeholder="欢迎使用Jeecg快速开发平台 …" class="form-control" name="top-search" id="top-search"/>
+                        </div>
+                    </form>
+                </div>
+                
+                
+                <ul class="nav navbar-top-links navbar-right">
+                   
+                    
+                    <li class="dropdown" onfocus="bindFrameClick()">
+                    	<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                <span ><strong class="font-bold">admin</strong></span>
+                                <span >管理员<b class="caret"></b></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <a href="javascript:add('修改密码','userController.do?changepassword','',550,200)">
+                                    修改密码
+                                </a>
+                            </li>
+                            <li><a href="javascript:openwindow('个人信息','userController.do?userinfo')">个人信息</a></li>
+                            <li><a href="javascript:openwindow('系统消息','tSSmsController.do?getSysInfos')">系统消息</a></li>
+                            <li><a href="javascript:add('首页风格','userController.do?changestyle','',550,250)">首页风格</a></li>
+                            <li><a href="javascript:clearLocalstorage()">清除缓存</a></li>
+                            <li><a href="javascript:toJeecgYun()">云应用中心</a></li>
+                            <!-- <li><a href="http://yun.jeecg.org" target="_blank">云应用中心</li> -->
+                           <!--  <li class="divider"></li>
+                            <li><a href="javascript:logout()">注销</a></li> -->
+                        </ul>
+                    </li>
+                    
+                     
+                    <li class="dropdown hidden-xs">
+                        <a class="right-sidebar-toggle" aria-expanded="false">
+                            <i class="fa fa-tasks"></i> 主题
+                        </a>
+                    </li>
+                      <li class="dropdown">
+                     <a href="javascript:logout()" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+                     </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row content-tabs">
+            <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i>
+            </button>
+            <nav class="page-tabs J_menuTabs">
+                <div class="page-tabs-content">
+                    <a href="javascript:;" class="active J_menuTab" data-id="loginController.do?hplushome">首页</a>
+                </div>
+            <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
+            </button>
+            <div class="btn-group roll-nav roll-right">
+                <button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span>
+
+                </button>
+                <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                    <li class="J_tabShowActive"><a>定位当前选项卡</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="J_tabCloseAll"><a>关闭全部选项卡</a>
+                    </li>
+                    <li class="J_tabCloseOther"><a>关闭其他选项卡</a>
+                    </li>
+                </ul>
+            </div>
+            </nav>
+            <!-- 
+            <a href="javascript:logout()" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+             -->
+        </div>
+        <div class="row J_mainContent" id="content-main" style="margin-left:-13px;">
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="loginController.do?hplushome" frameborder="0" data-id="loginController.do?hplushome" seamless="seamless"></iframe>
+        </div>
+        <div class="footer">
+            <div class="pull-right">&copy; 3.7 <a href="http://www.jeecg.org/" target="_blank">jeecg</a>
+            </div>
+        </div>
+    </div>
+    <!--右侧部分结束-->
+    <!--右侧边栏开始-->
+    <div id="right-sidebar">
+        <div class="sidebar-container">
+
+            <ul class="nav nav-tabs navs-3">
+
+                <li class="active">
+                    <a data-toggle="tab" href="#tab-1">
+                        <i class="fa fa-gear"></i> 主题
+                    </a>
+                </li>
+               <li class=""><a data-toggle="tab" href="#tab-2">
+                   <i class="fa fa-comments-o" aria-hidden="true"></i>通知
+                </a>
+                </li>
+                <li><a data-toggle="tab" href="#tab-3">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>公告
+                </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane active">
+                    <div class="sidebar-title">
+                        <h3> <i class="fa fa-comments-o"></i> 主题设置</h3>
+                        <small><i class="fa fa-tim"></i> 你可以从这里选择和预览主题的布局和样式，这些设置会被保存在本地，下次打开的时候会直接应用这些设置。</small>
+                    </div>
+                    <div class="skin-setttings">
+                        <div class="title">主题设置</div>
+                        <div class="setings-item">
+                            <span>收起左侧菜单</span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu"/>
+                                    <label class="onoffswitch-label" for="collapsemenu">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setings-item">
+                            <span>固定顶部</span>
+
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar"/>
+                                    <label class="onoffswitch-label" for="fixednavbar">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setings-item">
+                                <span>
+                        固定宽度
+                    </span>
+
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout"/>
+                                    <label class="onoffswitch-label" for="boxedlayout">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="title">皮肤选择</div>
+                        <div class="setings-item default-skin nb">
+                                <span class="skin-name ">
+                         <a href="#" class="s-skin-0">
+                             默认皮肤
+                         </a>
+                    </span>
+                        </div>
+                        <div class="setings-item blue-skin nb">
+                                <span class="skin-name ">
+                        <a href="#" class="s-skin-1">
+                            蓝色主题
+                        </a>
+                    </span>
+                        </div>
+                        <div class="setings-item yellow-skin nb">
+                                <span class="skin-name ">
+                        <a href="#" class="s-skin-3">
+                            黄色/紫色主题
+                        </a>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-2" class="tab-pane">
+                    <div class="sidebar-title">
+                        <h3> <i class="fa fa-comments-o"></i> 最新通知<small id="messageCount"><i class="fa fa-tim"></i> 您当前有0条未读通知</small></h3>
+                    </div>
+                    <ul class="sidebar-list">
+                        <li id="messageContent">
+
+                        </li>
+
+                        <li>
+                            <a href="javascript:goAllMessage();" id="messageFooter">
+                                查看全部
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="tab-3" class="tab-pane">
+                    <div class="sidebar-title">
+                        <h3> <i class="fa fa-cube"></i> 最新公告<small id="noticeCount"><i class="fa fa-tim"></i> 您当前有0个公告</small></h3>
+
+                    </div>
+                    <ul class="sidebar-list">
+                        <li id="noticeContent">
+
+                        </li>
+                        <li>
+                            <a href="javascript:goAllNotice();" id="noticeFooter">
+                                查看所有公告
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--右侧边栏结束-->
+    <!--mini聊天窗口开始-->
+    
+    
+    <!--mini聊天窗口结束-->
+</div>
+
+<!-- 全局js -->
+<script src="plug-in-ui/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="plug-in-ui/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="plug-in-ui/hplus/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="plug-in-ui/hplus/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="plug-in-ui/hplus/js/plugins/layer/layer.min.js"></script>
+
+<!-- 自定义js -->
+<script src="plug-in-ui/hplus/js/hplus.js?v=4.1.0"></script>
+<!--右键菜单-->
+<script type="text/javascript" src="plug-in/hplus/jquery-smartMenu.js"></script>
+<script type="text/javascript" src="plug-in/hplus/contabs.js"></script>
+<script type="text/javascript" src="plug-in/mutiLang/zh-cn.js"></script><link rel="stylesheet" href="plug-in/tools/css/metrole/common.css" type="text/css"></link><link rel="stylesheet" href="plug-in/ace/css/font-awesome.css" type="text/css"></link><script type="text/javascript" src="plug-in/lhgDialog/lhgdialog.min.js?skin=metrole"></script><script type="text/javascript" src="plug-in/ace/js/bootstrap-tab.js"></script><script type="text/javascript" src="plug-in/layer/layer.js"></script><script type="text/javascript" src="plug-in/tools/curdtools_zh-cn.js"></script><script type="text/javascript" src="plug-in/tools/easyuiextend.js"></script><script type="text/javascript" src="plug-in/jquery-plugs/hftable/jquery-hftable.js"></script><script type="text/javascript" src="plug-in/tools/json2.js" ></script>
+<!-- 第三方插件 -->
+<script src="plug-in-ui/hplus/js/plugins/pace/pace.min.js"></script>
+<!-- Sweet alert -->
+<script src="plug-in-ui/hplus/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="plug-in/jquery-plugs/storage/jquery.storageapi.min.js"></script>
+
+<!-- 弹出TAB -->
+<script type="text/javascript" src="plug-in/hplus/hplus-tab.js"></script>
+<!-- 在线聊天 -->
+
+<link rel="stylesheet" href="/content/chat/layui/css/layui.css"/>
+<script src="/content/chat/layui/layui.js"></script>
+<script src="/plug-in/layim/config.js"></script>
+
+</body>
+
+</html>
