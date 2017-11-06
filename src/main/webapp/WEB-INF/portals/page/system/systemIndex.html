@@ -1,0 +1,117 @@
+	<link rel="stylesheet" type="text/css" href="/theme/portals/css/channel_style_left.css" 
+				 th:href="@{/theme/portals/css/channel_style_left.css}" />
+
+<div class="contentwrap clearfix">
+	<div class="content-main">
+		<div class="content-rightwrap" id="tablelist">
+			<div class="operatewrap">
+				<h4 class="operatepannel-title"><font id="titleId">系统管理</font></h4>
+				<!--搜索面板开始-->
+				<div class="search-list fn-clear">
+					<input type="hidden" id="infolinkTitle" />
+					<table class="search-tab searchcount" id="search_sws">
+						<tbody>
+							<tr>
+								<th>节点标识</th>
+								<td><input type="text" id="node_biaoshi" class="input-normal input-wdl" /></td>
+								<th>节点名称</th>
+								<td><input type="text" id="node_mingcheng" class="input-normal input-wdl" /></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="search-btn fn-clear">
+						<button class="btn btn-normal" onclick="go(1)">查询</button>
+						<button class="btn btn-reset" onclick="reset('search_sws');">重置</button>
+					</div>
+				</div>
+				<!--end 搜索面板开始-->
+				<!--选卡内容1-->
+				<div id="tabscont0" class="">
+					<div class="list-normaltop">
+						<div class="listmain">
+							<table class="list-tab" style="table-layout: fixed; word-wrap: break-word;">
+								<thead>
+									<tr>
+										<td width="10%" class="check-all">序号</td>
+										<td width="30%">节点标识</td>
+										<td width="40%">节点名称</td>
+										<!--  <td width="25%">节点IP</td>
+                                         <td width="25%">节点端口</td> -->
+										<td width="25%">节点级别</td>
+										<td width="25%">节点状态</td>
+									</tr>
+								</thead>
+								<tbody id="grid">
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!--列表分页-->
+					<div class="ui-page">
+						<span class=" ui-item-link">
+							<div>
+								<a href="javascript:void(0);" class="ui-page-item ui-page-item-first " id="frist">首页 </a> <a
+									href="javascript:void(0);" class="ui-page-item ui-page-item-prev" onclick="page(-1)">上一页</a>
+								<a href="javascript:void(0);" class="ui-page-item ui-page-next" onclick="page(1)">下一页</a> <a
+									href="javascript:void(0);" class="ui-page-item ui-page-last" id="last">尾页<input
+									type="hidden" id="lastInput" /></a>
+							</div>
+							<div class="ui-page-go">
+								<h4>转到</h4>
+								<input name="page" id="page" type="text" value="" class="input-page " /><a
+									href="javascript:turnTo();" class="ui-button ui-button-go">Go</a>
+							</div>
+						</span> <span class="ui-page-item ui-page-item-set"><h4>每页</h4> <select name="selectlimitnum"
+							id="selectlimitnum" class="select-page">
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+						</select> </span> <span id="pageSpan" class="ui-page-item ui-page-item-info">共0条记录，共1/1页，第1页</span>
+					</div>
+					<!--end 列表分页 -->
+				</div>
+				<!--end 选卡内容1-->
+			</div>
+		</div>
+		<!--content-rightwrap-->
+		<!--合并测试 cs2-->
+		<div class="content-leftwrap">
+			<div class="leftnav-title clearfix">
+				<img src="theme/portals/images/icon_title_directory.png" /><font>数据维护</font>
+			</div>
+			
+			<div class="clearfix" id="sidebar">
+				<div id="sidebar-wrapper">
+				<!-- 	<ul id="main-nav">
+						<li><a href="javascript:void(0)" class="nav-top-item no-submenu " id="8_" onclick="tabList('7','8','')"> <img src="theme/portals/images/icon_mainnav01.png" /> <span>部门管理</span></a></li>
+						<li><a href="javascript:void(0)" class="nav-top-item no-submenu " id="9_" onclick="tabList('7','9','')"> <img src="theme/portals/images/icon_mainnav01.png" /> <span>用户管理</span></a></li>
+						<li><a href="javascript:void(0)" class="nav-top-item no-submenu "><img src="theme/portals/images/icon_mainnav01.png" /><span>角色管理</span></a>
+							<ul>
+								<li><a href="javascript:void(0)" target="" class="submenu-item"
+									id="15_"
+									onclick="tabList('10','15','角色管理&nbsp;-&nbsp;管理员角色')">管理员角色</a>
+								</li>
+								<li><a href="javascript:void(0)" target="" class="submenu-item"
+									id="14_"
+									onclick="tabList('10','14','角色管理&nbsp;-&nbsp;门户角色')" >门户角色</a></li>
+							</ul></li>
+						<li><a href="javascript:void(0)" class="nav-top-item no-submenu " id="11_" onclick="tabList('7','11','')"><img src="theme/portals/images/icon_mainnav01.png" /><span>菜单管理</span></a></li>
+				</ul> -->
+				</div>
+			</div>
+			<!--end sidebar-->
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+getMenuXX('systemIndex','yw_opsmenus','');
+</script>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		
+	/*]]>*/
+</script>
+<script type="text/javascript" src="/theme/portals/js/simpla.jquery.configuration.js" th:src="@{/theme/portals/js/simpla.jquery.configuration.js}"></script>
+<script type="text/javascript" src="/theme/portals/page/system/systemIndex.js" th:src="@{/theme/portals/page/system/systemIndex.js}"></script>

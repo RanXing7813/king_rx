@@ -71,8 +71,8 @@ public class LogCotroller {
 	            "java.lang.Byte", "java.lang.Boolean", "java.lang.Char",  
 	            "java.lang.String", "int", "double", "long", "short", "byte",  
 	            "boolean", "char", "float" };  
-					
-	@Pointcut("execution(* cn.com.king.web.action..*.*(..)) && !execution(* cn.com.king.web.action.log..*(..))")//and !execution(* cn.com.taiji.web.action.NotNeedLoginController.*(..))
+																//&& !execution(* cn.com.king.web.action.log..*(..))
+	@Pointcut("execution(* cn.com.taiji.web.action..*.*(..)) ")//and !execution(* cn.com.taiji.web.action.NotNeedLoginController.*(..))
 	public void pointcut(){};
 	
 	
@@ -127,12 +127,12 @@ public class LogCotroller {
 	@After(value = "pointcut()"  )
 	public void afters(JoinPoint joinpoint){  
 		endTimeMillis = System.currentTimeMillis(); //记录方法开始执行的时间  
-                       try {
-					new Thread().sleep(3000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+//                       try {
+//					new Thread().sleep(3000);
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
 	              System.out.println("被拦截方法调用之后调用此方法，输出此语句");  
 	  	        logger.info("请求开始, 各个参数, log: {}, endTimeMillis: {}",log ,endTimeMillis);
 
@@ -214,7 +214,7 @@ public class LogCotroller {
 	           // result的值就是被拦截方法的返回值
 	           Object result = val;
 	           Gson gson = new Gson();
-	           logger.info("请求结束，controller的返回值是 " + gson.toJson(result));
+	      //     logger.info("请求结束，controller的返回值是 " + gson.toJson(result));
 	             
 	       }  
 	
@@ -245,29 +245,29 @@ public class LogCotroller {
 	  }
 	  public String getCurrentUserID(HttpServletRequest request)
 	  {
-	    Map userInfo = getCurrUserInfo(request);
+		  UserDto userInfo = getCurrUserInfo(request);
 	    String userId = "";
 	    if (!(StringTooles.isNullOrEmpty(userInfo))) {
-	      userId = StringTooles.parseStr(userInfo.get("user_id"));
+	      userId = StringTooles.parseStr(userInfo.getId());
 	    }
 	    return userId;
 	  }
 
 	  public String getCurrentUserName(HttpServletRequest request)
 	  {
-	    Map userInfo = getCurrUserInfo(request);
+		  UserDto userInfo = getCurrUserInfo(request);
 	    String loginName = "";
 	    if (!(StringTooles.isNullOrEmpty(userInfo)))
-	      loginName = StringTooles.parseStr(userInfo.get("login_name"));
+	      loginName = StringTooles.parseStr(userInfo.getUserName());
 	    else {
 	      loginName = "匿名";
 	    }
 	    return loginName;
 	  }
 
-	  public Map<Object, Object> getCurrUserInfo(HttpServletRequest request)
+	  public UserDto getCurrUserInfo(HttpServletRequest request)
 	  {
-	    return ((Map)request.getSession().getAttribute("userInfo"));
+	    return ((UserDto)request.getSession().getAttribute("user"));
 	  }
 
 	  private String getRequestParameterStrList(HttpServletRequest request)

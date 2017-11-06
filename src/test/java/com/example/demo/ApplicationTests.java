@@ -49,6 +49,7 @@ public class ApplicationTests {
 		public void run() {
 	  		System.out.println(666);
 	 // 		loginService.add("8");
+	  		
 	  		loginService.updateS();
 	  	//	monitorRepository.countBySystemName();
 	//  		System.out.println(monitorRepository.countBySystemName("login:update8"));

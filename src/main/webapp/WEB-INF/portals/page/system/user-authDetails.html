@@ -1,0 +1,169 @@
+<link  href="/theme/portals/js/zTree/css/demo.css" type="text/css" />
+<link rel="stylesheet" href="/theme/portals/js/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" />
+<script  src="/theme/portals/js/zTree/js/jquery-1.4.4.min.js"></script>
+<script  src="/theme/portals/js/zTree/js/jquery.ztree.core-3.5.js"></script>
+<script  src="/theme/portals/js/zTree/js/jquery.ztree.excheck-3.5.js"></script>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	//得到父页面 属性 	
+	var api = frameElement.api, W = api.opener;
+	api.button({
+		name : '关闭',
+	});
+	//获取  角色 list  
+	$(document).ready(function() {
+		go();
+	});
+	//list数据 
+	function go(page) {
+		$.ajax({
+			url : "role-authRoles-detailsss.json",
+			dataType : "json",
+			data : {
+				userId : $("#userId").val()
+			},
+			type : "POST",
+			success : function(result) {  if(result==null)   return;
+				
+				var setting = {
+					check : {
+						enable : true,
+					},
+					data : {
+						simpleData : {
+							enable : true,
+							idKey: "ID",
+							pIdKey: "PID",
+						},
+						key: {
+							name: "NAME"
+						}
+						
+					},
+					callback : {
+						beforeCheck : zTreeBeforeCheck,
+						onClick : onClick
+					}
+				};
+				var zNodes = result.list;
+				var code;
+				function showCode(str) {
+					if (!code)
+						code = $("#code");
+					code.empty();
+					code.append("<li>" + str + "</li>");
+				}
+				$(document).ready(function() {
+					$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+					 var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+					 var nodes = treeObj.getNodes();
+		             for (var i = 0; i < nodes.length; i++) { //设置节点展开  只展开一级节点
+		                treeObj.expandNode(nodes[i], true, false, true);
+		             }
+					//alert(submitan());
+					go2(submitan(), "默认")
+				});
+			}
+		});
+	}
+	//不能选中 checkbox
+	function zTreeBeforeCheck(treeId, treeNode) {
+		return false;
+	};
+	//点击文本信息 触发 	
+	function onClick(event, treeId, treeNode, clickFlag) {
+		// alert(treeNode.id);//点击直接返回节点对象treeNode
+		if (getCurrentRoot(treeNode) != treeNode.ID) {
+			var roleId = "'" + treeNode.ID + "'";
+			var name = treeNode.NAME;
+			go2(roleId, name);
+		}
+	};
+	//获取当前节点的根节点(treeNode为当前节点)  
+	function getCurrentRoot(treeNode) {
+		if (treeNode.getParentNode() != null) {
+			var parentNode = treeNode.getParentNode();
+			return getCurrentRoot(parentNode);
+		} else {
+			return treeNode.ID;
+		}
+	}
+	//获取选中的 左边树节点 
+	function submitan() {
+		var treeObj = $.fn.zTree.getZTreeObj("treeDemo"),
+		//nodes=treeObj.getCheckedNodes(true),
+		nodes = treeObj.getCheckedNodes(true);
+		v = "";
+		for (var i = 0; i < nodes.length; i++) {
+			v += "'" + nodes[i].ID + "',";
+			//获取选中节点的值
+		}
+		if (v.length > 0) {
+			v = v.substring(0, v.length - 1);
+		}
+		//W.document.getElementById('xx').value = v;//给父页面id 传值 
+		//alert(v);
+		return v;
+	}
+	//加载第二颗树  获取目录 列表 
+	function go2(roleId, name) {
+		$.ajax({
+			url : "role-authMenus-detailsss.json",
+			dataType : "json",
+			data : {
+				roleId : roleId,
+				userId : name
+			},
+			type : "POST",
+			success : function(result) { if(result==null)   return;
+				var setting = {
+					check : {
+						enable : true,
+					},
+					data : {
+						simpleData : {
+							enable : true
+						}
+					},
+					callback : {
+						beforeCheck : zTreeBeforeCheck,
+					}
+				};
+				var zNodes = result.list;
+				var code;
+				function showCode(str) {
+					if (!code)
+						code = $("#code");
+					code.empty();
+					code.append("<li>" + str + "</li>");
+				}
+				$(document).ready(function() {
+					$.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+				});
+			}
+		});
+	}
+
+	/*]]>*/
+</script>
+<div class="content_wrap" style="overflow: hidden; width: 700px; height: 600px;">
+	<form modelAttribute="dto" th:object="${dto}" id="roleForm" style="display: none">
+		<input type="text" name="remark" id="userId" th:value="${dto.remark}" th:field="*{remark}" />
+	</form>
+	<div>
+		<table style="width: 100%">
+			<tr>
+				<td style="height: 26px; line-height: 26px; border-bottom: 1px solid #DDD\9; font-size: 14px; font-weight: bold; color: #888; background: #FFF; background: none; padding-left: 3px;width: 50%;">角色信息情况</td>
+				<td style="height: 26px; line-height: 26px; border-bottom: 1px solid #DDD\9; font-size: 14px; font-weight: bold; color: #888; background: #FFF; background: none; padding-left: 3px;">功能菜单信息情况</td>
+			</tr>
+		</table>
+	</div>
+	<div class="zTreeDemoBackground left"
+		style="overflow: scroll; width: 266px; height: 533px; border-right-width: 1; border-right: 1px solid #000; position: absolute; margin-top: 10px;">
+		<ul id="treeDemo" class="ztree" style="padding-top: 10px;"></ul>
+	</div>
+	<div class="zTreeDemoBackground left"
+		style="width: 350px; height: 533px; border-right-width: 1; float: left; magin: 250px; border-left-width: 1px; position: absolute; left: 50%; margin-top: 10px; overflow: scroll;">
+		<ul id="treeDemo1" class="ztree" style="padding-top: 10px;"></ul>
+	</div>
+</div>

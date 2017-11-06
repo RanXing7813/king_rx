@@ -1,0 +1,98 @@
+<style>
+	/*  #listmain {width:100%; overflow-x:scroll;    border: 1px solid #e1e1e1;}
+	#list-tab {padding-right:10px;auto; overflow-x:scroll;}
+ 	#grid td  {height:20px;text-overflow:ellipsis;white-space: nowrap;overflow:hidden;  }
+	#girdThead td{ white-space: nowrap;  }  */
+	 /* #listmain {width:100%; overflow-x:scroll;    border: 1px solid #e1e1e1;} */
+	#list-tab {padding-right:10px;auto; overflow:hidden;}
+ 	#grid td  {height:20px;text-overflow:ellipsis;white-space: nowrap;overflow:hidden; -o-text-overflow:ellipsis;-moz-text-overflow: ellipsis;-webkit-text-overflow: ellipsis; }
+    #grid td a{ width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; display:block;}
+	#girdThead td{ white-space: nowrap;  } 
+</style>
+ <div class="operatewrap">
+                         <h4 class="operatepannel-title" ><font id="titleId">数据建设</font>
+                         </h4>
+                         <!--通用的列表-->
+                         <div class="ui-list fn-clear">
+                         <!--搜索面板开始-->
+                         <div class="search-list">
+							<!--<h4 >查询条件</h4>-->
+							<form >
+                              <table class="search-tab">
+                                 <colgroup><!--注意用colgrounp标签组定义表格的每列宽度不可删除-->
+                                 <col width="140"></col>
+                                 <col></col>
+                                 <col width="140"></col>
+                                 <col></col>
+                                 </colgroup> 
+                                <tbody >
+                               <tr> 
+                               		<th width="15.5%">菜单名称</th>
+                                     <td><input type="text" id="menu_name" class="input-normal input-wdl  "  name="menu_name"  /></td>
+                                     <th width="15.5%">请求地址</th>
+                                     <td><input type="text" id="request_url" class="input-normal input-wdl  "  name="request_url"/></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                         	 <div class="search-btn fn-clear">
+	                             <button class="btn btn-normal" onclick="search()" type="button">查询</button>
+	                             <button class="btn btn-reset" type="reset">重置</button>
+                             </div>
+                           </form>
+                             <div class="search-btn fn-clear">
+                            	<button style="float: right" class="btn btn-normal" onclick="del()">删除</button><button style="float: right" class="btn btn-normal" onclick="add()">新增</button>
+                           </div>
+                          <div class="xline fn-clear"></div>
+                       </div>
+                         <!--通用上的信息列表-->
+                         <div class="list-normal">
+                             <div class="listmain" id="listmain" >
+                                 <table class="list-tab"  id="list-tab"  style="width:100%;table-layout:fixed;word-wrap:break-word;"><!--style="width:100%;table-layout:fixed;word-wrap:break-word;"  -->
+                                    <thead id="girdThead" >
+                                     <tr>
+                                         <td class="fn-text-center" width="5%" ><input type="checkbox" id="all" onclick="checkall(this)"/></td>
+                                         <td class="fn-text-center" >菜单名称</td>
+                                         <td class="fn-text-center" width="15%">请求地址</td>
+                                         <td class="fn-text-center" width="15%">创建时间</td>
+                                     </tr>
+                                   </thead>
+                                   <tbody id="grid" >
+                                   </tbody>
+                                 </table>
+                             </div>
+                      </div>
+                       <!--列表分页-->
+                        <div class="ui-page">
+                            <span class=" ui-item-link">
+	                            <div>
+		                            <a href="javascript:void(0);" class="ui-page-item ui-page-item-first " id="frist" >首页</a>
+		                            <a href="javascript:void(0);" class="ui-page-item ui-page-item-prev"   onclick="page(-1)" >上一页</a>
+		                            <a href="javascript:void(0);" class="ui-page-item ui-page-next"        onclick="page(1)" >下一页</a>
+		                            <a href="javascript:void(0);" class="ui-page-item ui-page-last"        id="last" >尾页<input type="hidden" id="lastInput"/></a>
+	                            </div><div class="ui-page-go"><h4>转到</h4><input name="page" id="page" type="text" value="" class="input-page "  /><a href="javascript:turnTo();" class="ui-button ui-button-go">Go</a></div> 
+									</span>
+	                                <span class="ui-page-item ui-page-item-set"><h4>每页</h4>
+	                                <select name="selectlimitnum" id="selectlimitnum" class="select-page" >
+	                                   <option value="5">5</option>
+	                                   <option value="10">10</option>
+	                                   <option value="20">20</option>
+	                                   <option value="30">30</option>
+	                                   <option value="40">40</option>
+	                                   <option value="50">50</option>
+	                                </select></span>
+                            <span id="pageSpan" class="ui-page-item ui-page-item-info">共0条记录，共1/1页，第1页</span>
+                      	</div> 
+                      <!--end 列表分页 -->
+    </div></div>
+<script src="/theme/js/pag.js"></script>
+<script src="/theme/portals/js/ywmenu/ywmenu.js"></script>
+<script type="text/javascript">
+var menusId;
+map.pageSize=$("#selectlimitnum").val();//每页多少条
+map.page=1;//当前页
+$(document).ready(function(){
+	 $("#titleId").text(map.name);
+	  gopage();
+});  
+</script>
+    

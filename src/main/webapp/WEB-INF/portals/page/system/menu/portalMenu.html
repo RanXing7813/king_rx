@@ -1,0 +1,118 @@
+<style>
+  input[type=text]{width: 86%;}
+  .DiyDom{
+    float: right;
+  	opacity: 0.6;
+	line-height: 0;
+	margin: 0;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	vertical-align: middle;
+	border: 0 none;
+	cursor: pointer;
+	outline: none;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-image: url(/theme/portals/js/zTree/css/zTreeStyle/img/diy/del.png);
+  }
+</style>
+	<!-- <link rel="stylesheet" href="/theme/js/zTree/css/demo.css" type="text/css"/> --><!-- 与其他有冲突 -->
+	<link rel="stylesheet" href="/theme/portals/js/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css"/>
+	<script type="text/javascript" src="/theme/portals/js/zTree/js/jquery.ztree.core-3.5.js"></script>
+	<script type="text/javascript" src="/theme/portals/js/zTree/js/jquery.ztree.excheck-3.5.js"></script>
+	<script type="text/javascript" src="/theme/portals/js/zTree/js/jquery.ztree.exedit-3.5.js"></script>
+	<script type="text/javascript" src="/theme/portals/js/menu/portalMenumenus.js"></script>
+	<SCRIPT type="text/javascript">
+		//<!--
+		var setting;var zNodes;
+		var log, className = "dark";
+		$(document).ready(function(){
+			nodes();
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			$("#selectAll").bind("click", selectAll);
+		});
+		//-->
+	</SCRIPT>
+	<style type="text/css">
+.ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+	</style>
+<div class="operatewrap">
+<h4 class="operatepannel-title" ><font id="titleId">菜单管理 - 门户平台菜单</font>
+</h4>
+<div class="content_wrap">
+	<div class="zTreeDemoBackground left" style="padding-left:20px;float:left;width:35%;height:450px;;overflow-y:auto;">
+		<ul id="treeDemo" class="ztree" ></ul><!-- 子节点没有显示完全  给ui添加宽度样式 width:110% -->
+	</div>
+	<!-- <div style="float:left;padding-left:10%;width:65%;">
+		<h3 class="operatepannel-title" >菜单详情</h3>
+		<form id="form" class="form-horizontal" method="post" > 
+			<input type="hidden" id="menuId"/>
+			<input type="hidden" id="parentId"/>
+                              <table class="search-tab">
+                                 <colgroup>注意用colgrounp标签组定义表格的每列宽度不可删除
+                                 <col width="140"></col>
+                                 <col></col>
+                                 <col width="140"></col>
+                                 <col></col>
+                                 </colgroup> 
+                                <tbody>
+	                                 <tr>
+                                      <th>菜单名称</th>
+                                      <td>
+                                      		<div class="control-group">
+												<div class="controls ">
+													<input id="menuName" type="text" readonly="true"/>
+												</div>
+										  	</div>
+									 </td>
+	                                 </tr>
+	                                 <tr>
+                                      <th>请求地址</th>
+                                      <td>
+                                      		<div class="control-group">
+												<div class="controls ">
+													<input  id="requestUrl" type="text" readonly="true"/>
+												</div>
+										  	</div>
+									 </td>
+	                                 </tr>
+	                                 <tr>
+                                      <th>菜单样式</th>
+                                      <td>
+                                      		<div class="control-group">
+												<div class="controls ">
+													<input  id="menuIcon" type="text" readonly="true"/>
+												</div>
+										  	</div>
+									 </td>
+	                                 </tr>
+	                                 <tr>
+                                      <th>菜单序号</th>
+                                      <td>
+                                      		<div class="control-group">
+												<div class="controls ">
+													<input  id="orderId" type="text" readonly="true"/>
+												</div>
+										  	</div>
+									 </td>
+	                                 </tr>
+	                                 <tr>
+                                      <th>菜单图标</th>
+                                      <td>
+                                      		<div class="control-group">
+												<div class="controls ">
+													<input  id="menuImg" type="text" readonly="true"/>
+												</div>
+										  	</div>
+									 </td>
+	                                 </tr>
+                              </tbody>
+                           </table>
+                       
+                        </form>
+	</div> -->
+</div>
+
+</div>

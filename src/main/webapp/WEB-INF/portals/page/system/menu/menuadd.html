@@ -1,0 +1,121 @@
+<div class="content_wrap">
+<form id="form" class="form-horizontal" method="post" modelAttribute="dto" th:object="${dto}" th:action="yw_MenuSave"> 
+			<input type="hidden" id="menuId" th:value="${dto.menuId}" th:field="*{menuId}"/>
+			<input type="hidden" id="parentId" th:value="${dto.parentId}" th:field="*{parentId}"/>
+			<input type="hidden" th:value="${dto.insetTime}" th:field="*{insetTime}"/>
+			<input type="hidden" th:value="${dto.state}" th:field="*{state}"/>
+			<input type="hidden" id="status" th:value="${dto.status}" th:field="*{status}"/>
+			<input type="hidden" id="menu" th:value="${menu}"/>
+			<input type="hidden" name="menuIcon" value="nav-top-item no-submenu"/>
+                              <table class="search-tab">
+                                 <colgroup><!--注意用colgrounp标签组定义表格的每列宽度不可删除-->
+                                 <col width="140"></col>
+                                 <col></col>
+                                 <col width="140"></col>
+                                 <col></col>
+                                 </colgroup> 
+                                <tbody>
+	                                 <tr>
+                                      <th><span style="color:red">*</span>&nbsp;菜单名称</th>
+                                      <td>
+                                      		<div class="control-group">
+												<div class="controls ">
+													<input  id="menuName" type="text" th:value="${dto.menuName}" th:field="*{menuName}"/>
+													<div id="inspection_nameTip" class="put_sty"></div>
+												</div>
+										  	</div>
+									 </td>
+	                                 </tr>
+	                                 <tr>
+                                      <th>请求地址</th>
+                                      <td>
+                                      		<div class="control-group">
+												<div class="controls ">
+													<input  id="requestUrl" type="text" th:value="${dto.requestUrl}" th:field="*{requestUrl}"/>
+													<div id="inspection_nameTip" class="put_sty"></div>
+												</div>
+										  	</div>
+									 </td>
+	                                 </tr>
+	                                <!--  <tr>
+                                      <th>菜单样式</th>
+                                      <td>
+                                      		<div class="control-group" style="width: 180px;">
+												<div class="controls " id="cdys"></div>
+												<input type="text" id="cdysText" name="menuIcon"/>
+										  	</div>
+									 </td>
+	                                 </tr> -->
+	                                 <tr>
+                                      <th>菜单序号</th>
+                                      <td>
+                                      		<div class="control-group">
+												<div class="controls ">
+													<input  id="orderId" type="text" th:value="${dto.orderId}" th:field="*{orderId}" maxlength="5"/><!-- 暂时空缺 -->
+													<div id="inspection_nameTip" class="put_sty"></div>
+												</div>
+										  	</div>
+									 </td>
+	                                 </tr>
+	                                 <!-- <tr>
+                                      <th>菜单图标</th>
+                                      <td>
+                                      		<div class="control-group">
+												<div class="controls ">
+													<input  id="menuImg" type="text" th:value="${dto.menuImg}" th:field="*{menuImg}"/>暂时空缺
+													<div id="inspection_nameTip" class="put_sty"></div>
+												</div>
+										  	</div>
+									 </td>
+	                                 </tr> -->
+                              </tbody>
+                           </table>
+                        </form>
+</div>
+<script type="text/javascript" src="/theme/portals/js/jquery-1.11.2.min.js"></script>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	
+	
+	var menuIcon=/*[[${dto.menuIcon}]]*/
+	$("input[type='radio'][name='menuIcon1'][value='"+menuIcon+"']").attr("checked", "checked");
+	$("#cdysText").val(menuIcon);
+	
+	$("#status").val($("#menu").val());
+	var api = frameElement.api, W = api.opener;
+	
+	api.button({
+		 name: '确定',
+	     callback: onClick,
+	     focus: true
+	},
+	{
+	    name: '取消',
+	});
+	function onClick(){//当返回false 不执行关闭操作
+		var statu=false;
+		if($("#menuName").val() == ""){
+			$("#menuName").focus();
+		}else{
+			$.ajax({
+				url:'yw_MenuSave.json',
+				type:'POST',
+				data:$("#form").serialize(),
+				dataType:'json',
+				async:false,
+				success:function(){
+					statu=true;
+				}	
+			})
+			window.parent.frames.test();
+			/* $.post("yw_MenuSave.json", $("#form").serialize());
+			statu=true; */
+			 }
+		return statu;
+	}
+	
+/*]]>*/
+</script>
+<script>
+	
+</script>

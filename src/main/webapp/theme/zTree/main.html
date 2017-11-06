@@ -1,0 +1,335 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="/images/favourite.ico">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="alternate" media="handheld" href="#" />
+
+<link rel="shortcut icon" href="/images/favourite.ico">
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--高级查询样式-->
+<link rel="stylesheet" type="text/css" href="css/high.css">
+<link rel="stylesheet" type="text/css" href="css/nav.css">
+<!--树控件样式-->
+<link rel="stylesheet" type="text/css" href="css/zTreeStyle.css"/>
+<!--弹窗样式-->
+<link rel="stylesheet" type="text/css" href="css/tips.css" />
+<!--下拉样式-->
+<link rel="stylesheet" type="text/css" href="css/dropList.css" />
+
+
+<link rel="stylesheet" type="text/css" href="css/easyquery.css" />
+<link rel="stylesheet" type="text/css" href="css/spectrum.css" />
+
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+
+<script type="text/javascript" src="js/jquery.ztree.core.js"></script>
+
+<title>国家数据</title>
+</head>
+<body>
+
+<!-- main 开始 -->
+<div id="main" style="width:1000px;height:1000px;margin:0px auto;">
+    <!--navbar 开始-->
+    <div id="navbar">
+        <!-- site 开始 -->
+        <div id="site">
+            <div class="site-left"></div>
+            <div class="site-center">
+<ul class="ul-left pl15">
+	
+	<li><strong class='left color1'><a href='/index.htm'>首页</a></strong><span class='left'></span></li><li class='select'><strong class='left color1'>地区数据</strong> </li><li class='cur'><span class='left'></span> <a class='left' code='navcode' href='/easyquery.htm?cn=E0101'>分省月度数据</a><span class='left last'></span>  </li>
+	<li ><strong class="left">高级查询</strong><span class="left"></span></li>
+</ul>
+            </div>
+            <div class="site-right"></div>
+        </div>
+        <!-- site 结束 -->
+
+        <!-- subnav 开始 -->
+    <div id="navbar">
+
+        <div id="subnav" style="border:solid 1px #eee">
+            <ul class="ul-left left">
+                <li class="simpleQuery">
+                    <span></span>
+                    <a href="/easyquery.htm?cn=E0101">简单查询</a>
+                </li>
+                <li class="advancedSearch">
+                    <span></span>
+                    <a class="advS" href="/adv.htm?cn=E0101">高级查询</a>
+                </li>
+                <li class="dataMap">
+                    <span></span>
+                    <a class="dataMap" href="/mapdata.htm?cn=E0101">数据地图</a>
+                </li>
+                <li class="viewChart">
+                    <span></span>
+                    <a class="viewChartA" href="/ks.htm?cn=E0101">经济图表</a>
+                </li>
+            </ul>
+            <div id="rightmenu" class="mattblackmenu right">
+                    <ul>
+                        <li>
+                            <a id="sevaBtn" href="javascript:loginOper(saveFavorite);">
+                            <img class="vm" width="18" height="18" src="img/icon-2.png">
+                            <span>添加收藏</span>
+                            </a>
+                        </li>
+                        <li style="position:relative;">
+                            <a class="hover" rel="menuE02" href="javascript:void(0);">
+                            <img class="vm" width="18" height="18" src="img/icon-3.png">
+                            <span>数据管理</span>
+                            <img class="downarrowpointer" src="img/arrow-down.gif" style="width: 9px; height: 6px;">
+                            </a>
+
+                        </li>
+                        <li style="position:relative;">
+                            <a class="hovera" rel="menuG02" href="javascript:void(0);">
+                            <img class="vm" width="18" height="18" src="img/icon-4.png">
+                            <span>报表管理</span>
+                            <img class="downarrowpointer" src="img/arrow-down.gif" style="width: 9px; height: 6px;">
+                            </a>
+                            <ul class="xl" style="display:none">
+                            	<li>aaaaa</li>
+                            	<li>bbbbb</li>
+                                <li>ccccc</li>
+                            </ul>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+     </div>
+     
+
+<div id="left_tree" class="high_left accordion split-containe" style="margin-top:45px;">
+<div class="main-left left split-containe" style="width:240px;height: auto;">
+<h3 id="l_zb" code="zb">指标</h3>
+<div class="accordion-conten accordion-active" style="height: 428px;">
+<ul id="treeDemo" class="ztree"></ul>
+</div>
+</div>
+</div>
+        <!-- subnav 结束 -->
+        
+<div class="main-right right split-containe"   style="width:700px;height:700px;float:left;">
+<div class="mr-header">
+<ul class="ul-view left createtype">
+<li onclick="tuOff()">
+<a class="list" title="报表" href="javascript:;"></a>
+</li>
+<li class="drawTu" val="bar">
+<a class="line" title="柱线图" href="javascript:;"></a>
+</li>
+<li class="drawTu" val="y-bar">
+<a class="bar" title="条形图" href="javascript:;"></a>
+</li>
+<li class="drawTu" val="pie">
+<a class="pie" title="饼图" href="javascript:;"></a>
+</li>
+</ul>
+<div id="divdroplist" class="right">
+<div id="mySelect_reg" style="margin: 7px 10px 0 20px; float: left" wdcode="reg" wdname="地区">
+<div class="wdName">地区 ： </div>
+<div class="dtHtml">
+<div class="dtHead" node="{"code":"110000","name":"北京市","sort":"1"}" title="北京市">北京市</div>
+<div class="dtBody" style="">
+<div class="dtDrag"></div>
+<div class="dtList">
+<ul>
+<li node="{"code":"","name":"序列","sort":"4"}" style="border-bottom: 1px solid rgb(170, 170, 170);">序列</li>
+<li node="{"code":"110000","name":"北京市","sort":"1"}" code="110000" title="北京市" style="border-bottom: 1px solid rgb(170, 170, 170);">北京市</li>
+<li node="{"code":"120000","name":"天津市","sort":"1"}" code="120000" title="天津市" style="border-bottom: 1px solid rgb(170, 170, 170);">天津市</li>
+<li node="{"code":"130000","name":"河北省","sort":"1"}" code="130000" title="河北省" style="border-bottom: 1px solid rgb(170, 170, 170);">河北省</li>
+<li node="{"code":"140000","name":"山西省","sort":"1"}" code="140000" title="山西省" style="border-bottom: 1px solid rgb(170, 170, 170);">山西省</li>
+<li node="{"code":"150000","name":"内蒙古自治区","sort":"1"}" code="150000" title="内蒙古自治区" style="border-bottom: medium none;">内蒙古自治区</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="mr-content">
+<div id="initIndexCharts" class="hide" style="display: block;">
+<div class="editarea pr">
+<div class="right tishi mr20">
+<img src="img/icon-1.png">
+提示
+</div>
+<div class="pa tishiBox tc">
+说明：如果所选的作图项过多，可能会影响图例的正常显示。
+<em></em>
+</div>
+<a class="bt_edit mr20" href="javascript:getChart();">编辑</a>
+
+</div>
+
+</div>
+
+</div>
+
+  <div id="m-wrap" class="mt10" style="width:700px;">
+        <!-- ==========================high_index start===============================-->
+      
+            <div style="width:400px;float:left;" class="high_splitbar">
+                <div class="high_center split-containe" style="width:400px;">
+                    <div class="high_center_header">
+                        <input id="queryStr" name="queryStr" class="search_input" value="请输入要查找的指标" onfocus="this.value==this.defaultValue?this.value='':null;" onblur="this.value==''?this.value='请输入要查找的指标':null;" type="text">
+                        <input value="查询" class="bt btn" name="button" onclick="javascript:querywd('fsyd');" type="button"> <input id="wQueryCheck" style="margin-right: 3px" type="checkbox">结果中筛选&nbsp;&nbsp;&nbsp;&nbsp;共 <span id="searchCount">2</span>条
+                    </div>
+                    <div class="high_center_sel">
+                        <a href="javascript:void(0)" class="selectAll">全选</a>
+                        <a href="javascript:void(0)" class="reverse">反选</a>
+                        <a href="javascript:void(0)" class="cancelAll">清空</a>
+                    </div>
+                    <div class="list_index">
+                        <ul class="unsul">
+                        <li><input class="checkbox" code="A020101" name="myCheckbox" type="checkbox"><a mytitle="工业增加值_同比增长" exp="工业增加值是指工业企业在报告期内以货币形式表现的从事工业生产活动的最终成果。工业增加值有两种计算方法：一是生产法，即工业总产出减去工业中间投入加上应交增值税；二是收入法，即从收入的角度出发，根据生产要素在生产过程中应得到的收入份额计算，具体构成项目有固定资产折旧、劳动者报酬、生产税净额、营业盈余。工业增加值累计增长是指各年一至本月度工业增加值相对上年同期数的变动趋势和程度。按不变价格计算。" href="javascript:;"><img src="img/icon-1.png"></a><a href="javascript:;">工业增加值_同比增长</a>
+                        </li>
+                        <li><input class="checkbox" code="A020102" name="myCheckbox" type="checkbox"><a mytitle="工业增加值_累计增长" exp="工业增加值是指工业企业在报告期内以货币形式表现的从事工业生产活动的最终成果。工业增加值有两种计算方法：一是生产法，即工业总产出减去工业中间投入加上应交增值税；二是收入法，即从收入的角度出发，根据生产要素在生产过程中应得到的收入份额计算，具体构成项目有固定资产折旧、劳动者报酬、生产税净额、营业盈余。工业增加值累计增长是指各年一至本月度工业增加值相对上年同期数的变动趋势和程度。按不变价格计算。"  href="javascript:;"><img src="img/icon-1.png"></a><a href="javascript:;">工业增加值_累计增长</a>
+                        </li>
+                        <li><input class="checkbox" code="A020103" name="myCheckbox" type="checkbox"><a mytitle="工业增加值_同比增长" exp="工业增加值是指工业企业在报告期内以货币形式表现的从事工业生产活动的最终成果。工业增加值有两种计算方法：一是生产法，即工业总产出减去工业中间投入加上应交增值税；二是收入法，即从收入的角度出发，根据生产要素在生产过程中应得到的收入份额计算，具体构成项目有固定资产折旧、劳动者报酬、生产税净额、营业盈余。工业增加值累计增长是指各年一至本月度工业增加值相对上年同期数的变动趋势和程度。按不变价格计算。" href="javascript:;"><img src="img/icon-1.png"></a><a href="javascript:;">工业增加值_同比增长</a>
+                        </li>
+                        <li><input class="checkbox" code="A020104" name="myCheckbox" type="checkbox"><a mytitle="工业增加值_累计增长" exp="工业增加值是指工业企业在报告期内以货币形式表现的从事工业生产活动的最终成果。工业增加值有两种计算方法：一是生产法，即工业总产出减去工业中间投入加上应交增值税；二是收入法，即从收入的角度出发，根据生产要素在生产过程中应得到的收入份额计算，具体构成项目有固定资产折旧、劳动者报酬、生产税净额、营业盈余。工业增加值累计增长是指各年一至本月度工业增加值相对上年同期数的变动趋势和程度。按不变价格计算。"  href="javascript:;"><img src="img/icon-1.png"></a><a href="javascript:;">工业增加值_累计增长</a>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+         
+  </div>
+  
+  <div id="right_tree" class="high_right accordion split-containe" style="float:right;">
+        <h3 id="r_zb" code="zb">
+            指标(
+            <span class="number">0</span>
+            /100)
+        </h3>
+        <div class="delete-container" style="display: block;">
+            <a class="delAll" href="javascript:void(0)">全部删除</a>
+            <a class="delNot" href="javascript:void(0)">删除未选项</a>
+        </div>
+        <div id="r_zb_z" class="accordion-conten accordion-active" style="height: 397px;">
+       		 <ul></ul>
+        </div>
+        <h3 id="r_reg" code="reg">
+            地区(
+            <span class="number">0</span>
+            /100)
+        </h3>
+
+</div>
+</div>
+
+</div>
+<!-- main 结束 -->
+
+
+<script>
+		var setting = {
+			data: {
+				simpleData: {
+					enable: true
+				}
+			}
+		};
+
+		var zNodes =[
+			{ id:1, pId:0, name:"指标", open:true},
+			{ id:11, pId:1, name:"价格指数"},
+			{ id:111, pId:11, name:"居民消费价格分类指数"},
+			{ id:112, pId:11, name:"商品零售价格分类指数"},
+			{ id:113, pId:11, name:"工业生产者价格指数"},
+			{ id:12, pId:1, name:"工业"},
+			{ id:121, pId:12, name:"叶子节点121"},
+			{ id:122, pId:12, name:"叶子节点122"},
+			{ id:123, pId:12, name:"叶子节点123"},
+			{ id:124, pId:12, name:"叶子节点124"},
+			{ id:13, pId:1, name:"父节点13 - 没有子节点", isParent:true},
+			{ id:2, pId:0, name:"父节点2 - 折叠"},
+			{ id:21, pId:2, name:"父节点21 - 展开", open:true},
+			{ id:211, pId:21, name:"叶子节点211"},
+			{ id:212, pId:21, name:"叶子节点212"},
+			{ id:213, pId:21, name:"叶子节点213"},
+			{ id:214, pId:21, name:"叶子节点214"},
+			{ id:22, pId:2, name:"父节点22 - 折叠"},
+			{ id:221, pId:22, name:"叶子节点221"},
+			{ id:222, pId:22, name:"叶子节点222"},
+			{ id:223, pId:22, name:"叶子节点223"},
+			{ id:224, pId:22, name:"叶子节点224"},
+			{ id:23, pId:2, name:"父节点23 - 折叠"},
+			{ id:231, pId:23, name:"叶子节点231"},
+			{ id:232, pId:23, name:"叶子节点232"},
+			{ id:233, pId:23, name:"叶子节点233"},
+			{ id:234, pId:23, name:"叶子节点234"},
+			{ id:3, pId:0, name:"父节点3 - 没有子节点", isParent:true}
+		];
+
+$(document).ready(function(e) {
+	$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	
+	//全选
+	$(".selectAll").click(function () { 
+		$(".unsul :checkbox").attr("checked", true); 
+		toRight();
+	}); 
+	
+	//单选
+	$(".unsul>li>input").click(function(){
+		toRight();
+	});
+	
+	//清空
+	$(".cancelAll").click(function () {   
+	   $(".unsul :checkbox").attr("checked", false); 
+	   toRight();
+	});  
+	
+	//反选
+	$(".reverse").click(function () {  
+		$(".unsul :checkbox").each(function () {   
+			$(this).attr("checked", !$(this).attr("checked"));
+			toRight();
+		}); 
+	}); 
+	
+	//全部删除
+	$(".delAll").click(function(){
+		$("#r_zb_z").html("");
+	});
+	
+	//未选中删除
+	$(".delNot").click(function(){
+		var unCheckedBoxs = $("input[name='newCheckbox']").not("input:checked");
+		$(unCheckedBoxs).each(function(){
+			$(this).parents("li").remove();
+  		}); 
+	});
+});
+function toRight(){
+	$("#r_zb_z").html("");
+	var ul = "<ul class=''>"
+	var oli = $(".unsul li");
+	$(oli).each(function(){
+		var str = $(this).html().replace('name="myCheckbox"','name="newCheckbox"');
+		if($(this).find("input").eq(0).attr("checked")){//遍历选中的
+			ul+="<li>"+str+"</li>";
+		}
+	});
+	ul+="</ul>";
+	$("#r_zb_z").html(ul);
+}
+
+
+
+</script>
+
+
+</body>
+</html>

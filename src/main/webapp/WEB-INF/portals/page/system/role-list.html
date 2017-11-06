@@ -1,0 +1,100 @@
+<style>
+	#list-tab {padding-right:10px;}
+ 	#grid td  {height:20px;text-overflow:ellipsis;white-space: nowrap;overflow:hidden; -o-text-overflow:ellipsis;-moz-text-overflow: ellipsis;-webkit-text-overflow: ellipsis; }
+	#grid td:nth-child(3) a {color: blue;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; display:block; } 
+	#grid td:nth-child(5) a {color: white;background: #1370cf }	
+	#girdThead td{ white-space: nowrap;  } 
+</style>
+<div class="operatewrap">
+  <h4 class="operatepannel-title" ><font id="titleId">角色管理</font>
+                         </h4>
+    <!--通用的列表-->
+                         <div class="ui-list fn-clear">
+                         <!--搜索面板开始-->
+                         <div class="search-list">
+                         
+                         	<form >
+                              <table class="search-tab">
+                                 <colgroup><!--注意用colgrounp标签组定义表格的每列宽度不可删除-->
+                                 <col width="140"></col>
+                                 <col></col>
+                                 <col width="140"></col>
+                                 <col></col>
+                                 </colgroup> 
+                                <tbody >
+                               <tr > 
+                               		<th width="15.5%">角色名</th>
+								<td><input type="text" name="roleName"   id="roleName"
+									class="input-normal input-wdl  " /></td>
+								<th width="15.5%">角色描述</th>
+								<td ><input type="text" name="roleDesc"  id="roleDesc"
+ 									class="input-normal input-wdl  " /></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                         	 <div class="search-btn fn-clear">
+	                             <button class="btn btn-normal" id="searchButtons" type="button">查询</button>
+	                             <button class="btn btn-reset" type="reset">重置</button>
+	                             <button type="button" style="float: right" class="btn btn-normal"  id="new">新增</button>
+	                             
+	                             <!-- <button class="btn btn-normal"  type="button" id="auth">角色授权</button> -->
+                             </div>
+                           </form>
+</div>
+<!--通用上的信息列表-->
+          <div class="list-normal">
+              <div class="listmain" id="listmain" >
+                                 <table class="list-tab"  id="list-tab"  style="width:100%;table-layout:fixed;word-wrap:break-word;"><!--style="width:100%;table-layout:fixed;word-wrap:break-word;"  -->
+					<thead>
+						<tr role="row">
+						<td class="fn-text-center" width="8%">序号 </td>
+							<td class="fn-text-center" >创建者 </td>
+								<td class="fn-text-center" >角色名</td>
+									<td class="fn-text-center" >角色描述 </td>
+										<td class="fn-text-center" width="20%">操作 </td>
+						</tr>
+					</thead>
+					<tbody role="alert" aria-live="polite" aria-relevant="all" id="grid">
+					</tbody>
+				</table>
+			 </div>
+          </div>
+                       <!--列表分页-->
+                        <div class="ui-page">
+                            <span class=" ui-item-link">
+	                            <div>
+		                            <a href="javascript:void(0);" class="ui-page-item ui-page-item-first " id="frist" >首页</a>
+		                            <a href="javascript:void(0);" class="ui-page-item ui-page-item-prev"   onclick="page(-1)" >上一页</a>
+		                            <a href="javascript:void(0);" class="ui-page-item ui-page-next"        onclick="page(1)" >下一页</a>
+		                            <a href="javascript:void(0);" class="ui-page-item ui-page-last"        id="last" >尾页<input type="hidden" id="lastInput"/></a>
+	                            </div><div class="ui-page-go"><h4>转到</h4><input name="page" id="page" type="text" value="" class="input-page "  /><a href="javascript:turnTo();" class="ui-button ui-button-go">Go</a></div> 
+									</span>
+	                                <span class="ui-page-item ui-page-item-set"><h4>每页</h4>
+	                                <select name="selectlimitnum" id="selectlimitnum" class="select-page" >
+	                                   <option value="10">10</option>
+	                                   <option value="20">20</option>
+	                                   <option value="30">30</option>
+	                                   <option value="40">40</option>
+	                                   <option value="50">50</option>
+	                                </select></span>
+                            <span id="pageSpan" class="ui-page-item ui-page-item-info">共0条记录，共1/1页，第1页</span>
+                      	</div> 
+                      <!--end 列表分页 -->
+    </div></div>          
+<!-- 	  -->
+<script id="grid-template" type="text/x-handlebars-template">
+{{#each list}}
+	<tr  onclick="bgChange(this)"> 
+		<td width="5%" class="fn-text-center" >
+			<font name="numTR">xx</font><input  type="hidden"   readonly="readonly" value='{{roleId}}'/></td>
+		<td class="fn-text-center">{{creatorId}}</td>
+		<td class="fn-text-center"><a href="javascript:roleEdit('{{roleId}}');">{{roleName}}</a></td>
+		<td class="fn-text-center">{{roleDesc}}</td>
+		<td class="fn-text-center"><a href="javascript:menu_('{{roleId}}',3);">角色授权</a>&nbsp;<a href="javascript:dels('{{roleId}}',3);">删除</a></td>
+	</tr>
+ {{/each}}
+</script>
+<script src="/theme/portals/js/yw_paging2.js"></script>
+<script src="/theme/portals/js/system/role-list.js"></script>
+  <script src="/theme/portals/util-audit-1.001.js"></script><!-- 页面js -->
+

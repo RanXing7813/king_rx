@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import cn.com.king.dto.UserDto;
 
 public class BaseAction {
 	
@@ -47,6 +50,35 @@ public class BaseAction {
 			}
 		}
 		
+		return searchParameters;
+	}
+	
+	/** 
+	* @Title: init 
+	* @Description: TODO 初始化方法前台json 转  map
+	* @param @param models
+	* @param @return    设定文件 
+	* @return Map<String,Object>    返回类型 
+	* @throws 
+	*/
+	@SuppressWarnings("rawtypes")
+	public  Map<String, Object>  initHaveUserDto (String models, HttpServletRequest req){
+		Map<String, Object> searchParameters = new HashMap<String, Object>();
+		if (models != null && models.length() > 0) {
+			try {//json转map
+				searchParameters = objectMapper.readValue(models,
+						new TypeReference<Map>() {
+						});
+			} catch (JsonParseException e) {
+				log.error("JsonParseException{}:", e.getMessage());
+			} catch (JsonMappingException e) {
+				log.error("JsonMappingException{}:", e.getMessage());
+			} catch (IOException e) {
+				log.error("IOException{}:", e.getMessage());
+			}
+		}
+		UserDto userDto = (UserDto) req.getSession().getAttribute("user");
+		searchParameters.put("userDto", userDto);
 		return searchParameters;
 	}
 	

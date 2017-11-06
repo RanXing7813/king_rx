@@ -1,0 +1,142 @@
+@charset "utf-8";
+/* CSS Document */
+/***全屏转化css***/
+h1,body,html{
+			padding: 0;
+			margin: 0;
+		}
+		body{
+			font-family: Arial,"Microsoft YaHei","Hiragino Sans GB",sans-serif;
+		}
+		html,body{
+			height: 100%;
+			overflow: hidden;
+		}
+		h1{
+			font-size: 6em;
+			font-weight: normal;
+		}
+		p{
+			font-size: 2em;
+			margin:0.5em 0 2em 0;
+		}
+#container,.section{
+			height: 100%;
+			position: relative;
+		}
+		#section0,
+		#section1,
+		{
+			background-color: #000;
+			background-size: cover;
+			background-position: 100%;
+			background-position: 100%; /* IE 8+ */
+			*background-position: 100%; 
+			background-attachment:fixed;
+			
+			
+		}
+		#section0{
+			/* background-image: url(../images/bg_login1.jpg); */
+			color: #fff;
+			text-shadow:1px 1px 1px #333;
+		}
+		#section1{
+			color: #fff;
+			text-shadow:1px 1px 1px #333;
+			background-image: url(../images/bg_login.jpg);
+		}
+		
+	  .left{
+			float: left;
+		}
+		.intro{
+			position: absolute;
+			
+			top:0;                  /* FF,OP支持 */
+            top: 0\9; /*IE6、IE7、IE8会显示红色*/
+			*top:0;
+			_top:0;
+			width: 100%;
+
+			text-align: center;
+			
+			
+		}
+		
+		
+		
+		
+		#pages{
+			position:fixed;
+			right: 10px;
+			top: 50%;
+			list-style: none;
+		}
+		#pages li{
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: #fff;
+			margin: 0 0 10px 5px;
+		}
+		#pages li.active{
+			width: 14px;
+			height: 14px;
+			border: 2px solid #FFFE00;
+			background: none;
+			margin-left: 0;
+		}
+		#section0 .title{
+			-webkit-transform: translateX(-100%);
+			transform: translateX(-100%);
+			-webkit-animation: sectitle0 1s ease-in-out 100ms forwards;
+			animation: sectitle0 1s ease-in-out 100ms forwards;
+		}
+		#section0 p{
+			-webkit-transform: translateX(100%);
+			transform: translateX(100%);
+			-webkit-animation: sec0 1s ease-in-out 100ms forwards;
+			animation: sec0 1s ease-in-out 100ms forwards;
+		}
+		@-webkit-keyframes sectitle0{
+			0%{
+				-webkit-transform: translateX(-100%);
+				transform: translateX(-100%);
+			}
+			100%{
+				-webkit-transform: translateX(0);
+				transform: translateX(0);
+			}
+		}
+		@keyframes sectitle0{
+			0%{
+				-webkit-transform: translateX(-100%);
+				transform: translateX(-100%);
+			}
+			100%{
+				-webkit-transform: translateX(0);
+				transform: translateX(0);
+			}
+		}
+		@-webkit-keyframes sec0{
+			0%{
+				-webkit-transform: translateX(100%);
+				transform: translateX(100%);
+			}
+			100%{
+				-webkit-transform: translateX(0);
+				transform: translateX(0);
+			}
+		}
+		@keyframes sec0{
+			0%{
+				-webkit-transform: translateX(100%);
+				transform: translateX(100%);
+			}
+			100%{
+				-webkit-transform: translateX(0);
+				transform: translateX(0);
+			}
+		}
+

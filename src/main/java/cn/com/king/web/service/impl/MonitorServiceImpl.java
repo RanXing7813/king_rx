@@ -94,15 +94,15 @@ public class MonitorServiceImpl  extends BaseServiceImpl<Monitor, Object> implem
 	@Override
 	public int save(InspectionConfigDto dto, UserDto userDto) {
 		int x = 0;
-		
 		InspectionConfig cf = new InspectionConfig();
 		if(dto.getConfigId()==null||dto.getConfigId().isEmpty()){
 			dto.setConfigId(StringTool.getUUID());
 		}
 		BeanUtils.copyProperties(dto, cf);
-		inspectionconfigRepository.saveAndFlush(cf);
+	//	cf.setIsDelete(1);
+			inspectionconfigRepository.saveAndFlush(cf);
 			x = 1;
-		return x;
+			return x;
 	}
 
 

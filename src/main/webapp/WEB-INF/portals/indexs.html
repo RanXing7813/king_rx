@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/> 
+<title>肇庆市信息资源共享平台</title>
+	<link rel="stylesheet" type="text/css" href="theme/portals/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="theme/portals/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="theme/portals/css/channel_style.css" />
+	<link rel="stylesheet" type="text/css" href="theme/portals/css/exchange_style.css" />
+	<link rel="stylesheet" type="text/css" href="theme/portals/css/catalog_style.css" />
+
+	<script type="text/javascript" src="theme/portals/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="theme/portals/js/lhgdialog/lhgdialog.js"></script>
+	<script type="text/javascript" src="theme/portals/js/handlebars-1.0.0.beta.6.js"></script>
+	<script type="text/javascript" src="theme/portals/js/lhgdialog/prettify.js"></script>
+	<script type="text/javascript" src="theme/portals/js/lhgdialog/demo.js"></script>
+	<!-- 目录树获取 -->
+	<script type="text/javascript" src="/theme/portals/js/tplbase.js"			 th:src="@{/theme/portals/js/tplbase.js}"></script>
+<!-- 自定义js -->
+	<script type="text/javascript" src="/theme/My97DatePicker/WdatePicker.js"    th:src="@{/theme/My97DatePicker/WdatePicker.js}"></script>
+	<!-- 复写一个div遮罩，提示框js -->
+	<script type="text/javascript" src="/theme/portals/overrideAlert.js" 		 th:src="@{/theme/portals/overrideAlert.js}"></script>
+	<!-- 动态获取页面宽高js -->
+	<script type="text/javascript" src="/theme/portals/page_width_height.js" 	 th:src="@{/theme/portals/page_width_height.js}"></script>
+	<!-- 分页js -->
+	<script type="text/javascript" src="/theme/portals/paging_map.js"	 		 th:src="@{/theme/portals/paging_map.js}"></script>
+	<script type="text/javascript" src="/theme/portals/publicS.js"	 		 	 th:src="@{/theme/portals/publicS.js}"></script>
+	<script type="text/javascript" src="/theme/portals/layouts/headers.js"  	 th:src="@{/theme/portals/layouts/headers.js}"></script>
+	
+	
+</head>
+<body>
+<div>
+	<div id="header" th:include="portals/layouts/headers::header"></div>
+	<div>
+   <!-- <div id="leftnav" th:include="portals/layouts/menus::menus"></div> -->
+		<div id="content" th:include="portals/layouts/bodys::bodys"></div>
+	</div>
+	
+	
+	<script type="text/javascript">
+		/*<![CDATA[*/
+		     showmenus(); // header 根据权限获取菜单
+		/*]]>*/
+	</script>
+	
+	
+	<!--footer-->
+    <div class="footer-channel clearfix">
+       <div class="footermain">
+          <div class="footerright">  <p> 建议在1280*720以上分辨率浏览 <br /> 技术支持电话：020-83134225 </p></div>
+          <div class="footerleft"><p>版权所有：肇庆市信息中心 <br />地址：肇庆市端州区城中路49号  </p></div>
+    </div></div> 
+</div>
+</body>
+</html>

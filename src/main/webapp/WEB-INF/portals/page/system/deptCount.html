@@ -1,0 +1,65 @@
+<link rel="stylesheet" type="text/css" href="/theme/portals/js/channel_style.css" />
+<link rel="stylesheet" type="text/css" href="/theme/portals/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="/theme/portals/css/base.css" />
+<script type="text/javascript" src="/theme/portals/js/jquery-1.11.2.min.js"></script>	
+<script type="text/javascript" src="/theme/portals/js/handlebars-1.0.0.beta.6.js"></script>
+	<div class="ui-list fn-clear">
+                         <!--搜索面板开始-->
+                         <div class="search-list">
+							<!--<h4 >查询条件</h4>-->
+							<input type="hidden" id="cjid" th:value="${Cjid}"/>
+                          <div class="xline fn-clear"></div>
+                       </div>
+                         <!--通用上的信息列表-->
+                         <div class="list-normal">
+                             <div class="listmain" id="listmain" >
+                                 <table class="list-tab"  id="list-tab"  style="width:100%;table-layout:fixed;word-wrap:break-word;"><!--style="width:100%;table-layout:fixed;word-wrap:break-word;"  -->
+                                    <thead id="girdThead" >
+                                     <tr>
+                                        <td class="fn-text-center" width="12%">ID</td>
+                                        <td class="fn-text-center" width="15%">部门名称</td>
+                                        <td class="fn-text-center" width="15%">创建时间</td>
+                                        <td class="fn-text-center" width="15%">发送方</td>
+                                        <td class="fn-text-center" width="15%">接收方</td>
+                                     </tr>
+                                   </thead>
+                                   <tbody id="grid" >
+                                   </tbody>
+                                 </table>
+                             </div>
+                      </div>
+                       <!--列表分页-->
+                        <div class="ui-page">
+                            <span class=" ui-item-link">
+	                            <div>
+		                            <a href="javascript:void(0);" class="ui-page-item ui-page-item-first " id="frist" >首页</a>
+		                            <a href="javascript:void(0);" class="ui-page-item ui-page-item-prev"   onclick="page(-1)" >上一页</a>
+		                            <a href="javascript:void(0);" class="ui-page-item ui-page-next"        onclick="page(1)" >下一页</a>
+		                            <a href="javascript:void(0);" class="ui-page-item ui-page-last"        id="last" >尾页<input type="hidden" id="lastInput"/></a>
+	                            </div><div class="ui-page-go"><h4>转到</h4><input name="page" id="page" type="text" value="" class="input-page "  /><a href="javascript:turnTo();" class="ui-button ui-button-go">Go</a></div> 
+									</span>
+	                                <span class="ui-page-item ui-page-item-set"><h4>每页</h4>
+	                                <select name="selectlimitnum" id="selectlimitnum" class="select-page" >
+	                                  <!--  <option value="5">5</option> -->
+	                                   <option value="10">10</option>
+	                                   <option value="20">20</option>
+	                                   <option value="30">30</option>
+	                                   <option value="40">40</option>
+	                                   <option value="50">50</option>
+	                                </select></span>
+                            <span id="pageSpan" class="ui-page-item ui-page-item-info">共0条记录，共1/1页，第1页</span>
+                      	</div> 
+                     </div>
+<script id="backloglistpage-template" type="text/x-handlebars-template">
+ {{#each  list}}
+	 	<tr>
+		  <td class="fn-text-center" title="{{DEPT_ID}}">{{DEPT_ID}}</td>
+		  <td class="fn-text-center" title="{{DEPT_NAME}}">{{DEPT_NAME}}</td>
+		  <td class="fn-text-center" title='{{CREATE_TIME}}'>{{CREATE_TIME}}</td>
+		  <td class="fn-text-center">{{f}}</td>
+		  <td class="fn-text-center">{{j}}</td>
+		 </tr>
+{{/each}}
+</script>
+<script src="/theme/portals/js/yw_paging2.js"></script>
+<script src="/theme/portals/js/system/deptCount.js"></script>

@@ -1,0 +1,153 @@
+
+<link rel="stylesheet" type="text/css" href="theme/portals/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="theme/portals/css/base.css" />
+<link rel="stylesheet" type="text/css" href="theme/portals/css/channel_style.css" />
+<link rel="stylesheet" type="text/css" href="theme/portals/css/exchange_style.css" />
+<link rel="stylesheet" type="text/css" href="theme/portals/css/catalog_style.css" />
+
+<script type="text/javascript" src="theme/portals/js/jquery-1.11.2.min.js"></script>
+<style>
+#list-tab {
+	padding-right: 10px; auto;
+	overflow: hidden;
+}
+
+#grid td {
+	height: 20px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+	-webkit-text-overflow: ellipsis;
+}
+
+#grid td a {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+}
+
+#girdThead td {
+	white-space: nowrap;
+}
+
+body {
+	background: none;
+}
+</style>
+<!--表单验证样式-->
+ <link rel="stylesheet" href="/theme/js/jsnew/validator-0.7.3/jquery.validator.css"/>
+ <script src="/theme/js/jsnew/formValidator-4.0.1.min.js"></script>
+ <script src="/theme/js/jsnew/formValidatorRegex.js"></script>
+ 	<script type="text/javascript" src="theme/portals/js/lhgdialog/lhgdialog.js"></script>
+ 
+<script th:inline="javascript">
+/*<![CDATA[*/
+	var api = frameElement.api, W = api.opener;	
+
+$(function(){
+				$("#back").click( 
+						function () { 
+							  flag='Y';
+								 $("#"+menusId).click();
+				});
+				
+				
+				$.formValidator.initConfig({submitButtonID:"next",debug:false,submitOnce:true,
+			        onSuccess: function() {
+			      	  $.post("user-save.json",$("#userForm").serialize(),function(data){
+									W.flag='Y';
+									W.$("#a87f0f018ef04c4e872f2a4dd064f34f_").click();
+									api.close();
+						}); 
+			           }
+				});
+				 $("#phoneNum").formValidator({empty:false,onShow:"",onFocus:"",onEmpty:"",onCorrect:""})
+	          		.inputValidator({min:11,max:11,onError:"请输入11位合法手机号码"})
+	          		.regexValidator({regExp:"mobile",dataType:"enum",onError:"请输入11位合法手机号码"});
+				 $("#email").formValidator({empty:true,onShow:"",onFocus:"",onEmpty:"",onCorrect:""})
+	          		.regexValidator({regExp:"email",dataType:"enum",onError:"请输入正确的邮箱地址"}); 
+				
+				var checked = /*[[${dto.state}]]*/;
+				if(checked==null){
+					$("input[type='radio'][value='1']").attr('checked','checked');
+				}
+});
+/*]]>*/
+</script>
+<div class="operatewrap" style="margin-left: 0px; margin: 10;min-height: 230px;" id="test">
+	<!-- 
+	<h4 class="operatepannel-title">
+		<font>用户管理 - 查看页面</font>
+	</h4>
+	 -->
+	<!--通用的列表-->
+	<div class="ui-list fn-clear">
+		<!--搜索面板开始-->
+		<div class="search-list">
+			<!--<h4 >查询条件</h4>-->
+			<form modelAttribute="dto" th:object="${dto}" class="form-horizontal" id="userForm">
+				<input type="hidden" th:value="${dto.id}" th:field="*{id}" /> 
+					
+				<div id="form-wizard-1" class="step">
+					<table class="search-tab">
+						<colgroup>
+							<!--注意用colgrounp标签组定义表格的每列宽度不可删除-->
+							<col></col>
+							<col></col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<th width="15%"><label class="control-label">登录名</label></th>
+								<td width="83%"><input type="text" name="loginName" th:value="${dto.loginName}"  readonly="readonly"
+									th:field="*{loginName}" /></td>
+							</tr>
+							<tr>
+								<th><label class="control-label">用户名</label></th>
+								<td><input id="username" type="text" name="userName" th:value="${dto.userName}" readonly="readonly"
+									th:field="*{userName}" /></td>
+							</tr>
+							<tr>
+								<th><label class="control-label">邮箱</label></th>
+								<td><input id="email" type="text" name="email" th:value="${dto.email}"
+									th:field="*{email}" />
+									
+								<div id="emailTip" class="onShow"></div>
+									</td>
+							</tr>
+							<tr>
+								<th><label class="control-label">电话</label></th>
+								<td><input id="phoneNum" type="text" name="phoneNum" th:value="${dto.phoneNum}"
+									th:field="*{phoneNum}" />
+									
+									<div id="phoneNumTip" class="onShow"></div>
+									</td>
+							</tr>
+							<tr>
+								<th><label class="control-label">机构名称</label></th>
+								<td width="83%"><select style="height: 25px;width: 40%;" th:field="*{deptId}"> 
+										<option th:each="parentDept : ${allDepts}" th:value="${parentDept.deptId}" readonly="readonly"
+											th:text="${parentDept.deptName}">Wireframe</option>
+								</select></td>
+							</tr>
+							<tr>
+								<th><label class="control-label">用户状态</label></th>
+								<td><label> <!-- th:field="*{state}"  --> <input type="radio" name="state"
+										th:field="*{state}" value="1" readonly="readonly"/> 启用
+								</label> <label> <input type="radio" name="state" th:field="*{state}" value="0" readonly="readonly"/> 禁用
+								</label></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</form>
+			<div class="form-actions" style="text-align: center;">
+						<a href="#"><input class="btn btn-normal"  id="next"  type="button" value="保存" /></a>	
+					</div>
+		</div>
+
+	</div>
+</div>

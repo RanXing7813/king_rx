@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+	<div th:fragment="header">
+			<input type="hidden" th:value="${menuinit}" id="menuinit" />
+		
+		<input type="hidden" th:value="${session.LogindeptId}" id="LogindeptId" />
+		<input type="hidden" th:value="${session.LogindeptName}" id="LogindeptName" />
+		<inpit type="hidden" value="0" id="loginstatus"/>
+		<div class="container-channel">
+			<div class="channelwrap">
+			<div class="header clearfix ">
+			<span style="font-size:22px;color:white;font-weight:bold;font-family:inherit;">&nbsp;肇庆市信息资源共享平台</span>
+					<ul class="topnav" id="loginuserli">
+						<li><a href="javascript:login_new();" class="topnav-login">登录</a></li>
+					</ul>
+				</div>
+				<div class="mainnav  clearfix">
+					<div class="mainnavbox" id="div_menu" >
+						<!--  <ul>
+							<li><a href="nodeMonitorIndex"   class="mainnav01" id="mainnav01">节点监控</a></li>
+							<li><a href="systemIndex" 		 class="mainnav02" id="mainnav02">系统管理</a></li>
+							<li><a href="modelSystemIndex"   class="mainnav03" id="mainnav03">模板管理</a></li>
+						</ul> -->
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<script th:inline="javascript" >
+			/*<![CDATA[*/
+				var link1 = /*[[@{/getMainMenu.json}]]*/ 
+			/*]]>*/
+		</script>
+		<script type="text/javascript" src="/theme/portals/js/login.js"  		th:src="@{/theme/portals/js/login.js}"></script>
+		<script type="text/javascript" src="/theme/portals/layouts/headers.js"  th:src="@{/theme/portals/layouts/headers.js}"></script>
+	
+	</div>
+</body>
+</html>

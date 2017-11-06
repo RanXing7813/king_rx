@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<title>广东省政府信息资源共享平台</title>
+
+<link rel="stylesheet" type="text/css" href="/theme/portals/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="/theme/portals/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/theme/portals/css/channel_style.css" />
+<link rel="stylesheet" type="text/css" href="/theme/portals/css/exchange_style.css" />
+<link rel="stylesheet" type="text/css" href="/theme/portals/css/catalog_style.css" />
+
+<script type="text/javascript" src="/theme/portals/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/theme/portals/js/jquery.min.js"></script>
+<script type="text/javascript" src="/theme/portals/js/lhgdialog/lhgdialog.js"></script>
+<script type="text/javascript" src="/theme/portals/js/handlebars-1.0.0.beta.6.js"></script>
+<script type="text/javascript" src="/theme/portals/js/lhgdialog/prettify.js"></script>
+<script type="text/javascript" src="/theme/portals/js/lhgdialog/demo.js"></script>
+<!--begin 让左侧菜单栏不换行显示  -->
+<link href="/theme/portals/js/zTree/css/demo.css" type="text/css" />
+<link rel="stylesheet" href="/theme/portals/js/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" />
+<script src="/theme/portals/js/zTree/js/jquery.ztree.core-3.5.js"></script>
+<script src="/theme/portals/js/zTree/js/jquery.ztree.excheck-3.5.js"></script>
+<script src="/theme/portals/js/system/dept-users.js"></script>
+
+<style>
+#sidebar li a {
+	white-space: nowrap;
+}
+
+#sidebar #main-nav li a.nav-top-item span {
+	float: none;
+}
+</style>
+<!--end  -->
+</head>
+<body>
+	<input type="hidden" name="deptId" id="deptId" th:value="${deptId}" />
+	<input type="hidden" name="deptName" id="deptName" th:value="${deptName}" />
+	<div>
+		<div>
+			<div id="bodys">
+				<div class="contentwrap clearfix" style="background-image: url('');min-height: 483px;">
+					<div class="content-main" style="width: 800px;">
+						<div class="content-rightwrap" style="min-height: 460px;">
+							<div class="operatewrap" style="min-height: 460px;">
+								<div class="leftnav-title clearfix" style="width: 500px;">
+									<img src="/theme/portals/images/icon_title_directory.png" /><font>用户详细信息</font>
+									<em>(点击左边用户名称在此显示用户相关信息)</em>
+								</div>
+								<!-- <h4 class="operatepannel-title"><font id="titleId">用户信息</font>
+                            <em>点击左边用户名称在此显示用户相关信息</em>
+                         </h4>
+                    -->
+
+								<table class="search-tab" style="width: 600px;">
+									<colgroup>
+										<!--注意用colgrounp标签组定义表格的每列宽度不可删除-->
+										<col width="140"></col>
+										<col></col>
+									</colgroup>
+									<tbody>
+										<tr>
+											<th style="width: 25%">登录名称</th>
+											<td style="width: 65%"><input id="login_name" type="text" name="login_name" /></td>
+										</tr>
+										<tr>
+											<th>邮件</th>
+											<td><input id="email" type="text" name="email" /></td>
+										</tr>
+										<tr>
+											<th>电话</th>
+											<td><input id="phone_num" type="text" name="phone_num" /></td>
+										</tr>
+										<tr>
+											<th>备注</th>
+											<td><input id="remark" type="text" name="remark" /></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!--   class="content-leftwrap" -->
+						<!--合并测试 cs2-->
+						<div style="overflow: scroll; height: 100%; position: absolute;">
+							<div class="leftnav-title clearfix">
+								<img src="/theme/portals/images/icon_title_directory.png" /><font>用户列表</font>
+							</div>
+							<!--sidebar-->
+							<div class="clearfix" id="sidebar">
+								<div id="sidebar-wrapper">
+									<div>
+										<ul id="treeDemo" class="ztree"></ul>
+									</div>
+								</div>
+							</div>
+							<!--end sidebar-->
+						</div>
+					</div>
+				</div>
+				<!--end contentwrap-->
+				<!--footer-->
+				<!-- 左侧菜单  位置不能更改 -->
+				<script type="text/javascript" SRC="/theme/portals/js/simpla.jquery.configuration.js"></script>
+				<script type="text/javascript" SRC="/theme/portals/js/tplbase.js"></script>
+
+
+			</div>
+		</div>
+		<!--footer-->
+	</div>
+</body>
+</html>

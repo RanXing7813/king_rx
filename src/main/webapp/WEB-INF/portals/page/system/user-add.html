@@ -1,0 +1,201 @@
+<!--表单验证样式-->
+ <link rel="stylesheet" href="/theme/js/jsnew/validator-0.7.3/jquery.validator.css"/>
+ <script src="/theme/js/jsnew/formValidator-4.0.1.min.js"></script>
+ <script src="/theme/js/jsnew/formValidatorRegex.js"></script>
+ 
+<script th:inline="javascript">
+/*<![CDATA[*/
+var dto_ = /*[[${dto}]]*/;
+
+$("#password").val(dto_.password);
+$("#password2").val(dto_.password);
+var flag = false;
+var password_ = dto_.password;
+if(dto_.password!=null && dto_.password.length > 16){
+	flag=true;
+}
+$("#password,#password2").change(function(){
+	flag = false;
+	  $("#password").formValidator({onShow:"",onFocus:"",onCorrect:""})
+      .inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"请输入以字母开头,由数字、26个英文字母或者下划线组成的字符串,长度6-15位"})
+      .regexValidator({regExp:"loginName",dataType:"enum",onError:"请输入以字母开头,由数字、26个英文字母或者下划线组成的字符串,长度6-15位"});
+
+    $("#password2").formValidator({onShow:"",onFocus:"",onCorrect:"密码一致"})
+      .inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"重复密码两边不能有空符号"},onError:"重复密码不能为空,请确认"})
+      .compareValidator({desID:"password",operateor:"=",onError:"2次密码不一致,请确认"});
+});
+$(function(){
+				$("#back").click( 
+						function () { 
+							  flag='Y';
+								 $("#"+menusId).click();
+				});
+				
+				
+				$.formValidator.initConfig({submitButtonID:"next",debug:false,submitOnce:true,
+			        onSuccess: function() {
+			        	   if(flag){
+			        		   $("#password").val(dto_.password);
+			        		   $("#password2").val(dto_.password);
+			        	   }
+			      	  $.post("user-save.json",$("#userForm").serialize(),function(data){
+									flag='Y';
+									 $("#"+menusId).click();
+						}); 
+			           }
+				});
+				 $("#phoneNum").formValidator({empty:false,onShow:"",onFocus:"",onEmpty:"",onCorrect:""})
+	          		.inputValidator({min:11,max:11,onError:"请输入11位合法手机号码"})
+	          		.regexValidator({regExp:"mobile",dataType:"enum",onError:"请输入11位合法手机号码"});
+				 $("#email").formValidator({empty:false,onShow:"",onFocus:"",onEmpty:"",onCorrect:""})
+	          		.regexValidator({regExp:"email",dataType:"enum",onError:"请输入正确的邮箱地址"}); 
+				 //				                .inputValidator({min:6,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"不能为空,请确认"})
+
+				 
+				 if(dto_.id==null){
+					 $("#loginName").formValidator({onShow:"",onFocus:"",onCorrect:""})
+		                .regexValidator({regExp:"loginName",dataType:"enum",onError:"请输入以字母开头,由数字、26个英文字母或者下划线组成的字符串,长度6-15位"})
+		                .ajaxValidator({
+		                    url : "user-nameStatus",
+		                    type : "post",
+		                    dataType : "json",
+		                    //async : true,
+		                    success : function(data){
+		                        if(  "0" == data ){
+		                          return true;
+		                        }else{
+		                          return false;
+		                        } 
+		                        return false;
+		                    },
+		                    buttons: $("#button"),
+		                    error: function(jqXHR, textStatus, errorThrown){alert("服务器没有返回数据，可能服务器忙，请重试"+errorThrown);},
+		                    onError : "此用户名已被注册，请更换用户名",
+		                //    onWait : "正在对用户名进行合法性校验，请稍候..."
+		                });
+				 }else{
+					 $("#loginName").attr("readonly","readonly");//readonly="readonly"
+				 }
+				  
+				                
+				  $("#userName").formValidator({onShow:"",onFocus:"请输入中文,至少2个长度",onCorrect:""})
+	              			    .inputValidator({min:2,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"请输入中文,至少2个长度,请确认"})
+				                .regexValidator({regExp:"username",dataType:"enum",onError:"请输入中文,长度2-10位"})
+
+				    if(!flag){
+				    	  $("#password").formValidator({onShow:"",onFocus:"",onCorrect:""})
+			                .inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"请输入以字母开头,由数字、26个英文字母或者下划线组成的字符串,长度6-15位"})
+			                .regexValidator({regExp:"loginName",dataType:"enum",onError:"请输入以字母开头,由数字、26个英文字母或者下划线组成的字符串,长度6-15位"});
+
+			              $("#password2").formValidator({onShow:"",onFocus:"",onCorrect:"密码一致"})
+			                .inputValidator({min:1,empty:{leftEmpty:false,rightEmpty:false,emptyError:"重复密码两边不能有空符号"},onError:"重复密码不能为空,请确认"})
+			                .compareValidator({desID:"password",operateor:"=",onError:"2次密码不一致,请确认"});
+				    }
+				  
+				var checked = /*[[${dto.state}]]*/;
+				if(checked==null){
+					$("input[type='radio'][value='1']").attr('checked','checked');
+				}
+});
+
+	function dept(){
+		$.dialog({
+			title : "部门",
+			width : 600,
+			height : 500,
+			lock: true,
+		    max:false,
+		    min:false,
+		    resize:false,
+			content : "url:deptjsf?id="+$("#id").val()
+		});
+	}
+/*]]>*/
+</script>
+<div class="operatewrap" >
+							<h4 class="operatepannel-title" ><font th:if="${dto.id!=null}">用户管理  - 编辑页面</font>
+                        								  <font th:if="${dto.id==null}">用户管理  - 新增页面</font>
+                         </h4>
+	<!--通用的列表-->
+	<div class="ui-list fn-clear">
+		<!--搜索面板开始-->
+		<div class="search-list">
+			<!--<h4 >查询条件</h4>-->
+			<form modelAttribute="dto" th:object="${dto}" class="form-horizontal" id="userForm">
+				<input type="hidden" id="id" th:value="${dto.id}" th:field="*{id}" /> 
+				<div id="form-wizard-1" class="step">
+					<table class="search-tab">
+						<colgroup>
+							<!--注意用colgrounp标签组定义表格的每列宽度不可删除-->
+							<col></col>
+							<col></col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<th width="15%"><label class="control-label">登录名</label></th>
+								<td width="83%"><input type="text"  th:value="${dto.loginName}"  
+									th:field="*{loginName}" />
+									<div id="loginNameTip" class="onShow"></div></td>
+							</tr>
+							<tr>
+								<th><label class="control-label">用户名</label></th>
+								<td><input  type="text" name="userName" th:value="${dto.userName}" 
+									th:field="*{userName}" />
+									<div id="userNameTip" class="onShow"></div></td>
+							</tr>
+							<tr>
+								<th><label class="control-label">密码</label></th>
+								<td><input  type="password" name="password" th:value="${dto.password}" 
+									th:field="*{password}" />
+									<div id="passwordTip" class="onShow"></div></td>
+							</tr>
+							<tr>
+								<th><label class="control-label">重复密码</label></th>
+								<td><input type="password" id="password2" />
+								<div id="password2Tip" class="onShow"></div></td>
+							</tr>
+							<tr>
+								<th><label class="control-label">邮箱</label></th>
+								<td><input type="text" name="email" th:value="${dto.email}"
+									th:field="*{email}" />
+									
+									<div id="emailTip" class="onShow"></div>
+									</td>
+							</tr>
+							<tr>
+								<th><label class="control-label">电话</label></th>
+								<td><input id="phoneNum" type="text" name="phoneNum" th:value="${dto.phoneNum}"
+									th:field="*{phoneNum}" />
+									
+									<div id="phoneNumTip" class="onShow"></div>
+									</td>
+							</tr>
+							<tr>
+								<th><label class="control-label">机构名称</label></th>
+								<td><!-- <select th:field="*{deptId}" style="height: 25px;width: 40%;"> 
+										<option th:each="parentDept : ${allDepts}" th:value="${parentDept.deptId}" 
+											th:text="${parentDept.deptName}">Wireframe</option>
+									</select> -->
+									<input type="hidden" id="deptSourcej" th:field="*{deptId}" th:value="${deptId}"/>
+										<input type="text" id="jsf" th:value="${deptName}"  onclick="dept();" style="width: 255px;" readonly="readonly"/>
+								</td>
+							</tr>
+							<tr>
+								<th><label class="control-label">用户状态</label></th>
+								<td><label> <!-- th:field="*{state}"  --> <input type="radio" name="state"
+										th:field="*{state}" value="1" readonly="readonly"/> 启用
+								</label> <label> <input type="radio" name="state" th:field="*{state}" value="0" /> 禁用
+								</label></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</form>
+			<div class="form-actions" style="text-align: center;">
+						<a href="#"><input class="btn btn-normal"  id="next"  type="button" value="保存" /></a>	
+						<a href="#"><input class="btn btn-normal"  id="back"  type="button" value="返回" /></a>
+					</div>
+		</div>
+
+	</div>
+</div>

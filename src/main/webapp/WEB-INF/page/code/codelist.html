@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/> 
+<title>肇庆市信息资源共享平台</title>
+	<link rel="stylesheet" type="text/css" href="theme/portals/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="theme/portals/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="/theme/portals/css/channel_style.css" />
+	<link rel="stylesheet" type="text/css" href="theme/portals/css/exchange_style.css" />
+	<link rel="stylesheet" type="text/css" href="theme/portals/css/catalog_style.css" />
+
+	<script type="text/javascript" src="theme/portals/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="theme/portals/js/lhgdialog/lhgdialog.js"></script>
+	<script type="text/javascript" src="theme/portals/js/handlebars-1.0.0.beta.6.js"></script>
+	<script type="text/javascript" src="theme/portals/js/lhgdialog/prettify.js"></script>
+	<script type="text/javascript" src="theme/portals/js/lhgdialog/demo.js"></script>
+	<script type="text/javascript" src="theme/portals/js/tplbase.js"></script>
+	<script type="text/javascript" src="/theme/portals/js/model/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="/theme/portals/js/model/overalert.js"></script>
+	<style type="text/css">
+		#grid td a{ width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; display:inline-block;}
+		#grid td:nth-child(1) a {color: blue; } 
+		#grid td:nth-child(4) a {color: white;background: #1370cf;padding: 1px; width: 65px;height: 25px;line-height: 23px;}
+	</style>
+<!--end  -->
+</head>
+<body style="background:white;">
+			               <div class="content-rightwrap" id="tablelist" style="  padding-bottom:0px;  margin-bottom:0px; ">
+			                   <div style="margin-left: 0px ">
+										<h4 class="operatepannel-title">
+											<font id="titleId">字典设置列表</font>
+										</h4>
+										 <div class="search-list fn-clear">
+						                       <!--<h4 >查询条件</h4>-->
+						   			<!-- 	<form >
+						                     <table class="search-tab searchcount" id="search_sws">
+										      <tbody>
+										          <tr>
+										             <th>部门简称</th>
+										             <td><input type="text" id="DEPT_NAME" class="input-normal input-wdl"/>
+										             </td>
+										             <th>部门全称</th>
+										             <td><input type="text" id="DEPT_FULLNAME"  class="input-normal input-wdl"/></td>
+										          </tr>
+										       </tbody>
+										    </table>
+										   <div class="search-btn fn-clear">
+										         <input type="button"  class="btn btn-normal"  value="查询" id="searchButtons"/>
+										         <input type="reset"  class="btn btn-reset"   value="重置" />
+										   </div>
+										</form>  -->  
+										 <div class="search-btn fn-clear">
+										         <input type="button"  class="btn btn-normal"  value="新增" id="new" style="float:right;"/>
+										   </div>
+						                 </div>
+						              
+						                 <div id="tabscont0" class="">
+						                     <div class="list-normaltop">
+						                     <div class="listmain">
+						                         <table class="list-tab">
+						                            <colgroup>
+						                               <!-- <col width="100"></col> -->
+						                               <col width="120"></col>
+						                               <col width="120"></col>
+						                                <col width="80"></col>
+						                                <col width="80"></col>
+						                            </colgroup>
+						                            <thead>
+						                             <tr>
+						                                <!--  <td>部门ID</td> -->
+						                                 <td>下拉列表名称</td>
+						                                 <td>写入数据库值</td>
+						                                 <td>排序编号</td>
+						                                  <td>选择</td>
+						                             </tr>
+						                           </thead>
+						                           <tbody class="discolor" id="grid">
+						                           </tbody>
+						                         </table>
+						                     </div>
+						                   </div>  
+						                   <!--列表分页-->
+						                    <div class="ui-page">
+						                        <span class=" ui-item-link">
+							                        <div><a href="javascript:void(0);" class="ui-page-item ui-page-item-first " id="frist" >首页
+							                        </a>
+							                        <a href="javascript:void(0);" class="ui-page-item ui-page-item-prev" onclick="page(-1)" >上一页</a>
+							                        <a href="javascript:void(0);" class="ui-page-item ui-page-next" onclick="page(1)" >下一页</a>
+							                        <a href="javascript:void(0);" class="ui-page-item ui-page-last"  id="last" >尾页<input type="hidden" id="lastInput"/></a></div> 
+							                        <div class="ui-page-go"><h4>转到</h4><input name="page" id="page" type="text" value="" class="input-page "  /><a href="javascript:turnTo();" class="ui-button ui-button-go">Go</a></div> 
+												</span>
+						                            <span class="ui-page-item ui-page-item-set"><h4>每页</h4>
+						                            <select name="selectlimitnum" id="selectlimitnum" class="select-page" >
+						                               <option value="10">10</option>
+						                               <option value="20">20</option>
+						                               <option value="30">30</option>
+						                               <option value="40">40</option>
+						                               <option value="50">50</option>
+						                            </select> </span>
+						                            <span id="pageSpan" class="ui-page-item ui-page-item-info">共0条记录，共1/1页，第1页</span>
+						                  		 </div> <!--end 列表分页 -->
+						                 </div>
+									</div> 
+						</div>
+						<script th:inline="javascript">
+/*<![CDATA[*/
+	var tableName = /*[[${tableName}]]*/;
+/*]]>*/
+</script>
+						<script type="text/javascript" src="/theme/portals/js/model/codelist.js"></script>
+						<script type="text/javascript" src="/theme/portals/js/mh_page.js"></script>
+						
+						
+</body>
+</html>

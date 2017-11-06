@@ -123,7 +123,7 @@
 					        $('#dg').datagrid('loading');
 				      },//beforeSend
 				      	 success: function(data) {
-						      		if(data){
+						      		if(data==1){
 						      			 $('#dg').datagrid('loaded');
 				      					 $('#dg').datagrid('load');
 				      					 $('#dg').datagrid('unselectAll');
@@ -132,17 +132,58 @@
 				      						   msg: data+'条数据被新增',
 				      						 timeout: 2000,
 				      					 });
-
+						      		}else if(data==0){
+						      			 $('#dg').datagrid('loaded');
+				      					 $('#dg').datagrid('load');
+				      					 $('#dg').datagrid('unselectAll');
+				      			         $.messager.alert('提示！', '数据新增失败！', 'warning');
 						      		} 
 				      	 },//success
+				      	error: function(e) { 
+				      			 $('#dg').datagrid('loaded');
+		      					 $('#dg').datagrid('load');
+		      					 $('#dg').datagrid('unselectAll');
+		      			         $.messager.alert('提示！', '数据新增失败！', 'warning');
+				      	}, //error
 					 });//$.ajax
 					}
 					
 					if(updated.length>0){
-						
+						$.ajax({
+							type: "POST",
+						     url: linkNewData,
+						    data: {
+						    	models: JSON.stringify(updated[0])
+						    	
+						    },
+				      beforeSend: function(){
+					        $('#dg').datagrid('loading');
+				      },//beforeSend
+				      	 success: function(data) {
+						      		if(data){
+						      			 $('#dg').datagrid('loaded');
+				      					 $('#dg').datagrid('load');
+				      					 $('#dg').datagrid('unselectAll');
+				      					 $.messager.show({
+				      						 title: '提示',
+				      						   msg: data+'条数据被修改',
+				      						 timeout: 2000,
+				      					 });
+						      		} else if(data==0){
+						      			 $('#dg').datagrid('loaded');
+				      					 $('#dg').datagrid('load');
+				      					 $('#dg').datagrid('unselectAll');
+				      			         $.messager.alert('提示！', '数据编辑失败！', 'warning');
+						      		} 
+				      	 },//success
+				      	error: function(e) { 
+			      			 $('#dg').datagrid('loaded');
+	      					 $('#dg').datagrid('load');
+	      					 $('#dg').datagrid('unselectAll');
+	      			         $.messager.alert('提示！', '数据修改保持失败！', 'warning');
+			      	}, //error
+					 });//$.ajax
 					}
-					
-					
 				    obj.editRow = undefined;//完成后赋值
 			    },
 				//双击进入编辑状态

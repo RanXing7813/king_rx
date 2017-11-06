@@ -165,12 +165,12 @@ public class IndexController extends BaseAction{
 			
 		try {
 			out = response.getWriter();
-			 monitorService.save(dto,userDto);
-			out .print("");
+			int x = monitorService.save(dto,userDto);
+			out .print(x);
 			//out .print("{\"data\":\""+data+"\"}");
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			
+			out .print(0);
 		}finally{
 			if(out!=null){
 				out.close();

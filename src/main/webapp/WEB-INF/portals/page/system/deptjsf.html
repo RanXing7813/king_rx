@@ -1,0 +1,110 @@
+<link  href="/theme/portals/js/zTree/css/demo.css" type="text/css" />
+<link rel="stylesheet" href="/theme/portals/js/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" />
+<script  src="/theme/portals/js/zTree/js/jquery-1.4.4.min.js"></script>
+<script  src="/theme/portals/js/zTree/js/jquery.ztree.core-3.5.js"></script>
+<script  src="/theme/portals/js/zTree/js/jquery.ztree.excheck-3.5.js"></script>
+<script  src="/theme/portals/js/overalert.js"></script>
+<script th:inline="javascript" >
+/*<![CDATA[*/
+var api = frameElement.api, W = api.opener;	
+var deptId="";
+var deptName="";
+var id=/*[[${id}]]*/
+$(document).ready(function(){
+		go();// 获取菜单list 
+});        
+//list数据 
+function go(page){
+  $.ajax({
+         url : "allDept.json",
+         dataType: "json", 
+         data:{
+       	  		id:id
+         },
+         type:"POST",
+         success: function(result) { if(result==null)   return;
+				var setting = {
+					check: {
+						enable: true
+					},
+					data: {
+						simpleData: {
+							enable: true,
+							idKey: "ID",
+							pIdKey: "PID",
+						},
+						key: {
+							name: "NAME"
+						}
+					},
+					callback: {
+						onCheck: onCheck
+					}
+				};
+				//console.log(result);
+				var zNodes =result.dept;
+				var clearFlag = false;
+				function onCheck(e, treeId, treeNode) {
+					count();
+					if (clearFlag) {
+						clearCheckedOldNodes();
+					}
+				}
+				function clearCheckedOldNodes() {
+					var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+					nodes = zTree.getChangeCheckedNodes();
+					for (var i=0, l=nodes.length; i<l; i++) {
+						nodes[i].checkedOld = nodes[i].checked;
+					}
+				}
+				
+				function count() {
+					var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+					checkCount = zTree.getCheckedNodes(true).length;
+					var html="";
+					deptId="";
+					deptName="";
+					for(var i=1;i<checkCount;i++){
+						var name=zTree.getCheckedNodes(true)[i].NAME;
+						deptName +=name+",";
+						deptId +=zTree.getCheckedNodes(true)[i].ID+",";
+						html +="<tr><td><div>"+name+"</div></td></tr>";
+					}
+					$("#gird").html(html);
+				}
+				$(document).ready(function(){
+					$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+					 var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+					 treeObj.expandAll(true);//展开所有节点
+				});
+         }
+       });
+}
+
+// 得到父页面 属性 
+
+api.button({
+	 name: '确定',
+     callback: auth,
+     focus: true
+},
+{
+    name: '取消',
+}); 
+//callback方法 
+ function auth(){
+	W.$("#deptSourcej").val(deptId);
+	W.$("#jsf").val(deptName);
+ }
+/*]]>*/
+</script>
+<div class="content_wrap">
+	<div class="zTreeDemoBackground left" style="padding-left:20px;float:left;width:35%;height:450px;;overflow-y:auto;">
+		<ul id="treeDemo" class="ztree" ></ul>
+	</div>
+	<div style="float:left;padding-left:10%;width:50%;">
+		<em >选择的接收方:</em>
+		<table id="gird">
+		</table>
+	</div>
+</div>

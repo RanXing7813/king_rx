@@ -1,0 +1,131 @@
+<!--表单验证样式-->
+<link rel="stylesheet" href="/theme/js/jsnew/validator-0.7.3/jquery.validator.css"/>
+<script src="/theme/js/jsnew/formValidator-4.0.1.min.js"></script>
+<script src="/theme/js/jsnew/formValidatorRegex.js"></script>
+<div class="operatewrap">
+                         <h4 class="operatepannel-title" ><!-- <font id="titleId">数据建设</font> -->
+                        								  <font th:if="${dto.id!=null}">场景管理  - 编辑页面</font>
+                        								  <font th:if="${dto.id==null}">场景管理  - 新增页面</font>
+                         </h4>
+                          <!--通用的列表-->
+                         <div class="ui-list fn-clear">
+                         <!--搜索面板开始-->
+                         <div class="search-list">
+                             <!--<h4 >查询条件</h4>-->
+				<form modelAttribute="dto" th:object="${dto}" id="deptForm" class="form-horizontal">
+ 					<input type="hidden" th:value="	${dto.id}" 	th:field="*{id}" />
+ 					<input type="hidden" th:value="	${dto.time}" 	th:field="*{time}" />
+ 					<input type="hidden" th:value="	${dto.cjIndex}" 	th:field="*{cjIndex}" />
+ 					<input type="hidden" th:value="	${dto.ismulti}" 	th:field="*{ismulti}" />
+ 					<input type="hidden" th:value="	${dto.deptCount}" 	th:field="*{deptCount}" />
+ 					<input type="hidden" th:value="	${dto.xxlCount}" 	th:field="*{xxlCount}" />
+ 					<input type="hidden" th:value="	${dto.dataCount}" 	th:field="*{dataCount}" />
+ 					<input type="hidden" name="showFlag" value="1"/>
+ 					 <table class="search-tab">
+                                 <colgroup>
+                                 <col width="140"></col>
+                                 <col></col>
+                                 <col></col>
+                                 </colgroup> 
+                                <tbody >
+                                <tr>
+        						   <th ><label class="control-label">场景标识</label></th>
+                                      <td  width="30%">
+										<div class="control-group">
+											<input type="text" id="cjCode" th:value="${dto.cjCode}" th:field="*{cjCode}"/>
+										</div>
+									  <div id="cjCodeTip" class="put_sty"></div>
+									  </td>
+								</tr>
+                                <tr>
+        						   <th ><label class="control-label">场景名称</label></th>
+                                      <td width="30%">
+										<div class="control-group">
+											<input type="text" id="cjName" th:value="${dto.cjNname}" th:field="*{cjNname}" />
+										</div>
+									  <div id="cjNameTip" class="put_sty"></div>
+									  </td>
+								</tr>
+								<tr>
+        						   <th ><label class="control-label">场景注释</label></th>
+                                      <td width="30%">
+										<div class="control-group">
+											 <textarea id="contents" style="margin: 0px; width: 750px; height: 200px;" maxlength="400" th:value="${dto.contents}" th:field="*{contents}"></textarea>
+										</div>
+									  <div id="contentsTip" class="put_sty"></div>
+									  </td>
+								</tr>
+								</tbody>
+							</table>
+					<div class="form-actions" style="text-align: center;">
+						<a href="#"><input class="btn btn-normal"  id="next"  type="button" value="保存" /></a>	
+							<input id="back" class="btn btn-normal" type="button" value="返 回" /> 					
+					</div>
+					<div id="submitted"></div>
+				</form>
+		</div>
+		</div>
+	</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	var cjCode=$("#cjCode").val();
+	var cjName=$("#cjName").val();
+	$(function() {
+		$("#back").click( function(){
+			  flag='Y';
+			 $("#"+menusId).click();
+		});
+		
+		$("#cjCode").blur(function(){
+		if(cjCode !=$("#cjCode").val()){
+			$.ajax({
+				url:"yzCjCode.json",
+				dataType:"json",
+				type:"POST",
+				data:{
+					models:$("#cjCode").val().trim()
+				},
+				success:function(result){
+					if(result.code.state != 0){
+						$("#cjCodeTip").addClass("onError");
+						$("#cjCodeTip").text("场景标识不是唯一");
+						$("#cjCodeTip").attr("style","display:block;");
+					}
+				}
+			})
+		}
+		})
+		$("#cjName").blur(function(){
+			if(cjName != $("#cjName").val()){
+				$.ajax({
+					url:"yzCjName.json",
+					dataType:"json",
+					type:"POST",
+					data:{
+						models:$("#cjName").val().trim()
+					},
+					success:function(result){
+						if(result.name.state != 0){
+							$("#cjNameTip").addClass("onError");
+							$("#cjNameTip").text("场景名称不是唯一");
+							$("#cjNameTip").attr("style","display:block;");
+						}
+					}
+				})
+			}
+		})
+		
+		$.formValidator.initConfig({submitButtonID:"next",debug:false,submitOnce:true,
+	        onSuccess: function() {
+	      	 $.post("cjSave.json",$("#deptForm").serialize(),function(data){
+	      		  flag='Y';
+					 $("#"+menusId).click();
+							}); 
+	           }
+		});
+		$("#cjCode").formValidator({empty:false,onShow:"",onFocus:"",onCorrect:"",onEmpty:""}).inputValidator({min:2,max:100,regExp: "notempty_",onError:"场景标识长度为2至40个字符"});
+		$("#cjName").formValidator({empty:false,onShow:"",onFocus:"",onCorrect:"",onEmpty:""}).inputValidator({min:2,max:100,regExp: "notempty_",onError:"场景名称长度为2至40个字符"});
+		$("#contents").formValidator({empty:false,onShow:"",onFocus:"",onCorrect:"",onEmpty:""}).inputValidator({min:2,max:400,regExp: "notempty_",onError:"场景注释长度为2至40个字符"});
+	});
+	/*]]>*/
+</script>

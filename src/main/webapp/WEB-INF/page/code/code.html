@@ -1,0 +1,86 @@
+<style>
+  .appends{
+  margin:5;
+  padding:5;
+  border:none;
+  background:transparent;
+  float:left;
+  }
+</style>
+                         <h4 class="operatepannel-title" ><font th:if="${dto.id!=null}">分组设置列表  - 编辑页面</font>
+                        								  <font th:if="${dto.id==null}">分组设置列表 - 新增页面</font>
+                        </h4>
+                         <!--通用的列表-->
+                         <div class="ui-list fn-clear">
+                         <!--搜索面板开始-->
+                         <div class="search-list">
+                             <!--<h4 >查询条件</h4>-->
+                            <form id="form-wizard" class="form-horizontal" method="post" 
+								modelAttribute="dto" th:object="${dto}" th:action="saveCode"> 
+								<input type="hidden"  th:value="${dto.id}"  th:field="*{id}" />
+								<input type="hidden"  th:value="${dto.TABLE_NAME}"  th:field="*{TABLE_NAME}" />
+                              <table class="search-tab" width="100%">
+                                <tbody >
+	                                 
+	                                 <tr> <th width="25%"><span style="color:red">*</span>&nbsp;下拉列表值</th>
+	                                      <td width="25%"><div class="control-group">
+												<div class="controls ">
+													<input type="text" maxlength="50" th:value="${dto.codeName}"  th:field="*{codeName}" />
+												</div>
+											  </div>
+										  </td>
+										  <td><div id="codeNameTip" class="put_sty"></div></td>
+										  </tr>
+										  <tr>
+	                                      <th width="25%"><span style="color:red">*</span>&nbsp;写入数据库值</th>
+	                                      <td width="25%">
+		                                      <div class="control-group">
+												<div class="controls ">
+													<input type="text" maxlength="50" th:value="${dto.codeCode}"  th:field="*{codeCode}" />
+												</div>
+											  </div>
+										 </td>
+	                                      <td><div id="codeCodeTip" class="put_sty"></div></td>
+	                                 </tr>
+	                                  <tr>
+										  <th><span style="color:red"></span>&nbsp;排序编号</th>
+										  <td><div class="control-group">
+												<div class="controls ">
+													<input type="text" maxlength="6" th:value="${dto.codeIndex}"  th:field="*{codeIndex}" />
+												</div>
+											  </div>
+										  </td>
+										  <td><div id="codeCodeTip" class="onShow">请输入排序数字,数值越大越靠前</div></td>
+	                                 </tr>
+	                                <tr><td colspan="6"> <div class="widget-box">
+								<div class="widget-content nopadding">
+									<div id="form-wizard-1" class="step">
+										<div class="form-actions" style="text-align: center;">
+											<a href="#"><input class="btn btn-normal"  id="next"  type="button" value="保存" /></a>
+											<input id="back" class="btn btn-normal" type="button" value="返 回" /> 
+										</div>
+									</div>
+								</div>
+							</div></td></tr>
+                              </tbody>
+                           </table>
+                        </form>
+                             <input type="hidden" id="message" th:value='${message}'/>
+                        
+                       </div>
+                     </div>
+                      
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+		var v= new Date(); 
+		$("#TABLE_NAME").val(tableName);
+/*]]>*/
+</script>
+<!--表单验证样式-->
+<link rel="stylesheet" href="/theme/js/jsnew/validator-0.7.3/jquery.validator.css"/>
+<script src="/theme/js/jsnew/formValidator-4.0.1.min.js"></script>
+<script src="/theme/js/jsnew/formValidatorRegex.js"></script>
+<!--表单验证样式-->
+<script  src="/theme/portals/js/model/overalert.js"></script>
+<script  src="/theme/portals/js/model/code.js?time=New Date()"></script>

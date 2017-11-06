@@ -1,0 +1,146 @@
+<!--表单验证样式-->
+<link rel="stylesheet" href="/theme/js/jsnew/validator-0.7.3/jquery.validator.css"/>
+<script src="/theme/js/jsnew/formValidator-4.0.1.min.js"></script>
+<script src="/theme/js/jsnew/formValidatorRegex.js"></script>
+<div class="operatewrap">
+                         <h4 class="operatepannel-title" ><!-- <font id="titleId">数据建设</font> -->
+                        								  <font th:if="${dto.id!=null}">业务表管理  - 编辑页面</font>
+                        								  <font th:if="${dto.id==null}">业务表管理  - 新增页面</font>
+                         </h4>
+                          <!--通用的列表-->
+                         <div class="ui-list fn-clear">
+                         <!--搜索面板开始-->
+                         <div class="search-list">
+                             <!--<h4 >查询条件</h4>-->
+				<form modelAttribute="dto" th:object="${dto}" id="deptForm" class="form-horizontal">
+ 					<input type="hidden" th:value="	${dto.tableIndex}" th:field="*{tableIndex}" />
+ 					<input type="hidden" th:value="	${dto.tongjidateColumn}" th:field="*{tongjidateColumn}" />
+ 					<input type="hidden" th:value="	${dto.timelen}" th:field="*{timelen}" />
+ 					<input type="hidden" th:value="${dto.relId}" th:field="*{relId}"/>
+ 					 <table class="search-tab">
+                                 <colgroup>
+                                 <col width="140"></col>
+                                 <col></col>
+                                 <col></col>
+                                 </colgroup> 
+                                <tbody >
+                                <tr>
+        						   <th ><label class="control-label">表名</label></th>
+                                      <td width="30%">
+										<div class="control-group">
+											<input type="hidden" id="tableid" th:value="${dto.id}" th:field="*{id}" />
+											<input type="text" id="tableName" th:value="${dto.tableName}" th:field="*{tableName}" style="width: 255px;" onclick="xuanze();" readonly="readonly"/>
+											<!-- <select style="width: 255px;" id="tableName" name="id">
+												<option th:value="${dto.id}" th:text="${dto.tableName}"></option>
+												<option th:each="parentDepts,parentDept : ${tablelist}"
+												th:value="${parentDepts.id}" th:text="${parentDepts.tableName}"></option>
+											</select> -->
+										</div>
+										<div id="tableNameTip" class="put_sty"></div>
+									  </td>
+        						   <th ><label class="control-label">表中文名称</label></th>
+                                      <td width="30%">
+										<div class="control-group">
+											<input type="text" id="tableCname" th:value="${dto.tableCname}" th:field="*{tableCname}" style="width: 255px;" readonly="readonly"/>
+										<div id="tableCnameTip" class="put_sty"></div>
+										</div>
+									  </td>
+								</tr>
+                                <tr>
+                                	<th><label class="control-label">场景</label></th>
+                                	<td width="30%">
+										<div class="control-group">
+											<select style="width: 255px;" th:field="*{cjId}">
+											<option th:each="parentDepts,parentDept : ${cj}"
+												th:value="${parentDepts.id}" th:text="${parentDepts.cjNname}"></option>
+										</select>
+										</div>
+									</td>
+									<th>中心</th>
+                                	<td>
+										<div class="control-group">
+											<select style="width: 255px;" name="deptSourcec">
+											<option value="root">数据中心</option>
+										</select>
+										</div>
+									</td>
+									</tr>
+									<tr>
+								    <th>发送方</th>
+                                	<td>
+										<div class="control-group">
+											<select style="width: 255px;" name="deptSourcef">
+											<option th:each="parentDepts,parentDept : ${relList}" th:if="${parentDepts.GX_TYPE == 'f'}"
+												th:value="${parentDepts.DEPT_ID}" th:text="${parentDepts.DEPT_SOURCE}"></option>
+											<option th:each="parentDepts,parentDept : ${dept}"
+												th:value="${parentDepts.deptId}" th:text="${parentDepts.deptName}"></option>
+										</select>
+										</div>
+									</td>
+								    <th>接收方</th>
+                                	<td>
+										<div class="control-group">
+											<!-- <select style="width: 255px;" name="deptSourcej">
+											<option th:each="parentDepts,parentDept : ${relList}" th:if="${parentDepts.GX_TYPE == 'j'}"
+												th:value="${parentDepts.DEPT_ID}" th:text="${parentDepts.DEPT_SOURCE}"></option>
+											<option th:each="parentDepts,parentDept : ${dept}"
+												th:value="${parentDepts.deptId}" th:text="${parentDepts.deptName}"></option>
+										</select> -->
+										<input type="hidden" id="deptSourcej" name="deptSourcej" th:value="${jsfId}"/>
+										<input type="text" id="jsf" th:value="${jsfName}" onclick="deptjsf();" style="width: 255px;" readonly="readonly"/>
+										<div id="deptSourcejTip" class="put_sty"></div>
+										</div>
+									</td>
+								  </tr>	
+								</tbody>
+							</table>
+					<div class="form-actions" style="text-align: center;">
+						<a href="#"><input class="btn btn-normal"  id="next"  type="button" value="保存" /></a>	
+							<input id="back" class="btn btn-normal" type="button" value="返 回" /> 					
+					</div>
+					<div id="submitted"></div>
+				</form>
+		</div>
+		</div>
+	</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/	
+	$(function() {
+		$("#back").click( function(){
+			  flag='Y';
+			 $("#"+menusId).click();
+		});
+	});
+		$.formValidator.initConfig({submitButtonID:"next",debug:false,submitOnce:true,onSuccess: function() {
+		      	 	$.post("tableSave.json",$("#deptForm").serialize(),function(data){
+		      		 	 flag='Y';
+						 $("#"+menusId).click();
+					}); 
+			}});
+		$("#tableName").formValidator({empty:false,onShow:"",onFocus:"",onCorrect:"",onEmpty:""}).inputValidator({min:2,max:100,regExp: "notempty_",onError:"请选择表名"});
+		function xuanze(){
+			$.dialog({
+				title : "表名",
+				width : 600,
+				height : 500,
+				lock: true,
+			    max:false,
+			    min:false,
+			    resize:false,
+				content : "url:tableXuanze"
+			});
+		}
+		function deptjsf(){
+			$.dialog({
+				title : "接收方",
+				width : 600,
+				height : 500,
+				lock: true,
+			    max:false,
+			    min:false,
+			    resize:false,
+				content : "url:deptjsf"
+			});
+		}
+	/*]]>*/
+</script>

@@ -15,6 +15,7 @@
 
 	<!--自动扫描并注册注释为@Controller和@Service的POJOS -->
 	<context:component-scan base-package="cn.com.king" />
+	<context:component-scan base-package="cn.com.taiji.web" />
 <!-- 	<bean id="initFilter" class="cn.com.king.web.action.log.InitFilter"    init-method="CSH" lazy-init="true"/>  
  -->	<mvc:annotation-driven/> 
 	<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->  

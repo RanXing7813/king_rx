@@ -1,0 +1,127 @@
+
+ <div class="operatewrap">
+                         <h4 class="operatepannel-title" > <!-- <font id="titleId">数据建设</font>  -->
+                        								 <font th:if="${dto.roleId!=null}">角色管理  - 编辑页面</font>
+                        								  <font th:if="${dto.roleId==null}">角色管理  - 新增页面</font>
+                         </h4>
+                          <!--通用的列表-->
+                         <div class="ui-list fn-clear">
+                         <!--搜索面板开始-->
+                         <div class="search-list">
+                             <!--<h4 >查询条件</h4>-->
+				<form modelAttribute="dto" th:object="${dto}" id="roleForm"
+					class="form-horizontal" method="post" th:action="role-save"
+					target="right-container">
+					<div id="form-wizard-1" class="step">
+					  <table class="search-tab">
+                                 <colgroup><!--注意用colgrounp标签组定义表格的每列宽度不可删除-->
+                                 <col width="140"></col>
+                                 <col></col>
+                                 <col></col>
+                                 </colgroup> 
+                                <tbody >
+                                <tr>
+                                      <th ><label class="control-label">角色名称</label></th>
+                                      <td width="">
+										<div class="control-group">
+											<div class="controls">
+												<input type="text" name="roleName"
+													th:value="${dto.roleName}"
+													th:field="*{roleName}" maxlength="50"/>
+											</div>
+									  <div id="roleNameTip" class="put_sty"></div>
+										</div>
+									  </td>
+								</tr>
+						   		<tr>
+						    		  <th ><label class="control-label">角色描述</label></th>
+                                      <td >
+										<div class="control-group">
+											<div class="controls">
+												<input type="text" name="roleDesc"
+													th:value="${dto.roleDesc}"
+													th:field="*{roleDesc}" maxlength="200"/><span id="roleDesc"></span>
+											</div>
+						 			   <div id="roleDescTip" class="put_sty"></div>
+										</div>
+						 			  </td>
+						 		</tr>
+						<!-- <div class="control-group">
+							<label class="control-label">显示使用者</label>
+							<div class="controls">
+								<input type="text" name="showUsers"
+									th:value="${dto.showUsers}"
+									th:field="*{showUsers}" />
+								<div id="loginNameTip" class="onShow">请输入显示使用者(需要输入数字)</div>
+							</div>
+						</div> -->
+						</tbody></table>   
+						
+						
+						
+						
+						
+   <input type="hidden"  th:value="${dto.roleId}"  readonly="readonly"  th:field="*{roleId}"  />
+   <input type="hidden"  th:value="${dto.createTime}"  readonly="readonly"	  th:field="*{createTime}" />
+   <input type="hidden"  th:value="	${dto.creatorId}"  th:field="*{creatorId}" />
+   <input type="hidden"  th:value="${dto.flag}"  readonly="readonly"  th:field="*{flag}"  />
+   <input type="hidden"  th:value="	${dto.remark}"  th:field="*{remark}" />
+   <input type="hidden"  th:value="	${dto.roleIndex}"  readonly="readonly"  th:field="*{roleIndex}" />
+   <input type="hidden"  th:value="	${dto.showUsers}"  readonly="readonly"  th:field="*{showUsers}" />
+   <!-- <input type="hidden"  th:value="	${dto.sysFlag}"  th:field="*{sysFlag}" /> -->
+   <input type="hidden" name="sysFlag" value="2"/>
+   <input type="hidden"  th:value="	${dto.status}"  th:field="*{status}" />
+					<div class="form-actions" style="text-align: center;">
+						<a href="#"><input class="btn btn-normal"  id="nexts"  type="button" value="保存" /></a>
+						<input  class="btn btn-normal"  id="next"  type="hidden" value="保存" />
+							<input id="back" class="btn btn-normal" type="button" value="返 回" /> 						
+					</div>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+ <!--表单验证样式-->
+ <link rel="stylesheet" href="/theme/js/jsnew/validator-0.7.3/jquery.validator.css"/>
+ <script src="/theme/js/jsnew/formValidator-4.0.1.min.js"></script>
+ <script src="/theme/js/jsnew/formValidatorRegex.js"></script>
+ <!--表单验证样式-->
+<script th:inline="javascript">
+	/*<![CDATA[*/	
+	var roleId_ = /*[[${dto.roleId}]]*/ ;
+	 $(function(){
+			$("#titleId").text("角色管理  - 编辑页面 - 新增页面");
+			$("#back").click( function(){
+					  flag='Y';
+					 $("#"+menusId).click();
+			});
+			
+			$.formValidator.initConfig({validatorGroup:"2",submitButtonID:"nexts",debug:false,submitOnce:false,
+		        onSuccess: function() {
+		      				   $.post("role-savename",$("#roleForm").serialize(),function(data){
+												var dadas = data;
+		      							if(dadas==1){
+		      								$("#next").click();
+		      							}else{
+		      								$.MsgBox.Confirm("温馨提示", "角色名称重复，请重新输入");
+		      							}
+								}); 
+		           }
+			});
+			$("#roleName").formValidator({validatorGroup:"2",empty:false,onShow:"",onFocus:"",onCorrect:"",onEmpty:""}).inputValidator({min:2,max:40,onError:"长度为2至40个字符"}).regexValidator({ regExp: "notempty", dataType: "enum", onError: "色名称不正确" });
+
+			
+			$.formValidator.initConfig({submitButtonID:"next",debug:false,submitOnce:true,
+		        onSuccess: function() {
+		      	 $.post("role-save.json",$("#roleForm").serialize(),function(data){
+		      		 	 flag='Y';
+						 $("#"+menusId).click();
+								}); 
+		           }
+			});
+		   $("#roleName").formValidator({empty:false,onShow:"",onFocus:"",onCorrect:"",onEmpty:""}).inputValidator({min:2,max:40,onError:"长度为2至40个字符"}).regexValidator({ regExp: "notempty", dataType: "enum", onError: "色名称不正确" });
+		   $("#roleDesc").formValidator({empty:false,onShow:"",onFocus:"",onCorrect:"",onEmpty:""}).inputValidator({min:2,max:40,onError:"长度为2至40个字符"}).regexValidator({ regExp: "notempty", dataType: "enum", onError: "角色描述不正确" });
+
+	});
+	/*]]>*/
+ </script>

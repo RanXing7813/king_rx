@@ -1,0 +1,87 @@
+<style>
+#list-tab {
+	padding-right: 10px; auto;
+	overflow: hidden;
+}
+
+#grid td {
+	height: 20px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+	-webkit-text-overflow: ellipsis;
+}
+
+#grid td a {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+}
+
+#girdThead td {
+	white-space: nowrap;
+}
+</style>
+<link  href="/theme/portals/js/zTree/css/demo.css" type="text/css" />
+<link rel="stylesheet" href="/theme/portals/js/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" />
+<script  src="/theme/portals/js/zTree/js/jquery-1.4.4.min.js"></script>
+<script  src="/theme/portals/js/zTree/js/jquery.ztree.core-3.5.js"></script>
+<script  src="/theme/portals/js/zTree/js/jquery.ztree.excheck-3.5.js"></script>
+<script  src="/theme/portals/js/overalert.js"></script>
+<div class="operatewrap" style="margin: 20;" id="test">
+	<!--通用的列表-->
+	<div class="ui-list fn-clear">
+		<!--搜索面板开始-->
+		<!--通用上的信息列表-->
+		<div class="list-normal">
+			<div class="content_wrap" id="content_wrap" style="overflow-y: scroll; withd: auto; height: 500px">
+				<span style="color: red">请谨慎操作!数据不会保存历史信息,将重新分配用户部门信息!</span> <br />
+				<div class="zTreeDemoBackground left">
+					<ul id="treeDemo" class="ztree"></ul>
+				</div>
+			</div>
+			<div id="cs"></div>
+
+		</div>
+	</div>
+</div>
+<script>
+	var map = {};
+	map.pageSize = $("#selectlimitnum").val();//每页多少条
+	map.page = 1;//当前页
+	map.name = '';
+	var flag;
+	/*   var winHeight=0;
+	  
+	   if (window.innerHeight){
+			  winHeight = window.innerHeight;
+	   //console.log(winHeight);
+	   } else if ((document.body) ){
+		  if( document.body.clientHeight){
+			  winHeight = document.body.clientHeight; 
+			 // console.log(winHeight);
+		  }
+	  }
+	   
+	var winWidth=0;   
+	   if (window.innerWidth){
+		   winWidth = window.innerWidth;
+			   //console.log(winHeight);
+	   } else if ((document.body) ){
+		  if( document.body.clientWidth){
+			  winWidth = document.body.clientWidth; 
+			 // console.log(winHeight);
+		  }
+	   }
+	var minWidth = 800;  
+	var minHeight = 800; 
+	alert(winHeight); */
+	//$(".content_wrap").css("height",winHeight);
+	
+</script>
+<script src="/theme/portals/js/yw_paging2.js"></script>
+<script src="/theme/portals/js/system/dept-list3.js"></script>

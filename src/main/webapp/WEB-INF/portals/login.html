@@ -1,0 +1,132 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>广东省政务信息资源共享平台-登录</title>
+
+<link rel="stylesheet" type="text/css" href="theme/portals/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="theme/portals/css/screen.css" />
+<link rel="stylesheet" type="text/css" href="theme/portals/css/demo.css" />
+<!--必要样式-->
+<link rel="stylesheet" type="text/css" href="theme/portals/css/component.css" />
+<link rel="stylesheet" type="text/css" href="theme/portals/css/login_style.css" />
+<link rel="stylesheet" type="text/css" href="theme/portals/css/index_style.css" />
+<link rel="stylesheet" type="text/css" href="theme/portals/css/ue_grid.css" />
+<!--[if IE]>
+<script src="theme/portals/js/html5.js"></script>
+<![endif]-->
+</head>
+
+<body text="#38DFFF">
+	<div id="container">
+		<!--section0 -->
+		<!--end section0 -->
+		<!--20170414 aileen 登录注册-->
+		<div class="loginmask"></div>
+		<div id="loginalert">
+			<!--login 表单-->
+			<div class="loginpd">
+				<!-- <div class="logintab fn-clear mb-15">
+					<ul>
+						<li class="tab_on" onclick="showCard(this,'tabCont','tab')">账号登录</li>
+						 <li class="tab_off" onclick="showCard(this,'tabCont','tab')">证书登录</li>
+					</ul>
+				</div> -->
+				<div id="tabCont0" style="display: block;">
+					<div class="fn-clear loginform01">
+						<!-- <form id="dengluForm" name="form" action="loginNew" method="POST"> -->
+							<div class="loginnote">
+								<p class="fn-text-left">
+									<span class="c-red"  style="font-size:11px;color:red;" id="errorMessage_span">请输入用户名和密码</span>
+								</p>
+							</div>
+							<div class="mb-15 ">
+								<input id="username" class="wd-280 input usernameico" type="text" placeholder="请输入用户名" value=""/>
+							</div>
+							<div class="mb-15 ">
+								<input id="password" class="wd-280 input keyico" type="password" placeholder="请输入密码" value=""/>
+							</div>
+							<div class="mb-15  loginform01-code">
+								<input id="vcode" class="wd-140 input codeico" type="text" placeholder="请输入验证码" value="xxzx"/>
+								<!-- <a href="###"><img
+									src="theme/portals/images/pic_login_code.png" /><font>换一张</font></a> -->
+								<a href="###">
+									<img src="verifycode" style="height:44px;width:175px;" onclick="this.src='verifycode?'+Math.random()"/>
+								</a>
+							</div>
+							
+						<!-- </form> -->
+						<a id="herf_denglu" class="mb-15 btn-login"  href="###" onclick="dengluAjax();">
+										<input type="hidden" th:value="${method}" id="method" />
+						登 录</a>
+					</div>
+				</div>
+				<div id="tabCont1" style="display: none;">
+					<div class="fn-clear loginform01">
+						<div class="loginnote">
+							<p class="fn-text-left">
+								<span class="c-red">注：</span>在这里显示需要提示的信息的内容
+							</p><br/>
+						</div>
+						<div class="mb-15 ">
+							<select class="select_sign select_width_1" name="personelStyle" id="personelStyle"
+								nullmsg="请选择证件类型">
+								<option>请选择证书</option>
+							</select>
+						</div>
+						<div class="mb-15 ">
+							<input class="wd-280 input keyico" type="password" placeholder="请输入密码" value=""/>
+						</div>
+						<a class="mb-15 btn-login" href="###" onclick="forwardToAuth();">登 录</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!--end 登录注册-->
+		<!--section1 -->
+		<!--end section1 -->
+	</div>
+	<!-- end id container -->
+	<script type="text/javascript" src="theme/portals/js/jquery-1.11.2.min.js"></script>
+	<script language="javascript" src="theme/portals/js/jquery.easing.min.js"></script>
+	<script language="javascript" src="theme/portals/js/custom.js"></script>
+	<script type="text/javascript" src="theme/portals/js/lhgdialog/lhgdialog.js"></script>
+	<script type="text/javascript" src="theme/portals/js/login.js"></script>
+	<!--选卡js-->
+	<script th:inline="javascript" >
+		// JavaScript Document
+		//infoid 为选卡内容区域DIV的ID。cardid传this。调用是注意''的使用。
+		//---------------------------------------------------
+		/*<![CDATA[*/
+			
+		//首页	
+		var link = /*[[@{/}]]*/ 
+		$(function() {
+	        "0px" != $("#loginalert").css("top") && ($("#loginalert").show(), $(".loginmask").fadeIn(500), $("#loginalert").animate({
+	            top: 0
+	        },
+	        400, "easeOutQuart"))
+	    });
+			
+		function showCard(cardid, infoid, clsName) {//console.log(cardid);console.log(infoid);console.log(clsName);
+			var cardList = cardid.parentNode.getElementsByTagName("li");
+			for (i = 0; i < cardList.length; i++) {
+				if (cardid == cardList[i]) {
+					cardList[i].className = clsName + "_on";
+					document.getElementById(infoid + i).style.display = "block";
+				} else {
+					cardList[i].className = clsName + "_off";
+					document.getElementById(infoid + i).style.display = "none";
+				}
+			}
+		}
+
+		/*]]>*/
+	</script>
+</body>
+</html>

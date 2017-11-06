@@ -1,0 +1,49 @@
+<link  href="theme/js/zTree/css/demo.css" type="text/css" />
+<link rel="stylesheet" href="theme/js/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" />
+<script type="text/javascript" src="theme/portals/js/jquery-1.11.2.min.js"></script>
+<script  src="theme/js/zTree/js/jquery.ztree.core-3.5.js"></script>
+<script  src="theme/js/zTree/js/jquery.ztree.excheck-3.5.js"></script>
+<style>
+.chacha{
+	background:url("theme/img/icons/32/Error_Symbol.png")  no-repeat;
+	background-size: 100% 100%;
+	float:right;
+	width:15px;
+	height:15px;
+	margin: 6px;  
+    margin-top: 4px;
+}
+</style>
+
+<div class="operatewrap">
+  <h4 class="operatepannel-title" >
+                         </h4>
+    <!--通用的列表-->
+                         <div class="ui-list fn-clear">
+                         <!--搜索面板开始-->
+<!--通用上的信息列表-->
+          <div class="list-normal">
+              <div class="listmain" id="listmain" >
+              				<input type="hidden" id="dailogCheckType" value="${dailogCheckType}"/>
+             			    <div style="width:50%;float:left;height: 95%;overflow: scroll;">
+								<ul id="treeDemo" class="ztree"></ul>
+							</div>
+							<div style="width:45%;float:right;margin-right: 10px;float: right;height: 95%;overflow: scroll;">
+							   <input id="getCheckeds"  type="hidden"  value="获取选中信息"/>
+							   <br/>
+							   <div id="checkedNodes" style="    border: #dadee7 1px solid; "></div>
+							</div>
+              
+			 </div>
+          </div>
+    </div>
+    </div>          
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		var dailogCheckType_ = /*[[${dailogCheckType}]]*/;
+		$(document).ready(function(){
+			go();
+		});
+/*]]>*/
+</script>
+<script  src="/theme/portals/js/system/alldeptpagelist.js"></script>

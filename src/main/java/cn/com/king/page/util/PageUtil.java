@@ -24,6 +24,8 @@ public class PageUtil {
     private List<?> rows;  
       
 	private Map<?,?> sechMap;
+	
+	private String message;
     
     public String getOrderStr() {  
         orderStr = "";  
@@ -112,6 +114,14 @@ public class PageUtil {
         return "PageUtil [pageSize=" + pageSize + ", total=" + total + ", page=" + page  
                 + ", orderStr=" + orderStr + ", sort=" + sort + ", order="  
                 + order + ", queryObj=" + queryObj + ", rows=" + rows + "]";  
-    }  
+    }
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}  
   
 }
