@@ -64,5 +64,7 @@ public interface DeptService {
 	*/
 	String remove(String id, UserDto userDto) throws Exception;
 
-	Map getDeptZtreeList(Map<String, Object> init);
+	Map<String, Object> getDeptZtreeList(Map<String, Object> init);
+
+	Map<String, Object> getDeptUserZtreeList(String models);
 }

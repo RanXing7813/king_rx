@@ -136,16 +136,6 @@ $(document).ready(function(){
 		 } 
 		 
 	 });
-	 var winHeight=0;
-	   if (window.innerHeight){
-	  winHeight = window.innerHeight;
-	   //console.log(winHeight);
-	   } else if ((document.body) ){
-		  if( document.body.clientHeight){
-			  winHeight = document.body.clientHeight; 
-			 // console.log(winHeight);
-		  }
-	  }
 	//指派部门
 	 $("#deptRole").click(function(){ 
 		  if($("input[name='ids']:checked").length>0){
@@ -158,7 +148,7 @@ $(document).ready(function(){
 				id : "authRoless",
 				title : "用户部门分配",
 				width : 600,
-				height : winHeight-200,
+				height : winHeight,
 				content : "url:dept-list3"
 				//content : "url:role-list"
 				

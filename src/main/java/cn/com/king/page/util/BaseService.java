@@ -2,21 +2,23 @@ package cn.com.king.page.util;
 
 import java.util.List;
 
+import cn.com.king.dto.UserDto;
+
 
 public interface BaseService<T,PK> {
-
-	//添加
-	public void add(T t);
-	//删除(单个)
-	public void del(PK id);
-	//批量删除  1,2,3,4
-	public void delMore(String ids);
-	//修改
-	public void upd(T t);
-	//分页查询
-	public PageUtil getPageList(PageUtil page);
-	//查询所有
-	public List<T> getAll();
-	//主键查询
-	public T getById(PK id);
+	  /**
+     * 保存实体
+     * @param entity
+	 * @return 
+     */
+    String save(Object entity, UserDto t);
+    
+    /**
+     * 根据主键获取对象
+     * @param <T>
+     * @param clazz 实体类
+     * @param id    主键
+     * @return
+     */
+    <T> T getById(Class<T> clazz,Object id);
 }

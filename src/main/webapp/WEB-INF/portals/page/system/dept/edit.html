@@ -9,15 +9,10 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/	
 	var linksaveS    = /*[[@{/sys/DeptController!new.json}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须  
+	var linktodeptlisttreeS    = /*[[@{/sys/DeptController!todeptlist_tree}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须  
 	/*]]>*/
 </script>
-<style>
-	.search-tab tr{
-		min-height: 70px;
-	}
-</style>
- <script src="/theme/portals/page/system/dept/deptedit.js"
- 			th:src='@{/theme/portals/page/system/dept/deptedit.js}'></script>
+ <script src="/theme/portals/page/system/dept/edit.js" th:src='@{/theme/portals/page/system/dept/edit.js}'></script>
 <div class="operatewrap">
                          <h4 class="operatepannel-title" ><!-- <font id="titleId">数据建设</font> -->
                         								  <font th:if="${dto.deptId!=null}">部门管理  - 编辑页面</font>

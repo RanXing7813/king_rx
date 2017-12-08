@@ -58,6 +58,11 @@
 				</div> 
         	</div>
 		</div>
-		<script type="text/javascript" src="/theme/portals/page/system/dept/depttreelist.js" th:src="@{/theme/portals/page/system/dept/depttreelist.js}"></script>
 </body>
+<script th:inline="javascript">
+	/*<![CDATA[*/	
+	var linkgetDeptTreeListS   = /*[[@{/sys/DeptController!getDeptTreeList.json}]]*/		 ; //使用默认新增方法onclick="addS(null,'POST')"时参数必须  
+	/*]]>*/
+</script>
+		<script type="text/javascript" src="/theme/portals/page/system/dept/depttreelist.js" th:src="@{/theme/portals/page/system/dept/depttreelist.js}"></script>
 </html>

@@ -160,14 +160,14 @@ public class LogCotroller {
 		        if(args != null && args.length > 1)  
 		        {  
 		            // 修改目标方法的第一个参数  
-		            args[0] = "【增加的前缀】" + args[0];  
+		           // args[0] = "【增加的前缀】" + args[0];  
 		        }  
 		        // 以改变后的参数去执行目标方法，并保存目标方法执行后的返回值  
-		        Object rvt = jp.proceed();  
+		        Object rvt =   jp.proceed();  
 		        System.out.println("执行目标方法之后，模拟结束事务...");  
 		        // 如果rvt的类型是Integer，将rvt改为它的平方  
-		        if(rvt != null && rvt instanceof Integer)  
-		            rvt = (Integer)rvt * (Integer)rvt;  
+//		        if(rvt != null && rvt instanceof Integer)  
+//		            rvt = (Integer)rvt * (Integer)rvt;  
 		        return rvt;  
 		    }  
 	

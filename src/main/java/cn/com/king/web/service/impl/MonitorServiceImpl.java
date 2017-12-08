@@ -27,7 +27,6 @@ import cn.com.king.domain.db1.Monitor;
 import cn.com.king.domain.db2.LogZJTaskInfo;
 import cn.com.king.dto.InspectionConfigDto;
 import cn.com.king.dto.UserDto;
-import cn.com.king.page.util.BaseServiceImpl;
 import cn.com.king.page.util.PageUtil;
 import cn.com.king.repository.db1.InspectionconfigRepository;
 import cn.com.king.repository.db1.MonitorRepository;
@@ -37,7 +36,7 @@ import cn.com.king.web.service.MonitorService;
 
 @Transactional
 @Service
-public class MonitorServiceImpl  extends BaseServiceImpl<Monitor, Object> implements MonitorService {
+public class MonitorServiceImpl   implements MonitorService {
 
 	
 	private EntityManagerFactory emf;

@@ -40,9 +40,12 @@ function dengluAjax() {
 		},
 		type : "POST",
 		success : function(result) {
+			
+			console.log( result.changeIndex);
+
 			if (result.errorMessage != '') {
 				$("#errorMessage_span").html(result.errorMessage);
-			} else if( result.changeIndex!="undefined" && result.changeIndex != '' ){
+			} else if(  result.changeIndex!=  undefined && result.changeIndex!="undefined" && result.changeIndex != '' ){
 				// 关闭登录窗口 并且调整到 指定页面
 				$.dialog({
 					id : 'createAlbum'
@@ -52,14 +55,13 @@ function dengluAjax() {
 			
 			} else {
 				var method = $("#method").val();
-				console.log("method:"+method);
 				if (method == '' || method == null || typeof (method) == "undefined") {
 					//frameElement.api.reload(frameElement.lhgDG);
+					alert(link+"systemIndex");
 					$.dialog({
 						id : 'createAlbum'
 					}).close();
 					window.parent.location.href = link+"systemIndex";
-					
 				} else {
 					// 关闭登录窗口 并且调整到 指定页面
 					$.dialog({

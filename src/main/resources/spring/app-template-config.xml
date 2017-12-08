@@ -19,12 +19,19 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.5.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+		
+		
+		
 		<!-- JDBC配置 -->
-		<bean id="jdbcTemplate2" class="org.springframework.jdbc.core.JdbcTemplate">
-			<property name="dataSource">
-				<ref bean="dataSource" />
-			</property>
+		<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+			<property name="dataSource" ref="dataSource1" />
 		</bean>
+		<bean id="jdbcTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		    <property name="dataSource" ref="dataSource1"></property>
+		</bean>
+		
+		<tx:annotation-driven proxy-target-class="true" transaction-manager="jdbcTransactionManager"/>
+			
 		<!-- <bean id="JobService" class="cn.com.king.web.action.log.InitFilter" init-method="initss"></bean> -->
 		
 	<!-- ***************************************数据源1*****************************************************-->		
@@ -81,36 +88,9 @@
 				<property name="packagesToScan" value="cn.com.king.domain.db2*" />
 		</bean>
 		
-	<!-- 事务 -->
-    <!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="*" propagation="REQUIRED" />
-            <tx:method name="add*" propagation="REQUIRED" />
-            <tx:method name="save*" propagation="REQUIRED" />
-            <tx:method name="insert*" propagation="REQUIRED" />
-            <tx:method name="delete*" propagation="REQUIRED" />
-            <tx:method name="update*" propagation="REQUIRED" />
-            
-            <tx:method name="modify*" propagation="REQUIRED" />
-            <tx:method name="remove*" propagation="REQUIRED" />
-            <tx:method name="approve*" propagation="REQUIRED" />
-            <tx:method name="apply*" propagation="REQUIRED" />
-            <tx:method name="accept*" propagation="REQUIRED" />
-            <tx:method name="cancel*" propagation="REQUIRED" />
-            <tx:method name="batch*" propagation="REQUIRED" />
-            
-            <tx:method name="select*" propagation="SUPPORTS" read-only="true" />
-            <tx:method name="query*" propagation="SUPPORTS" read-only="true" />
-            <tx:method name="load*" propagation="SUPPORTS" read-only="true" />
-            <tx:method name="find*" propagation="SUPPORTS" read-only="true" />
-            <tx:method name="get*" propagation="SUPPORTS" read-only="true" />
-        </tx:attributes>
-    </tx:advice> -->
-    
-    <!-- 事务入口 -->
-   <!--  <aop:config proxy-target-class="true">
-        <aop:pointcut expression="execution(* cn.com.king.web.service.**.*(..))"  advice-ref="txAdvice"/>
-    </aop:config> -->
+		
+		
+		
 		
 		
 </beans>

@@ -15,6 +15,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import cn.com.king.dto.DBDto;
 import cn.com.taiji.tools.RTools;
+import cn.com.taiji.web.service.BaseService2;
 
 
 /**
@@ -23,7 +24,7 @@ import cn.com.taiji.tools.RTools;
  * 
  * @version
  */
-public class DataSourceImpl implements ApplicationContextAware, BeanNameAware {
+public class DataSourceImpl  implements ApplicationContextAware, BeanNameAware {
 
 	private String beanName;
 	private ApplicationContext applicationContext;

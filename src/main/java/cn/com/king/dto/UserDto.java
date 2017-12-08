@@ -11,7 +11,10 @@ import org.apache.commons.lang.StringUtils;
 
 public class UserDto  implements Serializable{
 	
-	private static final long serialVersionUID = 1170018455276020707L;
+	/** 
+	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
+	*/ 
+	private static final long serialVersionUID = 8904502871711589987L;
 
 	private String id;
 	

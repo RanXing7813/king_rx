@@ -1,5 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  	      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   
   <parent>
 		<groupId>io.spring.platform</groupId>
@@ -8,12 +9,20 @@
   </parent>
   
   <modelVersion>4.0.0</modelVersion>
-  <groupId>demo-1</groupId>
+   <groupId>demo-1</groupId>
   <artifactId>demo</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <version>0.0.1-SNAPSHOT</version>
   <name>demo Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+  <url>http://maven.apache.org</url> 
+  
+  
+
+  <!-- <groupId>org.acme</groupId>
+  <artifactId>money-tasks</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>Acme Corporation Money Tasks</name> -->
   
   <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,6 +30,7 @@
 	</properties>
 
 <dependencies>  
+
 		<!-- <dependency> -->
 		   <!--     <groupId>com.hope.cloud</groupId> --> <!--自定义-->
 		   <!--     <artifactId>cloud</artifactId> -->    <!--自定义-->
@@ -95,12 +105,12 @@
             <version>6.8.7</version>
             <scope>test</scope>
         </dependency> -->
-		<dependency>  
+		<!-- <dependency>  
 		            <groupId>org.springframework</groupId>  
 		            <artifactId>spring-test</artifactId>  
 		            <version> 3.2.4.RELEASE  </version>  
 		            <scope>provided</scope>  
-		</dependency>   
+		</dependency>  -->  
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -268,13 +278,18 @@
 		  <artifactId>slf4j-log4j12</artifactId>
 		  <version>1.7.21</version>
 		</dependency>
-
 		
-		
-		
+		<!-- ***************** activiti  ****************** -->
+		<!--  <dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-engine</artifactId>
+			<version>5.21.0</version>
+		</dependency> -->
+		<!-- ***************** activiti  ****************** -->
+		 
 		
 	</dependencies>
-  <build>
-    <finalName>demo</finalName>
-  </build>
+	   <build>
+    	<finalName>demo</finalName>
+  		</build>
 </project>

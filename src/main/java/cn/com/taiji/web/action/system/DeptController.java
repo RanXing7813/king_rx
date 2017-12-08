@@ -77,7 +77,7 @@ public class DeptController  extends BaseAction {
 		cf.setDeptState("0");//禁用
 		cf.setParentId("centerdb");
 		model.addAttribute("dto", cf);
-		return "portals/page/system/dept/deptedit";
+		return "portals/page/system/dept/edit";
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class DeptController  extends BaseAction {
 	@RequestMapping(value = ReqMapping+"to_detail", method = { RequestMethod.POST })
 	public String toDetail(Model model, @RequestParam(value="id", required=true) String id){
 		model.addAttribute("dto", deptService.findOne(id));
-		return "portals/page/system/dept/deptedit";
+		return "portals/page/system/dept/edit";
 	}
 	
 	/**
@@ -123,7 +123,7 @@ public class DeptController  extends BaseAction {
 	
 	/**
 	 * 
-	* @Title: newDetail 
+	* @Title: remove 
 	* @Description: TODO(删除) 
 	* @param @param model
 	* @param @param pageUtil
@@ -157,7 +157,7 @@ public class DeptController  extends BaseAction {
 	* @return String    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value = "todeptlist_tree", method = {RequestMethod.GET })
+	@RequestMapping(value = ReqMapping+"todeptlist_tree", method = {RequestMethod.GET })
 	public String toDeptTreeList(Model model) {
 			return "portals/page/system/dept/depttreelist";
 	}
@@ -173,11 +173,11 @@ public class DeptController  extends BaseAction {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	@RequestMapping(value = "getDeptPublishList", method = {RequestMethod.POST })
+	@RequestMapping(value = ReqMapping+"getDeptTreeList", method = {RequestMethod.POST })
 	public void getDeptPublishList(Model model,
 			@RequestParam(value = "models", required = false) String models) {
 		
-			Map map  = deptService.getDeptZtreeList(init(models));
+			Map<String, Object> map  = deptService.getDeptZtreeList(init(models));
 			// 机构表格数据
 			model.addAttribute("list", map.get("DtoList"));
 	}

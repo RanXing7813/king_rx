@@ -1,13 +1,8 @@
 package cn.com.taiji.web.action.system;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpUtils;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,15 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
-import com.alibaba.druid.util.HttpClientUtils;
-
-import cn.com.king.domain.db1.Monitor;
-import cn.com.king.dto.UserDto;
 import cn.com.king.page.util.PageUtil;
 import cn.com.king.web.action.BaseAction;
-import cn.com.taiji.web.service.impl.sys.MenuServiceImpl;
 import cn.com.taiji.web.service.sys.MenuService;
 @Controller
 public class MenuController extends BaseAction {

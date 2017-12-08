@@ -62,11 +62,11 @@ $(function() {
 					lock: true,
 					max: false,
 				    min: false,
-					id : "authRoless",
-					title : "用户部门分配",
+					id : "deptTree1",
+					title : "上级部门选择",
 					width : winWidth/2,
 					height : winHeight/2,
-					content : "url:todeptlist_tree?id="+id
+					content : "url:"+linktodeptlisttreeS
 					//content : "url:role-list"
 					
 				}).show(); 

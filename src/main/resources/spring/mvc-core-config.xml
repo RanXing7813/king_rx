@@ -39,9 +39,9 @@
 	<mvc:view-controller path="/" view-name="/" />
 	
 	<!--统一页面异常处理 -->
-	<bean
+	<!-- <bean
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="defaultErrorView" value="error/error" />
-	</bean>
+	</bean> -->
 	
 </beans>

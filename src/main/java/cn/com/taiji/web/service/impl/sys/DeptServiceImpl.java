@@ -23,7 +23,8 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.com.king.domain.db1.Dept;
 import cn.com.king.dto.DeptDto;
@@ -34,15 +35,28 @@ import cn.com.king.tools.StringTool;
 import cn.com.king.web.action.log.DataSourceImpl;
 import cn.com.taiji.web.service.sys.DeptService;
 
+/** 
+* @ClassName: DeptServiceImpl 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author ranxing
+* @date 2017年11月9日 下午3:51:36 
+*  
+*/
 @Transactional
 @Service
 public class DeptServiceImpl extends DataSourceImpl implements DeptService {
 	
+	 DataSource datasource = getDriverManagerDataSource("dataSource1");// edas数据库
+
+	
 	@Inject
 	DeptRepository  deptRepository;
 	
+	@Inject
+	JdbcTemplate jdbcTemplate;
 	
 	@SuppressWarnings("unchecked")
+	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED
 	@Override
 	public PageUtil getPageAll(Map<String, Object> searchParameters, PageUtil pageUtil) throws Exception{
 		int page = 0;
@@ -139,6 +153,7 @@ public class DeptServiceImpl extends DataSourceImpl implements DeptService {
 		return pageUtil;
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED)//REQUIRED  SUPPORTS
 	@Override
 	public String saveDept(DeptDto dto, UserDto userDto) throws Exception{
 		String message = "操作失败";
@@ -168,11 +183,13 @@ public class DeptServiceImpl extends DataSourceImpl implements DeptService {
 		return message;
 	}
 
+	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED  SUPPORTS
 	@Override
 	public Dept findOne(String id) {
 		return deptRepository.findOne(id);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED)//REQUIRED  SUPPORTS
 	@Override
 	public String remove(String id, UserDto userDto)  throws Exception{
 		
@@ -188,46 +205,96 @@ public class DeptServiceImpl extends DataSourceImpl implements DeptService {
 		return message;
 	}
 
+	
+	
+	/**
+	 * 部门treelist
+	 */
+	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED  SUPPORTS
 	@Override
-	public Map getDeptZtreeList(Map<String, Object> init) {
-		DataSource datasource = getDriverManagerDataSource("dataSource1");// edas数据库
+	public Map<String, Object> getDeptZtreeList(Map<String, Object> init) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(datasource);
 
-		String sql = " select c.dept_id as id , c.dept_fullname as name , c.parent_id as pId , "
-				+ "  c.dept_zzjgdm , c.creator_id , c.dept_name , c.dept_url , c.remark   from  dept c where c.flag = 1 and c.dept_state = '1'  ORDER BY dept_index ASC";
-		List<Map<String, Object>> deptMap = jdbcTemplate.queryForList(sql);
-
+		//获取部门总列表
+//		String sql = " select c.dept_id as id , c.dept_fullname as name , c.parent_id as pId   "
+//				   + "       "
+//			   	   + " from  dept c where c.flag = 1 and c.dept_state = '1'  ORDER BY dept_index ASC";
+		String sql = " select c.id as id , c.dept_fullname as name , c.parent_id as pId , "
+		+ "  c.dept_zzjgdm , c.creator_id , c.dept_name , c.dept_url , c.remark   from  dept c where c.flag = 1  and c.dept_state = '1'   ORDER BY dept_index ASC";
+		List<Map<String, Object>> deptMapList = jdbcTemplate.queryForList(sql);
 		
+//		String sql = " select c.id as id , c.dept_fullname as name , c.parent_id as pId , "
+//				+ "  c.dept_zzjgdm , c.creator_id , c.dept_name , c.dept_url , c.remark   from  dept c where c.flag = 1  ORDER BY dept_index ASC";
+
+		//获取 用户 部门数据
 		String[] ids = init.get("id").toString().split(",");
-		Map<String, Object> depts = new HashMap<String, Object>();
+		Map<String, Object> userDeptMap = new HashMap<String, Object>();
 		if (ids.length == 1 && !ids[0].isEmpty()) {
-			sql = " select dept_id from MH_MODEL_DEPT where model_id = '" + ids[0] + "' ";
+			sql = " select dept_id from dept_user where id = '"+ids[0]+"' ";
 			List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, new Object[] {});
 			for (Map<String, Object> map : list) {
 				// 存在与上面 获取到的目录菜单的话 给个状态
-				depts.put(map.get("dept_id").toString(), true);
+				userDeptMap.put(map.get("dept_id").toString(), true);
 			}
 		}
+		
+		Map<Object, Object> parentMap = new HashMap<Object, Object>();
+		//转换
+		for (Map<String, Object> map : deptMapList) {
+			parentMap.put( map.get("pId"), map.get("pId"));
+		}
 
-		for (Map<String, Object> map : deptMap) {
-			if (map.containsKey("pId") && "0".equals(map.get("pId"))) {
+		//转换
+		for (Map<String, Object> map : deptMapList) {
+			if (  map.containsKey("pId") && "0".equals(map.get("pId"))   ) {
 				map.put("open", true);
-				//map.put("check", true);
+				map.put("check", true);
 				map.put("isParent", true);
-			} else {
+				map.put("nocheck", true);
+			} else if(parentMap.containsKey(map.get("id"))){
+				map.put("isParent", true);
+				map.put("nocheck", true);
+			}else {
 				map.put("open", false);
 				map.put("checked", false);
 				// map.put("isParent", true);
 			}
-			if (depts.containsKey(map.get("id"))) {
+			
+			//map.get("id") 部门dept_id   
+			if (userDeptMap.containsKey(map.get("id"))) {
 				map.put("checked", true);
 			}
 
 		}
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("DtoList", deptMap);
+		map.put("DtoList", deptMapList);
 		return map;
 	}
 
+	@Override
+	public Map<String, Object> getDeptUserZtreeList(String models) {
+		// TODO Auto-generated method stub
+		//jdbcTemplate
+		String sql = " select c.dept_id as id , c.dept_fullname as name , c.parent_id as pId , "
+				+ "  c.dept_zzjgdm , c.creator_id , c.dept_name , c.dept_url , c.remark   from  dept c   left join dept_user d  on 1=1  where   c.flag = 1 and c.dept_state = '1' and d.id='"+models+"' and  c.dept_id = d.dept_id or c.parent_id = '0'  GROUP BY c.dept_id  ORDER BY dept_index ASC";
+		List<Map<String, Object>> deptMap = jdbcTemplate.queryForList(sql);
+		for (Map<String, Object> map : deptMap) {
+			if (map.containsKey("pId") && "0".equals(map.get("pId"))) {
+				map.put("open", true);
+				map.put("nocheck", true);
+				map.put("isParent", true);
+			} else {
+				map.put("open", false);
+				map.put("nocheck", true);
+				// map.put("isParent", true);
+			}
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("DtoList", deptMap);
+		
+		return map;
+	}
+	
 }

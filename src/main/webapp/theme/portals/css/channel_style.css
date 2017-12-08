@@ -1297,7 +1297,10 @@ border-radius: 10px; /* 所有角都使用半径为5px的圆角，此属性为CS
 #grid td  {height:20px;white-space: nowrap;/* //不换行 */ overflow:hidden;/* //超出隐藏  */
 	 	text-overflow:ellipsis; -o-text-overflow:ellipsis;-moz-text-overflow: ellipsis;-webkit-text-overflow: ellipsis; /* //超出部分用....代替 */}
 #grid td .grid_a_blue {color: blue; }
-#grid td .grid_a_button {color: white;background: #1370cf }
+#grid td .grid_a_button {color: white;background: #1370cf;    width: auto;display: initial;    margin: 5px; }
 #grid td a{ width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; display:block;}	
 #girdThead td{width:100%;} /*  white-space: nowrap;*/
-
+.checkbox5 {    width: 14px;
+    height: 14px;
+    vertical-align: text-top;
+    margin-top: 1px;}

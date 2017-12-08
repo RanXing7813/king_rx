@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.transaction.Transactional;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.com.king.dto.UserDto;
 import cn.com.king.page.util.PageUtil;
@@ -23,8 +24,8 @@ public class MenuServiceImpl extends DataSourceImpl implements MenuService {
 	private static final String DRDS_INFO = "dataSource1";
 	private static final String sqlAs = "t.menu_name as \"menu_name\", t.parent_id as \"parent_id\",  t.menu_icon as \"menu_icon\", t.menu_img as \"menu_img\",t.request_url as \"request_url\",t.menu_id as \"menu_id\"";
 
-	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED
 	public PageUtil getMainMenu(PageUtil page, Map<String,Object> searchParameters) {
 		// TODO Auto-generated method stub
 		Map<String, List<Map<String, Object>>> returnMap = new HashMap<String,List<Map<String, Object>>>();

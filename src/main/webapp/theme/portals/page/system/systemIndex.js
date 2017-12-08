@@ -20,6 +20,7 @@
 				map.filter = {
 					filters : []
 				};
+				map.sort= null; 
 				//$("#tablelist").load(url);
 				loadS(url);//重写的/theme/portals/publicS.js中的方法
 			}

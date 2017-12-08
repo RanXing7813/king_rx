@@ -1,23 +1,12 @@
 package cn.com.taiji.web.action.system;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import cn.com.king.annotation.NeedntLogin;
 

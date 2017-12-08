@@ -134,8 +134,13 @@ $(document).ready(function(){
 			
 				if($("#grid tr").css("background-color")=="rgb(51, 187, 238)"){
 					 $("#grid tr").css("background-color","");
+					 $("#grid tr input[type='checkbox']").prop("checked","");
+					 
+					 
 				}else{
 					 $("#grid tr").css("background-color","#33bbee");
+					 $("#grid tr input[type='checkbox']").prop("checked","checked");
+
 					    obj = document.getElementsByName("checkbox");
 //					    for(k in obj){
 //					        if(obj[k].checked)
@@ -147,6 +152,9 @@ $(document).ready(function(){
 				}
 			}
 		);
+		
+		
+		
 
    
 

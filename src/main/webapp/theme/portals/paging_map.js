@@ -71,12 +71,27 @@
 	 })
 
 var	totalS =0;	 //删除时进行计数时用
-function paging_map(result, map){
+function paging_map(result, map, num){
 	//点击选中行 
-	 $("#grid tr").click(function(){
-		 $("#grid tr").css("background","");
-		 $(this).css("background","#33bbee");
-	 });
+	 if(num){//多选
+		 $("#grid tr").click(function(){
+			 //$("#grid tr").css("background","");
+			 if($(this).css("background-color")=="rgb(51, 187, 238)"){
+				 $(this).css("background-color","");
+				 $(this).find("input[type='checkbox']").prop("checked","");
+			 }else{
+				 $(this).css("background-color","#33bbee");
+				 $(this).find("input[type='checkbox']").prop("checked","checked");
+			 }
+		 });
+		 
+	 }else{//单选
+		 $("#grid tr").click(function(){
+			 $("#grid tr").css("background","");
+			 $(this).css("background","#33bbee");
+		 });
+	 }
+	
 	 
 	//加载分页信息
 	var z = result.total%map.pageSize;

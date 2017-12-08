@@ -93,3 +93,10 @@ function codefanS(num) {
 		break;
 	}
 }
+
+function Null2String(obj){
+	if(obj==null || obj == undefined){
+		obj = "";
+	}
+	return obj;
+}

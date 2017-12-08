@@ -1,0 +1,108 @@
+ <!--表单验证样式-->
+ <link rel="stylesheet" href="/theme/js/jsnew/validator-0.7.3/jquery.validator.css"
+ 			th:href='@{/theme/js/jsnew/validator-0.7.3/jquery.validator.css}'/>
+ <script src="/theme/js/jsnew/formValidator-4.0.1.min.js"
+ 			th:src='@{/theme/js/jsnew/formValidator-4.0.1.min.js}'></script>
+ <script src="/theme/js/jsnew/formValidatorRegex.js"
+ 			th:src='@{/theme/js/jsnew/formValidatorRegex.js}'></script>
+ <!--表单验证样式-->
+<script th:inline="javascript">
+	/*<![CDATA[*/	
+	var linksaveS    = /*[[@{/sys/UserController!new.json}]]*/		 ; 
+	var linkcheckS   = /*[[@{/sys/UserController!check.json}]]*/		 ;
+	var dto_ = /*[[${dto}]]*/;
+	var checked_ = /*[[${dto.state}]]*/;
+	var linktodeptlisttreeS    = /*[[@{/sys/UserController!todeptlist_tree}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须  
+
+	/*]]>*/
+</script>
+ <script src="/theme/portals/page/system/user/edit.js" th:src='@{/theme/portals/page/system/user/edit.js}'></script>
+<div class="operatewrap">
+                         <h4 class="operatepannel-title" ><!-- <font id="titleId">数据建设</font> -->
+                        								  <font th:if="${dto.deptId!=null}">用户管理  - 编辑页面</font>
+                        								  <font th:if="${dto.deptId==null}">用户管理  - 新增页面</font>
+                         </h4>
+                          <!--通用的列表-->
+                         <div class="ui-list fn-clear">
+                         <!--搜索面板开始-->
+                         <div class="search-list">
+                             <!--<h4 >查询条件</h4>-->
+					<form modelAttribute="dto" th:object="${dto}" class="form-horizontal" id="userForm">
+				<input type="hidden" id="id" th:value="${dto.id}" th:field="*{id}" /> 
+				<div id="form-wizard-1" class="step">
+					<table class="search-tab">
+						<colgroup>
+							<!--注意用colgrounp标签组定义表格的每列宽度不可删除-->
+							<col></col>
+							<col></col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<th width="15%"><label class="control-label">登录账号</label></th>
+								<td width="83%"><input type="text"  th:value="${dto.loginName}"  
+									th:field="*{loginName}" />
+									<div id="loginNameTip" class="onShow"></div></td>
+							</tr>
+							<tr>
+								<th><label class="control-label">用户姓名</label></th>
+								<td><input  type="text" name="userName" th:value="${dto.userName}" 
+									th:field="*{userName}" />
+									<div id="userNameTip" class="onShow"></div></td>
+							</tr>
+							<tr>
+								<th><label class="control-label">密码</label></th>
+								<td><input  type="password" name="password" th:value="${dto.password}" 
+									th:field="*{password}" />
+									<div id="passwordTip" class="onShow"></div></td>
+							</tr>
+							<tr>
+								<th><label class="control-label">重复密码</label></th>
+								<td><input type="password" id="password2" />
+								<div id="password2Tip" class="onShow"></div></td>
+							</tr>
+							<tr>
+								<th><label class="control-label">邮箱</label></th>
+								<td><input type="text" name="email" th:value="${dto.email}"
+									th:field="*{email}" />
+									
+									<div id="emailTip" class="onShow"></div>
+									</td>
+							</tr>
+							<tr>
+								<th><label class="control-label">电话</label></th>
+								<td><input id="phoneNum" type="text" name="phoneNum" th:value="${dto.phoneNum}"
+									th:field="*{phoneNum}" />
+									
+									<div id="phoneNumTip" class="onShow"></div>
+									</td>
+							</tr>
+							<tr>
+								<th><label class="control-label">机构名称</label></th>
+								<td><!-- <select th:field="*{deptId}" style="height: 25px;width: 40%;"> 
+										<option th:each="parentDept : ${allDepts}" th:value="${parentDept.deptId}" 
+											th:text="${parentDept.deptName}">Wireframe</option>
+									</select> -->
+									<input type="hidden"  th:field="*{deptId}" th:value="${deptId}"/>
+										<input type="text"   th:field="*{deptName}" th:value="${deptName}"   onclick="publishS()" style="width: 255px;" readonly="readonly"/>
+								</td>
+							</tr>
+							<tr>
+								<th><label class="control-label">用户状态</label></th>
+								<td><label> <!-- th:field="*{state}"  --> <input type="radio" name="state"
+										th:field="*{state}" value="1" readonly="readonly"/> 启用
+								</label> <label> <input type="radio" name="state" th:field="*{state}" value="0" /> 禁用
+								</label></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</form>
+			<div class="form-actions" style="text-align: center;">
+						<a href="#"><input class="btn btn-normal"  id="next"  type="button" value="保存" /></a>	
+						<a href="#"><input class="btn btn-normal"  id="back"  type="button" value="返回" /></a>
+					</div>
+			
+			
+		</div>
+		</div>
+	</div>
