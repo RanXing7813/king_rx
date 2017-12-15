@@ -159,7 +159,7 @@ public class DeptController  extends BaseAction {
 	 */
 	@RequestMapping(value = ReqMapping+"todeptlist_tree", method = {RequestMethod.GET })
 	public String toDeptTreeList(Model model) {
-			return "portals/page/system/dept/depttreelist";
+			return "portals/page/system/dept/depttreelist_haveparentbox";
 	}
 	
 	

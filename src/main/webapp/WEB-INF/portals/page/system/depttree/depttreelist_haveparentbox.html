@@ -1,0 +1,78 @@
+<!-- 	<link rel="stylesheet" href="/theme/zTree/css/demo.css" type="text/css" 					 th:href="@{/theme/zTree/css/demo.css}" />
+ -->	<link rel="stylesheet" href="/theme/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css"     th:href="@{/theme/zTree/css/zTreeStyle/zTreeStyle.css}" />
+	<script  src="/theme/zTree/js/jquery.ztree.core-3.5.js"						 th:src="@{/theme/zTree/js/jquery.ztree.core-3.5.js}"></script>
+	<script  src="/theme/zTree/js/jquery.ztree.excheck-3.5.js"					 th:src="@{/theme/zTree/js/jquery.ztree.excheck-3.5.js}"></script>
+	<script  src="/theme/zTree/js/jquery.ztree.exedit-3.5.js"					 th:src="@{/theme/zTree/js/jquery.ztree.exedit-3.5.js}"></script>
+<style type="text/css">
+.ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+	</style>
+<script th:inline="javascript">
+	/*<![CDATA[*/	
+	var linktodept_tree        = /*[[@{/sys/UserPowerController!getDeptTreeList.json}]]*/		 ;//分配部门
+	var linkpowerDeptTreeList        = /*[[@{/sys/DeptTreeController!getDeptTreeList.json}]]*/		 ;//分配部门
+	var linkdelS 	 = /*[[@{/sys/DeptController!remove.json}]]*/	 ;//使用默认删除方法时参数必须
+	var linkaddS  = /*[[@{/sys/DeptController!to_add}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须 
+	var linkeditS    = /*[[@{/sys/DeptController!to_detail}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须 
+
+	/*]]>*/
+</script>
+ <script th:inline="javascript">
+/*<![CDATA[*/
+//var linkgoS = /*[[@{/sys/DeptController!getList.json}]]*/   ;//使用默认查询方法go(map.page)时参数必须
+//var linkdelS 	 = /*[[@{/sys/DeptController!remove.json}]]*/	 ;//使用默认删除方法时参数必须
+//var linkaddS  = /*[[@{/sys/DeptController!to_add}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须 
+//var linkeditS    = /*[[@{/sys/DeptController!to_detail}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须 
+/*]]>*/
+</script>
+<!-- tablelist -->
+<div class="operatewrap">
+  <h4 class="operatepannel-title" ><font id="titleId">部门管理</font>
+                         </h4>
+    <!--通用的列表-->
+    <div class="ui-list fn-clear">
+           <!--搜索面板开始-->
+          <div class="search-list">
+             	<form >
+                  <table class="search-tab">
+                     <colgroup><!--注意用colgrounp标签组定义表格的每列宽度不可删除-->
+                        <col width="140"></col>
+                        <col></col>
+                        <col width="140"></col>
+                        <col></col>
+                        </colgroup> 
+                       <tbody >
+	                       <tr> 
+	                       		<th width="15.5%">机构代码</th>
+									<td><input type="text"  id="dept_zzjgdm"   th:value="${dept_zzjgdm}"
+											class="input-normal input-wdl  " /></td>
+								<th width="15.5%">部门简称</th>
+									<td ><input type="text"  id="deptName" 	th:value="${deptName}"
+											class="input-normal input-wdl  " /></td>
+	                        </tr>
+                       </tbody>
+                  </table>
+                	 <div class="search-btn fn-clear">
+	                     <button class="btn btn-normal"  id="searchButtons" type="button">查询</button>
+	                     <button class="btn btn-reset"   type="reset">重置</button>
+	                     <button class="btn btn-normal"  style="float: right" type="button" id="newS"
+	                     	onclick="addS(null,'POST')" >新增</button>
+                	 </div>
+               </form>
+		</div> <!-- end 搜索面板开始-->
+		  <!--通用上的信息列表-->
+          <div class="list-normal">
+              <div class="listmain" id="listmain" >
+                  			<div class="zTreeDemoBackground left"  style="overflow: auto;width:40%;padding-left:20px;float:left;   " >
+									<ul id="treeDemo" class="ztree"></ul>
+							</div>
+							<div id="ztreeContent" style=" width:40%;float:left;    padding-left: 35px;"> 
+							
+							</div>
+			 </div>
+          </div><!--end 通用上的信息列表-->
+          
+             
+    </div><!-- end 通用的列表-->
+    
+</div><!-- end tablelist -->    
+<script type="text/javascript" src="/theme/portals/page/system/depttree/depttreelist.js" th:src="@{/theme/portals/page/system/depttree/depttreelist.js}"></script>

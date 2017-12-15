@@ -2,6 +2,7 @@ package cn.com.taiji.web.action.system;
 
 
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.com.king.dto.UserDto;
 import cn.com.king.page.util.PageUtil;
 import cn.com.king.web.action.BaseAction;
+import cn.com.taiji.web.service.sys.DeptService;
 import cn.com.taiji.web.service.sys.UserService;
 
 
@@ -35,7 +37,8 @@ public class UserController  extends BaseAction {
 	
 	@Inject
 	UserService userService;
-	
+	@Inject
+	DeptService deptService;
 	/** 
 	* @Title: getList 
 	* @Description: TODO (列表) 
@@ -89,7 +92,8 @@ public class UserController  extends BaseAction {
 	@RequestMapping(value = ReqMapping+"to_detail", method = { RequestMethod.POST ,RequestMethod.GET})
 	public String toDetail(Model model, @RequestParam(value="id", required=true) String id){
 		try {
-			model.addAttribute("dto", userService.findOne(id));
+			UserDto dto = userService.findOne(id);
+			model.addAttribute("dto", dto);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -181,6 +185,32 @@ public class UserController  extends BaseAction {
 	public String toDeptTreeList(Model model) {
 			return "portals/page/system/user/depttreelist";
 	}
+	
+	/** 
+	* @Title: getDeptTreeList 
+	* @Description: 用户管理分配部门
+	* @param @param model
+	* @param @param models    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	@RequestMapping(value = ReqMapping+"getDeptTreeList", method = {RequestMethod.POST })
+	public void getDeptTreeList(Model model,
+			@RequestParam(value = "models", required = false) String models) {
+		
+			Map<String, Object> map  = deptService.getDeptUserZtreeList(init(models));
+			// 机构表格数据
+			model.addAttribute("list", map.get("DtoList"));
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	
 	
 	
 }

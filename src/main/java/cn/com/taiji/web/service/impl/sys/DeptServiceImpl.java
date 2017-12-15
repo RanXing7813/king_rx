@@ -153,7 +153,7 @@ public class DeptServiceImpl extends DataSourceImpl implements DeptService {
 		return pageUtil;
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED)//REQUIRED  SUPPORTS
+	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED  SUPPORTS
 	@Override
 	public String saveDept(DeptDto dto, UserDto userDto) throws Exception{
 		String message = "操作失败";
@@ -189,7 +189,7 @@ public class DeptServiceImpl extends DataSourceImpl implements DeptService {
 		return deptRepository.findOne(id);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED)//REQUIRED  SUPPORTS
+	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED  SUPPORTS
 	@Override
 	public String remove(String id, UserDto userDto)  throws Exception{
 		
@@ -205,14 +205,48 @@ public class DeptServiceImpl extends DataSourceImpl implements DeptService {
 		return message;
 	}
 
-	
+	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED  SUPPORTS
+	@Override
+	public Map<String, Object> getDeptUser(String userId ) {
+		// TODO Auto-generated method stub
+		DataSource datasource = getDriverManagerDataSource("dataSource1");// edas数据库
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(datasource);
+
+		String sql = " select c.id as id , c.dept_fullname as name , c.parent_id as pId , "
+				+ "  c.dept_zzjgdm , c.creator_id , c.dept_name , c.dept_url , c.remark   from  dept c,dept_user d where c.flag = 1 and d.id='"
+				+ userId + "' " + " and d.dept_id=c.id  ";
+		List<Map<String, Object>> deptMap = jdbcTemplate.queryForList(sql);
+		for (Map<String, Object> map : deptMap) {
+			if (map.containsKey("pId") && "0".equals(map.get("pId"))) {
+				map.put("open", true);
+				map.put("isParent", true);
+				map.put("nocheck", true);
+			} else {
+				map.put("open", true);
+				map.put("nocheck", true);
+				// map.put("isParent", true);
+			}
+		}
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(deptMap.size()==0){
+			Map<String, Object> dmap = new HashMap<String, Object>();
+			dmap.put("id", "0");
+			dmap.put("name", "暂未分配部门！");
+			dmap.put("pId", "0");
+			deptMap.add(dmap);
+		}
+		map.put("DtoList", deptMap);	  
+		return map;
+	}
+
 	
 	/**
 	 * 部门treelist
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED  SUPPORTS
 	@Override
-	public Map<String, Object> getDeptZtreeList(Map<String, Object> init) {
+	public Map<String, Object> getDeptUserZtreeList(Map<String, Object> init) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(datasource);
 
 		//获取部门总列表
@@ -272,28 +306,61 @@ public class DeptServiceImpl extends DataSourceImpl implements DeptService {
 		return map;
 	}
 
+	/**
+	 * 部门treelist
+	 */
+	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED  SUPPORTS
 	@Override
-	public Map<String, Object> getDeptUserZtreeList(String models) {
-		// TODO Auto-generated method stub
-		//jdbcTemplate
-		String sql = " select c.dept_id as id , c.dept_fullname as name , c.parent_id as pId , "
-				+ "  c.dept_zzjgdm , c.creator_id , c.dept_name , c.dept_url , c.remark   from  dept c   left join dept_user d  on 1=1  where   c.flag = 1 and c.dept_state = '1' and d.id='"+models+"' and  c.dept_id = d.dept_id or c.parent_id = '0'  GROUP BY c.dept_id  ORDER BY dept_index ASC";
-		List<Map<String, Object>> deptMap = jdbcTemplate.queryForList(sql);
-		for (Map<String, Object> map : deptMap) {
-			if (map.containsKey("pId") && "0".equals(map.get("pId"))) {
-				map.put("open", true);
-				map.put("nocheck", true);
-				map.put("isParent", true);
-			} else {
-				map.put("open", false);
-				map.put("nocheck", true);
-				// map.put("isParent", true);
+	public Map<String, Object>  getDeptZtreeList(Map<String, Object> init) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(datasource);
+
+		//获取部门总列表
+//		String sql = " select c.dept_id as id , c.dept_fullname as name , c.parent_id as pId   "
+//				   + "       "
+//			   	   + " from  dept c where c.flag = 1 and c.dept_state = '1'  ORDER BY dept_index ASC";
+		String sql = " select c.id as id , c.dept_fullname as name , c.parent_id as pId , "
+		+ "  c.dept_zzjgdm , c.creator_id , c.dept_name , c.dept_url , c.remark   from  dept c where c.flag = 1  and c.dept_state = '1'   ORDER BY dept_index ASC";
+		List<Map<String, Object>> deptMapList = jdbcTemplate.queryForList(sql);
+		
+//		String sql = " select c.id as id , c.dept_fullname as name , c.parent_id as pId , "
+//				+ "  c.dept_zzjgdm , c.creator_id , c.dept_name , c.dept_url , c.remark   from  dept c where c.flag = 1  ORDER BY dept_index ASC";
+
+		//获取 用户 部门数据
+		String[] ids = init.get("id").toString().split(",");
+		Map<String, Object> userDeptMap = new HashMap<String, Object>();
+		if (ids.length == 1 && !ids[0].isEmpty()) {
+			sql = " select dept_id from dept_user where id = '"+ids[0]+"' ";
+			List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, new Object[] {});
+			for (Map<String, Object> map : list) {
+				// 存在与上面 获取到的目录菜单的话 给个状态
+				userDeptMap.put(map.get("dept_id").toString(), true);
 			}
 		}
 		
+		Map<Object, Object> parentMap = new HashMap<Object, Object>();
+
+		//转换
+		for (Map<String, Object> map : deptMapList) {
+			if (  map.containsKey("pId") && "0".equals(map.get("pId"))   ) {
+				map.put("open", true);
+				map.put("check", true);
+				map.put("isParent", true);
+			//	map.put("nocheck", true);
+			}  else {
+				map.put("open", false);
+				map.put("checked", false);
+				// map.put("isParent", true);
+			}
+			
+			//map.get("id") 部门dept_id   
+			if (userDeptMap.containsKey(map.get("id"))) {
+				map.put("checked", true);
+			}
+
+		}
+
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("DtoList", deptMap);
-		
+		map.put("DtoList", deptMapList);
 		return map;
 	}
 	

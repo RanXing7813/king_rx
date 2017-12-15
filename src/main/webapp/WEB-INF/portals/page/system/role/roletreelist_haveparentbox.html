@@ -18,17 +18,13 @@
 	<script type="text/javascript" src="/theme/portals/js/lhgdialog/prettify.js" th:src="@{/theme/portals/js/lhgdialog/prettify.js}"></script>
 	<script type="text/javascript" src="/theme/portals/js/lhgdialog/demo.js" th:src="@{/theme/portals/js/lhgdialog/demo.js}"></script>
 	<!-- 目录树获取 -->
-	<script type="text/javascript" src="/theme/portals/js/tplbase.js"			 th:src="@{/theme/portals/js/tplbase.js}"></script>
 	<!-- 自定义js -->
-	<script type="text/javascript" src="/theme/My97DatePicker/WdatePicker.js"    th:src="@{/theme/My97DatePicker/WdatePicker.js}"></script>
 	<!-- 复写一个div遮罩，提示框js -->
 	<script type="text/javascript" src="/theme/portals/overrideAlert.js" 		 th:src="@{/theme/portals/overrideAlert.js}"></script>
 	<!-- 动态获取页面宽高js -->
 	<script type="text/javascript" src="/theme/portals/page_width_height.js" 	 th:src="@{/theme/portals/page_width_height.js}"></script>
 	<!-- 分页js -->
-	<script type="text/javascript" src="/theme/portals/paging_map.js"	 		 th:src="@{/theme/portals/paging_map.js}"></script>
 	<script type="text/javascript" src="/theme/portals/publicS.js"	 		 	 th:src="@{/theme/portals/publicS.js}"></script>
-	<script type="text/javascript" src="/theme/portals/layouts/headers.js"  	 th:src="@{/theme/portals/layouts/headers.js}"></script>
 	<!--ztree  -->
 	
 	<link rel="stylesheet" href="/theme/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" th:href="@{/theme/zTree/css/zTreeStyle/zTreeStyle.css}"/>
@@ -37,6 +33,9 @@
 	<script  src="/theme/zTree/js/jquery-1.4.4.min.js"							 th:src="@{/theme/zTree/js/jquery-1.4.4.min.js}"></script>
 	<script  src="/theme/zTree/js/jquery.ztree.core-3.5.js"						 th:src="@{/theme/zTree/js/jquery.ztree.core-3.5.js}"></script>
 	<script  src="/theme/zTree/js/jquery.ztree.excheck-3.5.js"					 th:src="@{/theme/zTree/js/jquery.ztree.excheck-3.5.js}"></script>
+	<script type="text/javascript" src="/theme/portals/overrideAlert.js" 		 th:src="@{/theme/portals/overrideAlert.js}"></script>
+	<script type="text/javascript" src="/theme/portals/page/system/user/userroletreelist.js" 
+			 th:src="@{/theme/portals/page/system/user/userroletreelist.js}"></script>
 
 <!--end  -->
 </head>
@@ -44,25 +43,18 @@
           <div class="content-rightwrap" id="tablelist" style="  padding-bottom:0px;  margin-bottom:0px; ">
                  <div style="margin-left: 0px ">
 					<h4 class="operatepannel-title">
-						<font id="titleId">模板发布部门设置</font>
+						<font id="titleId">机构部门选择</font>
 					</h4>
 					 <div class="search-list fn-clear">
 	                       <!--<h4 >查询条件</h4>-->
-	   				<div class="content_wrap" >
-						<span style="color: red">请谨慎操作!数据不会保存历史信息,将重新分配用户部门信息!</span> <br />
-						<input type="hidden" id="model_ids" th:value="${model_ids}"/>
-						<div class="zTreeDemoBackground left">
-							<ul id="treeDemo" class="ztree"></ul>
+						<div class="content_wrap"  ><!--style="overflow-y:scroll;withd:auto; height:40px"  -->
+    						<span style="color: red">请谨慎操作.数据不会保存历史信息. 将直接重新分配用户角色信息</span>
+							<div class="zTreeDemoBackground left"  >
+								<ul id="treeDemo" class="ztree"></ul>
+							</div>
 						</div>
-					</div>
 				</div> 
         	</div>
 		</div>
 </body>
-<script th:inline="javascript">
-	/*<![CDATA[*/	
-	var linkgetDeptTreeListS   = /*[[@{/sys/DeptController!getDeptTreeList.json}]]*/		 ; //使用默认新增方法onclick="addS(null,'POST')"时参数必须  
-	/*]]>*/
-</script>
-		<script type="text/javascript" src="/theme/portals/page/system/dept/depttreelist.js" th:src="@{/theme/portals/page/system/dept/depttreelist.js}"></script>
 </html>

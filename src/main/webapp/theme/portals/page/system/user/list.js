@@ -13,7 +13,6 @@ $(document).ready(function(){
 
 
 $("#searchButtons").click(function () { 
-	///console.log(map.filter.filters[0]["value"]);
 	map.filter={
 		    logic : "and",
 		    filters : [
@@ -44,8 +43,6 @@ function go(pages){
 	      type:"POST",
 	      success: function(result) { 
 	    	  if(result==null)   return;
-	//			 var myTemplate = Handlebars.compile($("#grid-template").html());
-	//			 $('#grid').html(myTemplate(result));
 		    	  var list = '';
 		    	  $("#grid").html(list);
 	    	  	  var obj = result.queryObj;
@@ -94,31 +91,33 @@ function returnSearchData(map){
 					.val(filterObj[n]["value"]);
 				break;
 			}
-			
-//			if(map.filter.filters[n]["field"]=="deptId"){
-//				$("#deptId").val(map.filter.filters[n]["value"]);
-//			}else if(map.filter.filters[n]["field"]=="deptName"){
-//				$("#deptName").val(map.filter.filters[n]["value"]);
-//			}
 		}
 	}
 	flag_S='N';
 }
 
 //分配角色
-$("#authRole").click(function(){
+//指派角色 
+$("#authRole").click(function(){ 
+	  if($("input[name='checkbox']:checked").length>0){
 		 $.dialog({
-				lock: true,
-				max: false,
-			    min: false,
-				id : "deptTree3",
-				title : "上级角色选择",
-				width : winWidth/2,
-				height : winHeight/2,
-				content : "url:"+linktodeptlisttreeS
-				//content : "url:role-list"
-			}).show(); //role-auth
+			lock: true,
+			max: false,
+		    min: false,
+			id : "authRoles",
+			title : "用户角色分配",
+			width : 400,
+			height : 500,
+			content : "url:role-user-auth"
+			//content : "url:role-list"
+			
+		});
+	 }else{
+		  $.MsgBox.Alert("温馨提示", "请先选中用户：您即将重置用户关联的角色信息 并且 重新分配 ！");
+	 } 
+	 
 });
+
 //分配部门
 $("#deptRole").click(function(){ 
 	  if($("input[name='checkbox']:checked").length>0){
@@ -132,8 +131,7 @@ $("#deptRole").click(function(){
           	}
           	
           	mp.id = userIds;	//
-          	mp.boxType = 2 ;//单选
-		  
+          	mp.boxType = 2 ;//多选
 		  
 		        $.dialog({
 				lock: true,
@@ -144,7 +142,7 @@ $("#deptRole").click(function(){
 				title : "上级部门选择",
 				width : (winWidth/2)>=800?(winWidth/2):800,
 				height : 600,
-				content : "url:"+linktodeptlisttreeS+"?boxType=1",
+				content : "url:"+linktodept_tree+"?deptType=1",
 				 button: [
 				        {
 				            name: '确定',
@@ -154,7 +152,24 @@ $("#deptRole").click(function(){
 //				            	mp.deptId = v ;
 //				            	mp.name = n ;
 //				            	mp.isPublic = 'Y';
-				                return false;
+				            	mp.id = userIds;
+				            	$.ajax({
+				        			url : linkpowerDeptTreeList,
+				        			async : false,
+				        			dataType : "json",
+				        			data : {
+				        				models : JSON.stringify(mp)
+				        			},
+				        			type : "POST",
+				        			success : function(result) {
+				        				 flag='Y';
+				        				  $("#"+menusId).click();
+				        				  return false;
+				        			}
+				        		});
+				            	
+				            	
+				               
 				            },
 				            focus: true
 				        },
@@ -168,6 +183,7 @@ $("#deptRole").click(function(){
 	 } 
 	 
 });
+
 //发布
 function publishS (id){
 	 $.dialog({
@@ -178,12 +194,26 @@ function publishS (id){
 			title : "上级部门选择",
 			width : winWidth/2,
 			height : winHeight/2,
-			content : "url:"+linktodeptlisttreeS
+			content : "url:"+linktodept_tree
 			//content : "url:role-list"
 			
 		}).show(); 
 }	
-
+//查看用户角色
+function userAuth(id){
+	//var url = "role-authRoles?userId=" + id;
+	 $.dialog({
+			lock: true,
+			max: false,
+		    min: false,
+			id : "userAuth",
+			title : "用户权限查看",
+			width : 700,
+			height : 600,
+			content : "url:role-authRoles-details?userId="+id
+			///content : "url:role-authRoles-details?userId="+id
+		});
+}
 
 function getDeptForUser(id,name){
 	$.dialog({
@@ -194,7 +224,7 @@ function getDeptForUser(id,name){
 	    min: false,
 	    width : winWidth/2,
 		height : winHeight/2,
-		content : "url:"+linktodeptlisttreeSS+"?models="+id
+		content : "url:"+linktodeptuser_tree+"?models="+id
 	      //fitColumns:true,适应父容器的大小  
 	});
 }

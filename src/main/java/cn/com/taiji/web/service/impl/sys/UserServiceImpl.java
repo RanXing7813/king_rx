@@ -140,6 +140,7 @@ public class UserServiceImpl extends DataSourceImpl implements UserService  {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED
 	public String save(UserDto dto, UserDto userDto) throws Exception{
 		String message = "操作失败";
 //		UserInfo cf = new UserInfo();
@@ -215,6 +216,7 @@ public class UserServiceImpl extends DataSourceImpl implements UserService  {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED
 	public UserDto findOne(String id) {
 		UserInfo cf = userInfoRepository.findOne(id);
 		UserDto dto = new UserDto();
@@ -224,6 +226,7 @@ public class UserServiceImpl extends DataSourceImpl implements UserService  {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED
 	public String remove(String id, UserDto userDto)  throws Exception{
 		
 		String message = "操作失败";
@@ -239,6 +242,7 @@ public class UserServiceImpl extends DataSourceImpl implements UserService  {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED
 	public int findName(String cnm) {
 		// TODO Auto-generated method stub
 		String sql="select  count(1) from userinfo  where login_name='"+cnm+"'";
@@ -251,6 +255,7 @@ public class UserServiceImpl extends DataSourceImpl implements UserService  {
 	@Inject 
 	JdbcTemplate jdbcTemplate;
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED
 	public void powerDeptTreeList(Map<String, Object> init, UserDto userDto)  throws Exception{
 		// TODO Auto-generated method stub
 		

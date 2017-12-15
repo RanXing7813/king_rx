@@ -137,7 +137,7 @@ $(function(){
 	         .compareValidator({desID:"password",operateor:"=",onError:"2次密码不一致,请确认"});
 	   });
 	   //发布
-		function publishS (id){
+		/*function publishS (id){
 			 $.dialog({
 					lock: true,
 					max: false,
@@ -150,6 +150,46 @@ $(function(){
 					//content : "url:role-list"
 					
 				}).show(); 
-		}	
+		}	*/
+	   var mp = {};
+	 	//分配部门
+	 	function onDeptList3(){
+	 	          	mp.id =  "";//$("#id").val();	//
+	 	          	mp.boxType =1 ;//1单选  2复选
+	 	          	mp.radioId = $("deptId").val();//boxType为1 的时候,需要回写的节点id
+	 			        $.dialog({
+	 					lock: true,
+	 					max: false,
+	 				    min: false,
+	 				    auths : function(){},
+	 					id : "deptRole",
+	 					title : "机构部门选择",
+	 					width : (winWidth/2)>=800?(winWidth/2):800,
+	 					height : 600,
+	 					content :  linktodeptlisttreeS,
+	 					 button: [
+	 					        {
+	 					            name: '确定',
+	 					            callback: function(){
+	 					            	var mp = this.auths();
+//	 					            	console.log(mp.deptId);
+//	 					            	mp.deptId = v ;
+//	 					            	mp.name = n ;
+//	 					            	mp.isPublic = 'Y';
+//		console.log("mp.deptId:"+mp.deptId);
+										$("#deptId").val(mp.deptId);
+										$("#deptName").val(mp.name);
+
+
+	 					                return false;
+	 					            },
+	 					            focus: true
+	 					        },
+	 					        {
+	 					            name: '关闭'
+	 					        }
+	 					    ]
+	 				}).show();
+	 	};
 
 	

@@ -19,8 +19,8 @@
  <script src="/theme/portals/page/system/user/edit.js" th:src='@{/theme/portals/page/system/user/edit.js}'></script>
 <div class="operatewrap">
                          <h4 class="operatepannel-title" ><!-- <font id="titleId">数据建设</font> -->
-                        								  <font th:if="${dto.deptId!=null}">用户管理  - 编辑页面</font>
-                        								  <font th:if="${dto.deptId==null}">用户管理  - 新增页面</font>
+                        								  <font th:if="${dto.id!=null}">用户管理  - 编辑页面</font>
+                        								  <font th:if="${dto.id==null}">用户管理  - 新增页面</font>
                          </h4>
                           <!--通用的列表-->
                          <div class="ui-list fn-clear">
@@ -83,7 +83,7 @@
 											th:text="${parentDept.deptName}">Wireframe</option>
 									</select> -->
 									<input type="hidden"  th:field="*{deptId}" th:value="${deptId}"/>
-										<input type="text"   th:field="*{deptName}" th:value="${deptName}"   onclick="publishS()" style="width: 255px;" readonly="readonly"/>
+										<input type="text"   th:field="*{deptName}" th:value="${deptName}"   onclick="onDeptList3()" style="width: 255px;" readonly="readonly"/>
 								</td>
 							</tr>
 							<tr>

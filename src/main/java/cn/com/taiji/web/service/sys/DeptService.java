@@ -1,5 +1,6 @@
 package cn.com.taiji.web.service.sys;
 
+import java.util.List;
 import java.util.Map;
 
 import cn.com.king.domain.db1.Dept;
@@ -66,5 +67,7 @@ public interface DeptService {
 
 	Map<String, Object> getDeptZtreeList(Map<String, Object> init);
 
-	Map<String, Object> getDeptUserZtreeList(String models);
+	Map<String, Object> getDeptUserZtreeList(Map<String, Object> map);
+
+	Map<String, Object> getDeptUser(String deptId );
 }

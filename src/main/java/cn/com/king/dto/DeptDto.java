@@ -19,7 +19,7 @@ public class DeptDto {
 	private String deptType;
 
 	private String deptUrl;
-
+	private String deptDesc;
 	private Integer flag;
 
 	private String remark;
@@ -117,6 +117,14 @@ public class DeptDto {
 
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
+	}
+
+	public String getDeptDesc() {
+		return deptDesc;
+	}
+
+	public void setDeptDesc(String deptDesc) {
+		this.deptDesc = deptDesc;
 	}
 	
 	

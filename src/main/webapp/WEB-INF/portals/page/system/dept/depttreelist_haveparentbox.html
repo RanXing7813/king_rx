@@ -17,11 +17,16 @@
 	<script type="text/javascript" src="/theme/portals/js/handlebars-1.0.0.beta.6.js" th:src="@{/theme/portals/js/handlebars-1.0.0.beta.6.js}"></script>
 	<script type="text/javascript" src="/theme/portals/js/lhgdialog/prettify.js" th:src="@{/theme/portals/js/lhgdialog/prettify.js}"></script>
 	<script type="text/javascript" src="/theme/portals/js/lhgdialog/demo.js" th:src="@{/theme/portals/js/lhgdialog/demo.js}"></script>
+	<!-- 目录树获取 -->
+	<script type="text/javascript" src="/theme/portals/js/tplbase.js"			 th:src="@{/theme/portals/js/tplbase.js}"></script>
+	<!-- 自定义js -->
+	<script type="text/javascript" src="/theme/My97DatePicker/WdatePicker.js"    th:src="@{/theme/My97DatePicker/WdatePicker.js}"></script>
 	<!-- 复写一个div遮罩，提示框js -->
 	<script type="text/javascript" src="/theme/portals/overrideAlert.js" 		 th:src="@{/theme/portals/overrideAlert.js}"></script>
 	<!-- 动态获取页面宽高js -->
 	<script type="text/javascript" src="/theme/portals/page_width_height.js" 	 th:src="@{/theme/portals/page_width_height.js}"></script>
 	<!-- 分页js -->
+	<script type="text/javascript" src="/theme/portals/paging_map.js"	 		 th:src="@{/theme/portals/paging_map.js}"></script>
 	<script type="text/javascript" src="/theme/portals/publicS.js"	 		 	 th:src="@{/theme/portals/publicS.js}"></script>
 	<script type="text/javascript" src="/theme/portals/layouts/headers.js"  	 th:src="@{/theme/portals/layouts/headers.js}"></script>
 	<!--ztree  -->
@@ -32,8 +37,6 @@
 	<script  src="/theme/zTree/js/jquery-1.4.4.min.js"							 th:src="@{/theme/zTree/js/jquery-1.4.4.min.js}"></script>
 	<script  src="/theme/zTree/js/jquery.ztree.core-3.5.js"						 th:src="@{/theme/zTree/js/jquery.ztree.core-3.5.js}"></script>
 	<script  src="/theme/zTree/js/jquery.ztree.excheck-3.5.js"					 th:src="@{/theme/zTree/js/jquery.ztree.excheck-3.5.js}"></script>
-	<script  src="/theme/zTree/js/jquery.ztree.exhide-3.5.js"					 th:src="@{/theme/zTree/js/jquery.ztree.exhide-3.5.js}"></script>
-	<script  src="/theme/zTree/js/jquery.ztree.exhide-3.5.min.js"					 th:src="@{/theme/zTree/js/jquery.ztree.exhide-3.5.min.js}"></script>
 
 <!--end  -->
 </head>
@@ -41,43 +44,13 @@
           <div class="content-rightwrap" id="tablelist" style="  padding-bottom:0px;  margin-bottom:0px; ">
                  <div style="margin-left: 0px ">
 					<h4 class="operatepannel-title">
-						<font id="titleId">机构部门选择</font>
+						<font id="titleId">模板发布部门设置</font>
 					</h4>
 					 <div class="search-list fn-clear">
 	                       <!--<h4 >查询条件</h4>-->
 	   				<div class="content_wrap" >
 						<span style="color: red">请谨慎操作!数据不会保存历史信息,将重新分配用户部门信息!</span> <br />
 						<input type="hidden" id="model_ids" th:value="${model_ids}"/>
-						
-						<div class="zTreeDemoBackground left" style=" position: absolute;float: right;top:20px;right:30px; padding-top: 20px;" >
-							<div   >  
-										        <div>  
-										            <input type="text"  id="key" class="empty form-control" placeholder="Search..." onkeyup="callNumber()" />  
-										        </div>  
-										        <div>  
-										            <label type="text"  id="resultKey" class="form-control"  >  <!--onclick="changeFocus()"  -->
-										                <div style=" padding-top: 10px;">  
-											                  <a href="javascript:void(0);" class="ui-page-item ui-page-item-prev"  id="clickUp"   
-											                  style=" line-height: 20px;height: 20px;"
-											                   onclick="clickUp()" >上一条</a>
-											                   
-											                  <a href="javascript:void(0);" class="ui-page-item ui-page-next"  
-											                 	 style=" line-height: 20px;height: 20px;"
-											                      id="clickDown"    onclick="clickDown()" > 下一条</a>
-											                    <label   id="number"></label>  
-										                </div>  
-										                
-										                               
-										                <div style=" padding-top: 10px;" > 
-										               		       选中部门数量:<span id="checkedNodesNum">0</span>
-										                    	<div id="checkedNodes" style=" padding-top: 5px;width:200px;height:300px;overflow: auto; ">
-										                    	
-										                    	</div>
-										                </div>  
-										            </label>  
-										        </div>  
-							</div>
-						</div>			
 						<div class="zTreeDemoBackground left">
 							<ul id="treeDemo" class="ztree"></ul>
 						</div>
@@ -88,9 +61,10 @@
 </body>
 <script th:inline="javascript">
 	/*<![CDATA[*/	
-	var linkgetDeptTreeListS   = /*[[@{/sys/UserPowerController!getDeptTreeList.json}]]*/		 ; 
-	var linksaveDeptTreeListS   = /*[[@{/sys/UserPowerController!powerDeptTreeList.json}]]*/		 ; 
+	var linktodept_tree        = /*[[@{/sys/UserPowerController!getDeptTreeList.json}]]*/		 ;//分配部门
+	var linkpowerDeptTreeList        = /*[[@{/sys/UserPowerController!powerDeptTreeList.json}]]*/		 ;//分配部门
+
 	/*]]>*/
 </script>
-		<script type="text/javascript" src="/theme/portals/ywops/system/depttreelist.js" th:src="@{/theme/portals/ywops/system/depttreelist.js}"></script>
+		<script type="text/javascript" src="/theme/portals/page/system/dept/depttreelist.js" th:src="@{/theme/portals/page/system/dept/depttreelist.js}"></script>
 </html>

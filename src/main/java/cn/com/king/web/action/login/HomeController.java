@@ -26,7 +26,6 @@ import cn.com.king.annotation.NeedntLogin;
 import cn.com.king.dto.UserDto;
 import cn.com.king.web.service.log.LogService;
 import cn.com.king.web.service.login.AuthenticationService;
-import cn.com.king.web.service.login.RoleService;
 import cn.com.king.web.service.login.UserInfoService;
 
 //import cn.com.taiji.comm.tools.RTools;
@@ -51,8 +50,6 @@ public class HomeController {
 //	LogService logService;
 	@Inject
 	UserInfoService userInfoService;
-	@Inject
-	RoleService roleService;
 	@Inject
 	AuthenticationService authenticationService;
 	/**

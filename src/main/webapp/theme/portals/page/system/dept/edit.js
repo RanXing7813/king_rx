@@ -45,8 +45,8 @@ $(function() {
 		//onError:"验证错误时提示"
 		
 		
-	   $("#deptIndex").formValidator({empty:true,onShow:"输入正整数",onFocus:"输入正整数0-6位",onCorrect:"",onEmpty:""})
-	         .inputValidator({min:0,max:6,empty:{leftEmpty:false,rightEmpty:false,emptyError:"不能有空符号"},onError:"长度为0到6位"})
+	   $("#deptIndex").formValidator({empty:true,onShow:"",onFocus:"输入正整数0-6位",onCorrect:"",onEmpty:""})
+	         .inputValidator({min:0,max:6,empty:{leftEmpty:false,rightEmpty:false,emptyError:"不能有空符号"},onError:"长度为0到6位数字"})
 	         .regexValidator({regExp: "intege1", dataType: "enum", onError: "请输入部门排序编号" });
 	   $("#deptName").formValidator({empty:false,onShow:"",onFocus:"",onCorrect:"",onEmpty:""}).regexValidator({ regExp: "notempty", dataType: "enum", onError: "请输入机构名称简称" });
 	   $("#dept_fullname").formValidator({empty:false,onShow:"",onFocus:"",onCorrect:"",onEmpty:""}).regexValidator({ regExp: "notempty", dataType: "enum", onError: "请输入机构名称全称" });
@@ -57,6 +57,9 @@ $(function() {
 	   
 	   
 	   //发布
+	   var mp = {};
+	    mp.id = "";	//
+	    mp.boxType = 1 ; // 单选
 		function publishS (id){
 			 $.dialog({
 					lock: true,
@@ -66,7 +69,27 @@ $(function() {
 					title : "上级部门选择",
 					width : winWidth/2,
 					height : winHeight/2,
-					content : "url:"+linktodeptlisttreeS
+					content : "url:"+linktodeptlisttreeS,
+					 button: [
+					        {
+					            name: '确定',
+					            callback: function(){
+					            	var mp = this.auths();
+//					            	console.log(mp.deptId);
+//					            	mp.deptId = v ;
+//					            	mp.name = n ;
+//					            	mp.isPublic = 'Y';
+					            	mp.id = userIds;
+					            	$("#parentId").val(mp.deptId);
+					            	return false;
+					               
+					            },
+					            focus: true
+					        },
+					        {
+					            name: '关闭'
+					        }
+					    ]
 					//content : "url:role-list"
 					
 				}).show(); 
