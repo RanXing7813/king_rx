@@ -1,25 +1,36 @@
 package cn.com.taiji.web.service.impl.sys;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.com.king.domain.db1.Menuinfo;
+import cn.com.king.domain.db1.Menus;
 import cn.com.king.dto.UserDto;
 import cn.com.king.page.util.PageUtil;
+import cn.com.king.repository.db1.MenusRepository;
 import cn.com.king.tools.StringTool;
 import cn.com.king.web.action.log.DataSourceImpl;
+import cn.com.king.web.action.log.StringTooles;
 import cn.com.taiji.web.service.sys.MenuService;
 
 @Transactional
 @Service
 public class MenuServiceImpl extends DataSourceImpl implements MenuService {
 
+	@Inject
+	MenusRepository menusRepository;
+	
 	//连接rds数据库
 	private static final String DRDS_INFO = "dataSource1";
 	private static final String sqlAs = "t.menu_name as \"menu_name\", t.parent_id as \"parent_id\",  t.menu_icon as \"menu_icon\", t.menu_img as \"menu_img\",t.request_url as \"request_url\",t.menu_id as \"menu_id\"";
@@ -93,7 +104,23 @@ public class MenuServiceImpl extends DataSourceImpl implements MenuService {
 		return dataList;
 	}
 
-    
+	@Override
+	public List getMenuAll() {
+		String sql = "select r.MENU_ID as id,r.PARENT_ID as pId,r.MENU_NAME as name from MENUINFO r   where r.STATE='1' order by order_id";
+		DataSource datasource = getDriverManagerDataSource("dataSource1");// edas数据库
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(datasource);
+		List<Map<String, Object>> menuList = jdbcTemplate.queryForList(sql);
+		for (int i = 0; i < menuList.size(); i++) {
+			if(menuList.get(i).get("pId")==null){
+				menuList.get(i).put("pId",0);
+				menuList.get(i).put("open",true);
+				menuList.get(i).put("isParent", true);
+				break;
+			}
+		}
+		return menuList;
+	}
+	
 	@Override
 	public PageUtil getDefaultMenu(PageUtil page) {
 		// TODO Auto-generated method stub
@@ -107,6 +134,41 @@ public class MenuServiceImpl extends DataSourceImpl implements MenuService {
 	    String sql = " select REQUEST_URL from MENUINFO where PARENT_ID = ? and MENU_ID = ?  and STATE = '1' ";
 	    Map<String,Object> backMap =  drds.queryForMap(sql,new Object [] {pId,id});
 	    return backMap!=null?StringTool.null2Empty(backMap.get("request_url")):"";
+	}
+
+
+	@Override
+	public Object findOne(String id) throws Exception {
+		return menusRepository.findOne(id);
+	}
+
+
+	@Override
+	public String saveOne(Menuinfo dto, UserDto userDto)  throws Exception {
+		if(dto.getMenuId() ==null ||  dto.getMenuId().equals("")){
+			dto.setMenuId(StringTool.getUUID());
+			Date time=new Date();
+			SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			dto.setInsetTime(sim.format(time));
+			dto.setState("1");
+		}else{
+		}
+		menusRepository.saveAndFlush(dto);
+		return dto.getMenuId();
+	}
+
+
+	@Override
+	public String remove(String id, UserDto userDto)  throws Exception{
+		// TODO Auto-generated method stub
+		menusRepository.delete(id);
+		return null;
+	}
+
+
+	@Override
+	public void updMenuInfoState(String id)  throws Exception {
+		menusRepository.updState(id);
 	}
 	
 	

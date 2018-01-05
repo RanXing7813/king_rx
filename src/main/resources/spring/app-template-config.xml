@@ -30,7 +30,7 @@
 		    <property name="dataSource" ref="dataSource1"></property>
 		</bean>
 		
-		<tx:annotation-driven proxy-target-class="true" transaction-manager="jdbcTransactionManager"/>
+		<!-- <tx:annotation-driven proxy-target-class="true" transaction-manager="jdbcTransactionManager"/> -->
 			
 		<!-- <bean id="JobService" class="cn.com.king.web.action.log.InitFilter" init-method="initss"></bean> -->
 		

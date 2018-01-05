@@ -89,16 +89,19 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/	
 	var roleId_ = /*[[${dto.roleId}]]*/ ;
+	var linksaveS  = /*[[@{/sys/RoleController!role-save.json}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须 
+	var linkSavenameS  = /*[[@{/sys/RoleController!role-savename.json}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须 
+
 	 $(function(){
 			$("#titleId").text("角色管理  - 编辑页面 - 新增页面");
 			$("#back").click( function(){
-					  flag='Y';
+					flag_S='Y';
 					 $("#"+menusId).click();
 			});
 			
 			$.formValidator.initConfig({validatorGroup:"2",submitButtonID:"nexts",debug:false,submitOnce:false,
 		        onSuccess: function() {
-		      				   $.post("role-savename",$("#roleForm").serialize(),function(data){
+		      				   $.post(linkSavenameS,$("#roleForm").serialize(),function(data){
 												var dadas = data;
 		      							if(dadas==1){
 		      								$("#next").click();
@@ -113,8 +116,8 @@
 			
 			$.formValidator.initConfig({submitButtonID:"next",debug:false,submitOnce:true,
 		        onSuccess: function() {
-		      	 $.post("role-save.json",$("#roleForm").serialize(),function(data){
-		      		 	 flag='Y';
+		      	 $.post(linksaveS,$("#roleForm").serialize(),function(data){
+		      		flag_S='Y';
 						 $("#"+menusId).click();
 								}); 
 		           }

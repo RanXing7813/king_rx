@@ -8,11 +8,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceUnit;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -42,15 +37,14 @@ import cn.com.king.repository.db1.RoleRepository;
 import cn.com.king.web.action.log.DataSourceImpl;
 import cn.com.taiji.util.DateUtil;
 import cn.com.taiji.web.service.sys.RoleService;
-
 @Service
 public class RoleServiceImpl extends DataSourceImpl implements RoleService {
 
 	@Inject
-	private RoleRepository roleRepository;
+	  RoleRepository roleRepository;
 
 	@Inject
-	private MenusRepository menusRepository;
+	  MenusRepository menusRepository;
 
 	/**
 	 * 用户管理数据list
@@ -159,8 +153,8 @@ public class RoleServiceImpl extends DataSourceImpl implements RoleService {
 	/**
 	 * 新增 编辑
 	 */
-	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
+	@Override
 	public void save(RoleDto roleDto) {
 		// 新增
 		if (roleDto.getRoleId() == null || "".equals(roleDto.getRoleId())) {
@@ -176,7 +170,11 @@ public class RoleServiceImpl extends DataSourceImpl implements RoleService {
 		}
 		Role role = new Role();
 		BeanUtils.copyProperties(roleDto, role);
-		this.roleRepository.saveAndFlush(role);
+		role.setRoleIndex(2);
+		role.setShowUsers(2);
+		role.setUpdaterId("");
+		role.setUpdateTime(DateUtil.getNowTime());
+		roleRepository.saveAndFlush(role);
 	}
 
 	/**
@@ -185,13 +183,8 @@ public class RoleServiceImpl extends DataSourceImpl implements RoleService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void deleteRole(String roleId,UserDto userDto) {
-		// roleRepository.delete(roleId);
-//		DataSource datasource = getDriverManagerDataSource("dataSource");// edas数据库
-//		JdbcTemplate ds = new JdbcTemplate(datasource);
-//		ds.execute("update Role u set u.flag=0 where u.role_id= '" + roleId + "' ");
-		
-		
-		roleRepository.updateFlag(roleId, new Date(), userDto.getId());
+		roleRepository.updateFlag(roleId, new Date(), "");
+//		roleRepository.updateFlag(roleId, new Date(), userDto.getId());
 	}
 
 	/**
@@ -201,8 +194,8 @@ public class RoleServiceImpl extends DataSourceImpl implements RoleService {
 	 *            salt
 	 * @return
 	 */
-	@Override
 	@Transactional(propagation = Propagation.SUPPORTS)
+	@Override
 	public RoleDto findDtoById(String id, String salt) {
 		RoleDto dto = new RoleDto();
 		if (StringUtils.isNotEmpty(id)) {
@@ -218,8 +211,8 @@ public class RoleServiceImpl extends DataSourceImpl implements RoleService {
 	/**
 	 * 获得目录树
 	 */
-	@Override
 	@Transactional(propagation = Propagation.SUPPORTS)
+	@Override
 	public List<Menus> getMenus(String id) {
 		List<Menus> menulist = new ArrayList<Menus>();
 		JdbcTemplate drds = new JdbcTemplate(getDriverManagerDataSource("dataSource1"));
@@ -257,21 +250,20 @@ public class RoleServiceImpl extends DataSourceImpl implements RoleService {
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public List<Menus> getMenuForMap(Map searchParameters) {
 		List<Menus> menulist = new ArrayList<Menus>();
+		Map<Object, Object> menus = new HashMap<Object, Object>();
+		
 		JdbcTemplate drds = new JdbcTemplate(getDriverManagerDataSource("dataSource1"));
-		String sql = " select role_id , menu_id from role_menu where role_id in ( " + searchParameters.get("id")
-				+ " ) ";// select role_id , menu_id from role_menu where role_id
-						// in ( ? )
+		String sql = " select role_id , menu_id from role_menu where role_id = " + searchParameters.get("id") ; 
+		
 		// 通过 角色 id 得到已经关联的目录 menu_id , 放入到menus中
 		List<Map<String, Object>> list = drds.queryForList(sql, new Object[] {});
-		Map<Object, Object> menus = new HashMap<Object, Object>();
-		// 获取关联表中的目录菜单
 		for (Map<String, Object> map : list) {
-			menus.put(map.get("menu_id"), true);// {baba-1-3-1=true,
-												// baba-2=true, baba-1=true,
-												// baba-1-3=true, baba-2-2=true}
+			menus.put(map.get("menu_id"), true);
 		}
+		
 		// 获取status = 1 的目录树 , menuId对比是否存在 menus中,随便给了个标记字段
 		if ("1".equals(searchParameters.get("type"))) {// mh
+			
 			List<Menuinfo> menuinfoList = menusRepository.findMhMenus();// .findMhMenus();
 			for (Menuinfo d : menuinfoList) {
 				Menus dto = new Menus();
@@ -328,11 +320,9 @@ public class RoleServiceImpl extends DataSourceImpl implements RoleService {
 			String delsql = " delete  from role_menu where role_id = " + roleIds[i];
 			drds.update(delsql);// 先删除 已经存在的目录树 然后进行新增
 			for (int j = 0; j < menuIds.length; j++) {
-				String id = UUID.randomUUID().toString().replaceAll("-", "");
-				String sql = " insert into role_menu  (id , role_id , menu_id ) SELECT '" + id + "'," + roleIds[i]
-						+ ",'" + menuIds[j] + "'  FROM dual  WHERE not EXISTS   "
-						+ " ( select 1 from role_menu t   where t.role_id = " + roleIds[i] + " and t.menu_id = '"
-						+ menuIds[j] + "' ) ";
+				String sql = " insert into role_menu  ( role_id , menu_id )"
+						   + " SELECT " + roleIds[i]+ ",'" + menuIds[j] + "'  FROM dual "
+						   + " WHERE not EXISTS ( select 1 from role_menu t   where t.role_id = " + roleIds[i] + " and t.menu_id = '"+ menuIds[j] + "' ) ";
 				drds.execute(sql);
 			}
 		}
@@ -496,13 +486,13 @@ public class RoleServiceImpl extends DataSourceImpl implements RoleService {
 		drds.execute(sql);
 	}
 
-	@Override
-	public void deleteRole(String roleId) {
-		// TODO Auto-generated method stub
-		DataSource datasource = getDriverManagerDataSource("dataSource");// edas数据库
-		JdbcTemplate ds = new JdbcTemplate(datasource);
-		ds.execute("update Role u set u.flag=0 where u.role_id= '" + roleId + "' ");
-	}
+//	@Override
+//	public void deleteRole(String roleId) {
+//		// TODO Auto-generated method stub
+//		DataSource datasource = getDriverManagerDataSource("dataSource");// edas数据库
+//		JdbcTemplate ds = new JdbcTemplate(datasource);
+//		ds.execute("update Role u set u.flag=0 where u.role_id= '" + roleId + "' ");
+//	}
 
 	@Override
 	public boolean getRoleNameIsSigle(RoleDto roleDto) {

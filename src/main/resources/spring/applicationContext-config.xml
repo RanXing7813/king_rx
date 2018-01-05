@@ -21,7 +21,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<!-- 注解事务 -->
-	<tx:annotation-driven transaction-manager="jdbcTransactionManager" proxy-target-class="true"/>
+	<tx:annotation-driven transaction-manager="jdbcTransactionManager" proxy-target-class="false"/>
 	
 	<!-- 启用事务 -->
     <tx:advice id="txAdvice" transaction-manager="jdbcTransactionManager" >
@@ -51,9 +51,7 @@
 
 	
     <!-- AOP代理设置 -->
-    <aop:config proxy-target-class="true">
-    	<!--         <aop:pointcut expression="execution(* cn.com.king.web.service.**.*(..))"  advice-ref="txAdvice"/>
-  advice-ref="txAdvice" -->       
+    <aop:config proxy-target-class="false">
   				 <aop:advisor pointcut="execution(* cn.com.taiji.web.service.**.*(..))" advice-ref="txAdvice"/>
     </aop:config>
 	

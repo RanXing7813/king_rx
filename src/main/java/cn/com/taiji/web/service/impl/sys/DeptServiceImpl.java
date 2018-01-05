@@ -319,7 +319,7 @@ public class DeptServiceImpl extends DataSourceImpl implements DeptService {
 //				   + "       "
 //			   	   + " from  dept c where c.flag = 1 and c.dept_state = '1'  ORDER BY dept_index ASC";
 		String sql = " select c.id as id , c.dept_fullname as name , c.parent_id as pId , "
-		+ "  c.dept_zzjgdm , c.creator_id , c.dept_name , c.dept_url , c.remark   from  dept c where c.flag = 1  and c.dept_state = '1'   ORDER BY dept_index ASC";
+		+ "  c.dept_zzjgdm , c.creator_id , c.dept_name , c.dept_url , c.remark   from  dept c where c.flag = 1     ORDER BY dept_index ASC";
 		List<Map<String, Object>> deptMapList = jdbcTemplate.queryForList(sql);
 		
 //		String sql = " select c.id as id , c.dept_fullname as name , c.parent_id as pId , "

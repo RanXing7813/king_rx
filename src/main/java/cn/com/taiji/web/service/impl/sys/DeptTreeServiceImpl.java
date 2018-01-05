@@ -157,16 +157,16 @@ public class DeptTreeServiceImpl extends DataSourceImpl implements DeptTreeServi
 	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED  SUPPORTS
 	@Override
 	public String saveDept(DeptDto dto, UserDto userDto) throws Exception{
-		String message = "操作失败";
 		Dept cf = new Dept();
-		if (dto != null && dto.getDeptId() != null && !dto.getDeptId().trim().isEmpty()) {
+		if (dto != null && dto.getId() != null && !dto.getId().trim().isEmpty()) {
 			// 更新
-			cf = this.deptRepository.findOne(dto.getDeptId());
+			cf = this.deptRepository.findOne(dto.getId());
 			cf.setUpdateTime(new Date());
 			cf.setUpdaterId(userDto.getId());
 		} else {
 			// 添加
 			String id = StringTool.getUUID();
+			dto.setId(id);
 			dto.setDeptId(id);
 			dto.setFlag(1);// 初始化
 			
@@ -180,8 +180,7 @@ public class DeptTreeServiceImpl extends DataSourceImpl implements DeptTreeServi
 		}
 		
 	    deptRepository.saveAndFlush(cf);
-	    message = "SUCCESS";
-		return message;
+		return cf.getId();
 	}
 
 	@Transactional(propagation = Propagation.SUPPORTS)//REQUIRED  SUPPORTS
@@ -320,8 +319,8 @@ public class DeptTreeServiceImpl extends DataSourceImpl implements DeptTreeServi
 //				   + "       "
 //			   	   + " from  dept c where c.flag = 1 and c.dept_state = '1'  ORDER BY dept_index ASC";
 		String sql = " select c.id as id , c.dept_fullname as name , c.parent_id as pId , "
-		+ "  c.dept_zzjgdm , c.creator_id , c.dept_name , c.dept_url , c.remark   from  dept c where c.flag = 1  and c.dept_state = '1'   ORDER BY dept_index ASC";
-		List<Map<String, Object>> deptMapList = jdbcTemplate.queryForList(sql);
+		+ "  c.dept_zzjgdm , c.creator_id , c.dept_name , c.dept_url , c.remark   from  dept c where c.flag = 1    ORDER BY dept_index ASC";
+		List<Map<String, Object>> deptMapList = jdbcTemplate.queryForList(sql);//and c.dept_state = '1' 
 		
 //		String sql = " select c.id as id , c.dept_fullname as name , c.parent_id as pId , "
 //				+ "  c.dept_zzjgdm , c.creator_id , c.dept_name , c.dept_url , c.remark   from  dept c where c.flag = 1  ORDER BY dept_index ASC";

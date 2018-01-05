@@ -86,7 +86,23 @@ span.tmpzTreeMove_arrow {width:16px; height:16px; display: inline-block; padding
 
 ul.ztree.zTreeDragUL {margin:0; padding:0; position:absolute; width:auto; height:auto;overflow:hidden; background-color:#cfcfcf; border:1px #00B83F dotted; opacity:0.8; filter:alpha(opacity=80)}
 .zTreeMask {z-index:10000; background-color:#cfcfcf; opacity:0.0; filter:alpha(opacity=0); position:absolute}
-
+  .DiyDom{
+    float: right;
+  	opacity: 0.6;
+	line-height: 0;
+	margin: 0;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	vertical-align: middle;
+	border: 0 none;
+	cursor: pointer;
+	outline: none;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-image: url( /theme/zTree/css/zTreeStyle/img/diy/del.png);
+  }
 /* level style*/
 /*.ztree li span.button.level0 {
 	display:none;

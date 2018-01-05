@@ -95,20 +95,4 @@
 		<property name="templateEngine" ref="templateEngine" />
 	</bean>
 	
-	<!-- **************************************************************** -->
-	<!-- CONVERSION SERVICE -->
-	<!-- Standard Spring formatting-enabled implementation -->
-	<!-- **************************************************************** -->
-	<!--<bean id="conversionService"
-		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-		<property name="formatters">
-			<set>
-				<bean class="cn.com.taiji.conversion.DateFormatter" />
-			</set>
-		</property>
-	</bean>-->
-	<!-- **************************************************************** -->
-	<!-- THYMELEAF-SPECIFIC ARTIFACTS -->
-	<!-- TemplateResolver <- TemplateEngine <- ViewResolver -->
-	<!-- **************************************************************** -->
 </beans>

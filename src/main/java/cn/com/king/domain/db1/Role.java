@@ -54,10 +54,10 @@ public class Role implements Serializable {
 
 
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "role_user", joinColumns = {@JoinColumn(name = "role_id")},
-			inverseJoinColumns = {@JoinColumn(name = "id")})
-	private Set<UserInfo> users;
+//	@ManyToMany(fetch = FetchType.EAGER)
+//	@JoinTable(name = "role_user", joinColumns = {@JoinColumn(name = "role_id")},
+//			inverseJoinColumns = {@JoinColumn(name = "id")})
+//	private Set<UserInfo> users;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="create_time")
@@ -198,13 +198,13 @@ public class Role implements Serializable {
 		this.remark = remark;
 	}
 
-	public Set<UserInfo> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<UserInfo> users) {
-		this.users = users;
-	}
+//	public Set<UserInfo> getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(Set<UserInfo> users) {
+//		this.users = users;
+//	}
 
 
 

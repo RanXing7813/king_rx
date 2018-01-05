@@ -1,0 +1,215 @@
+
+<!--表单验证样式-->
+<link rel="stylesheet"
+	href="/theme/js/jsnew/validator-0.7.3/jquery.validator.css"
+	th:href='@{/theme/js/jsnew/validator-0.7.3/jquery.validator.css}' />
+<script src="/theme/js/jsnew/formValidator-4.0.1.min.js"
+	th:src='@{/theme/js/jsnew/formValidator-4.0.1.min.js}'></script>
+<script src="/theme/js/jsnew/formValidatorRegex.js"
+	th:src='@{/theme/js/jsnew/formValidatorRegex.js}'></script>
+<!--表单验证样式-->
+
+<h4 class="operatepannel-title">
+	<!-- <font id="titleId">数据建设</font> -->
+	<font th:if="${dto.menuId!=null}">菜单管理 - 编辑页面</font> <font
+		th:if="${dto.menuId==null}">菜单管理 - 新增页面</font>
+</h4>
+<!--通用的列表-->
+<div class="ui-list fn-clear">
+	<!--搜索面板开始-->
+	<div class="search-list">
+		<!--<h4 >查询条件</h4>-->
+		<form id="menuForm" class="form-horizontal" method="post" modelAttribute="dto" th:object="${dto}">
+		
+			<input type="hidden" th:value="${dto.menuId}" 	 th:field="*{menuId}" />
+			<input type="hidden" th:value="${dto.insetTime}" th:field="*{insetTime}" />
+			<input type="hidden" th:value="${dto.state}" 	 th:field="*{state}" /> 
+			<input type="hidden" th:value="${dto.status}" 	 th:field="*{status}" /> 
+			<input type="hidden" th:value="${menu}" 		 />
+			<input type="hidden" name="menuIcon" value="nav-top-item no-submenu" />
+			
+			<table class="search-tab">
+				<colgroup>
+					<!--注意用colgrounp标签组定义表格的每列宽度不可删除-->
+					<col width="140"></col>
+					<col></col>
+					<col width="140"></col>
+					<col></col>
+				</colgroup>
+				<tbody>
+					<tr>
+						<th><span style="color: red">*</span>&nbsp;菜单名称</th>
+						<td>
+							<div class="control-group">
+								<div class="controls ">
+									<input id="menuName" type="text" th:value="${dto.menuName}"
+										th:field="*{menuName}" />
+									<div id="inspection_nameTip" class="put_sty"></div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>请求地址</th>
+						<td>
+							<div class="control-group">
+								<div class="controls ">
+									<input id="requestUrl" type="text" th:value="${dto.requestUrl}"
+										th:field="*{requestUrl}" />
+									<div id="inspection_nameTip" class="put_sty"></div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>父节点编号</th>
+						<td>
+							<div class="control-group">
+								<div class="controls ">
+									<input type="text" th:value="${dto.parentId}"  th:field="*{parentId}" />
+									<input type="text"   id = "parentName"  />
+									<div id="parentIdTip" class="put_sty"></div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<!--  <tr>
+                                      <th>菜单样式</th>
+                                      <td>
+                                      		<div class="control-group" style="width: 180px;">
+												<div class="controls " id="cdys"></div>
+												<input type="text" id="cdysText" name="menuIcon"/>
+										  	</div>
+									 </td>
+	                                 </tr> -->
+					<tr>
+						<th>菜单序号</th>
+						<td>
+							<div class="control-group">
+								<div class="controls ">
+									<input id="orderId" type="text" th:value="${dto.orderId}"
+										th:field="*{orderId}" maxlength="5" />
+									<!-- 暂时空缺 -->
+									<div id="inspection_nameTip" class="put_sty"></div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<!-- <tr>
+                                      <th>菜单图标</th>
+                                      <td>
+                                      		<div class="control-group">
+												<div class="controls ">
+													<input  id="menuImg" type="text" th:value="${dto.menuImg}" th:field="*{menuImg}"/>暂时空缺
+													<div id="inspection_nameTip" class="put_sty"></div>
+												</div>
+										  	</div>
+									 </td>
+	                                 </tr> -->
+				</tbody>
+			</table>
+					<div class="form-actions" style="text-align: center;">
+						<a href="#"><input class="btn btn-normal"  id="next"  type="button" value="保存" /></a>	
+							<input id="back" class="btn btn-normal" type="button" value="返 回" /> 					
+					</div>
+		</form>
+	</div>
+</div>
+
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	var linksaveS   		   = /*[[@{/sys/MenuController!new}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须  
+
+	var menuIcon=/*[[${dto.menuIcon}]]*/
+	$("input[type='radio'][name='menuIcon1'][value='"+menuIcon+"']").attr("checked", "checked");
+	$("#cdysText").val(menuIcon);
+	
+	$("#status").val($("#menu").val());
+	
+	function onClick(){//当返回false 不执行关闭操作
+		var statu=false;
+		if($("#menuName").val() == ""){
+			$("#menuName").focus();
+		}else{
+			$.ajax({
+				url:'yw_MenuSave.json',
+				type:'POST',
+				data:$("#form").serialize(),
+				dataType:'json',
+				async:false,
+				success:function(){
+					statu=true;
+				}	
+			})
+			 }
+		return statu;
+	}
+	
+	$.formValidator.initConfig({  submitButtonID:"next",debug:true,submitOnce:true, 
+		 onSuccess:  function() {
+		/**
+		 * 短暂提示
+		 * @param	{String}	提示内容
+		 * @param   {Number}    显示时间 (默认1.5秒)
+		 * @param	{String}	提示图标 (注意要加扩展名)
+		 * @param   {Function}  提示关闭时执行的回调函数
+		 */
+		 $.dialog.tips('数据加载中...',10 ,'loading.gif');
+		 errorS(10000);//连接超时提醒
+	      	 $.post(linksaveS,$("#menuForm").serialize(),function(result){
+	      		 
+	      		 		console.log(result);
+	      		 
+	      			 clearInterval(timerS);//成功清除连接超时
+					 if(result==null)   return;
+					 $.dialog.tips('',0,false);
+		 	         var message = result.message ; 
+					 if( typeof(message)!='undefined'&&  message !='' && message !='SUCCESS'  ){
+						 $.MsgBox.Alert("温馨提示", message+"!!!");
+						 $("#next").removeAttr("disabled");  
+						 $("#back").removeAttr("disabled");
+					 }else if(message == 'SUCCESS' && $("#menuId").val().length==0) {
+						 //新增
+						 $.MsgBox.Alert("温馨提示", "数据保存成功!!!");
+						 var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+							zTree.addNodes(thistreeNode, {
+								id:result.orderStr, pId:thistreeNode.id, name: $("#menuName").val()  
+							});
+							 $("#ztreeContent").html("");
+					 }else if($("#menuId").val().length>0) {
+						 //编辑
+						 $.MsgBox.Alert("温馨提示", "数据保存成功!!!");
+						 var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+						    nodes = zTree.getNodesByParam("id", thistreeNode.id, null);
+						    nodes[0].name=    $("input[name='menuName']").val();
+							zTree.updateNode(nodes[0]);
+							 $("#ztreeContent").html("");
+					 }
+				}); 
+	      	 
+          }
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	$(function() {
+		$("#back").click( function(){
+			 $("#ztreeContent").html("");
+//			 flag_S='Y';
+//			 $("#"+menusId).click();
+		});		
+		
+		 //新增
+		if($("#menuId").val().length==0) {
+			$("#parentId").val(thistreeNode.id);
+		    $("#parentName").val(thistreeNode.name);
+		 }
+});
+	
+/*]]>*/
+</script>

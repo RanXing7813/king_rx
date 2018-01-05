@@ -14,7 +14,7 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 	<!--没有配置在IOC里的类进行set方法上面  Autowired的注入  -->
-	<context:spring-configured />
+	<!-- <context:spring-configured /> -->
 	
 	<bean id="dataSource" class="cn.com.taiji.util.DynamicDataSource">
 		<property name="targetDataSources">

@@ -1,21 +1,15 @@
 
 var treemap = {} ; 
-
-treemap.id="";
+	treemap.id="";
+var thistreeNode;
+var log, className = "dark";
 
 $(document).ready(function() {
 	go();// 获取菜单list
-//	var o = document.getElementById("listmain");
-//	var h = o.offsetHeight; //高度
-//	var w = o.offsetWidth; //宽度
-//	console.log(document.body.clientHeight);
-//	o.style.heigth= (document.body.clientHeight-200);
-//		$(".zTreeDemoBackground").attr("heigth","500px");
-//		$("#listmain").style.height="300px";
-//		$(".zTreeDemoBackground").css("heigh","300px");
-		$(".zTreeDemoBackground").css("height",document.body.clientHeight-200);
-		$("#ztreeContent").css("height",document.body.clientHeight-200);
+	$(".zTreeDemoBackground").css("height",document.body.clientHeight-200);
+	$("#ztreeContent").css("height",document.body.clientHeight-200);
 });
+
 // list数据
 function go(page) {
 	$.ajax({
@@ -35,26 +29,34 @@ function go(page) {
 						removeHoverDom: removeHoverDom,
 						selectedMulti: false
 					},
-					edit: {
+					edit: { 
 						enable: true,
-						editNameSelectAll: false,
+						editNameSelectAll: true,
 						showRemoveBtn: showRemoveBtn,
-					//	showRenameBtn: showRenameBtn,
+						showRenameBtn: showRenameBtn,
 						renameTitle: "编辑节点名称",
 						removeTitle: "删除节点"
 					},
-				    data : {
-					simpleData : {
-						enable : true,
-						idKey: "id",
-						pIdKey: "pId",
-					},
 					key: {
-						name: "name"
+					name: "name"
 					},
-					
-				}
-			};
+				    data : {
+						simpleData : {
+							enable : true,
+							idKey: "id",
+							pIdKey: "pId"
+						},
+					},
+					callback: {
+						//beforeDrag: beforeDrag,
+						beforeEditName: beforeEditName,
+						beforeRemove: beforeRemove,
+						//beforeRename: beforeRename,
+						//onRemove: onRemove,
+						//onRename: onRename
+					},
+			};//end setting
+			
 			var zNodes =  result.list;
 			var code;
 			function showCode(str) {
@@ -63,73 +65,76 @@ function go(page) {
 				code.empty();
 				code.append("<li>" + str + "</li>");
 			}
+			
 			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-		}
-	});
+		}//end success
+	});//end $.ajax
+}//end go
+
+//捕获click编辑按钮之前
+function beforeEditName(treeId, treeNode) {
+	 $.dialog.confirm('你确定要编辑这个消息吗？', function(){
+		    $.dialog.tips('执行确定操作');
+		    onRename(treeId, treeNode);
+		}, function(){
+		    $.dialog.tips('执行取消操作');
+		});
+	  return  false;//不进入直接编辑节点名称操作方法,   自定义了onRename();方法
 }
-var log, className = "dark";
-function beforeDrag(treeId, treeNodes) {
-	console.log("beforeDrag");
+function onRename(treeId, treeNode) {
+	editS(treeNode.id,'POST',"ztreeContent")	;
+	thistreeNode = treeNode;
+}
+//捕获编辑结束失去焦点之后
+//function beforeRename(treeId, treeNode, newName, isCancel) {
+//	console.log("beforeRename");
+//    $.dialog.confirm('你确定要编辑这个消息吗？', function(){
+//	    $.dialog.tips('执行确定操作');
+//	    alert("onRename执行确定操作");
+//	    return  true;
+//	}, function(){
+//	    $.dialog.tips('执行取消操作');
+//		return false;
+//	});
+//}
+
+//捕获click删除按钮之前
+function beforeRemove(treeId, treeNode) {
+	var f =false;
+    $.dialog.confirm('你确定要删除这个消息吗？', function(){
+	    $.dialog.tips('执行确定操作');
+	    onRemove(treeId, treeNode);
+	}, function(){
+	    $.dialog.tips('执行取消操作');
+	});
 	return false;
 }
-function beforeEditName(treeId, treeNode) {
-	console.log("beforeEditName");
-	className = (className === "dark" ? "":"dark");
-	showLog("[ "+getTime()+" beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
-	var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-	zTree.selectNode(treeNode);
-	return confirm("Start node '" + treeNode.name + "' editorial status?");
-}
-function beforeRemove(treeId, treeNode) {
-	console.log("beforeRemove");
-
-	className = (className === "dark" ? "":"dark");
-	showLog("[ "+getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
-	var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-	zTree.selectNode(treeNode);
-	return confirm("Confirm delete node '" + treeNode.name + "' it?");
-}
-function onRemove(e, treeId, treeNode) {
+function onRemove(treeId, treeNode) {
 	console.log("onRemove");
-	
-	showLog("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+	  $.post(linkdelS+"?id="+treeNode.id,null,function(result){ 
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+			zTree.removeNode(treeNode);
+			 //$.dialog.alert(result.message);
+			$.dialog({
+				title: '提示',
+				icon: 'success.gif',
+			    content: "       操作成功             ",
+			    ok: function () {
+			        return true;
+			    },
+			});
+	   });  
 }
-function beforeRename(treeId, treeNode, newName, isCancel) {
-	console.log("beforeRename");
 
-	className = (className === "dark" ? "":"dark");
-	showLog((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
-	if (newName.length == 0) {
-		alert("Node name can not be empty.");
-		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-		setTimeout(function(){zTree.editName(treeNode)}, 10);
-		return false;
-	}
-	return true;
-}
-function onRename(e, treeId, treeNode, isCancel) {
-	console.log("onRename");
-
-	showLog((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
-}
+//删除按钮的显示过滤
 function showRemoveBtn(treeId, treeNode) {
-	console.log("showRemoveBtn");
-
-	//return !treeNode.isFirstNode;
 	return !treeNode.isParent;
 }
+//编辑按钮的显示过滤
 function showRenameBtn(treeId, treeNode) {
-	console.log("showRenameBtn");
+	return true;
+}
 
-	return !treeNode.isLastNode;
-}
-function showLog(str) {
-	if (!log) log = $("#log");
-	log.append("<li class='"+className+"'>"+str+"</li>");
-	if(log.children("li").length > 8) {
-		log.get(0).removeChild(log.children("li")[0]);
-	}
-}
 function getTime() {
 	var now= new Date(),
 	h=now.getHours(),
@@ -139,55 +144,51 @@ function getTime() {
 	return (h+":"+m+":"+s+ " " +ms);
 }
 
-
-//鼠标hover方法
+//用于当鼠标移入节点时hover方法添加新增按钮及绑定新增方法,   同事编辑和删除已经自带了,
 var newCount = 1;
 function addHoverDom(treeId, treeNode) {
-	console.log("addHoverDom");
-
 	var sObj = $("#" + treeNode.tId + "_span");//节点名称span
 	if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
 	var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
 		+ "' title='新增子节点' onfocus='this.blur();'></span>";
 	sObj.after(addStr);
-	var btn = $("#addBtn_"+treeNode.tId);
-	if (btn) 
-		btn.bind("click", function(){
-//			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-//			zTree.addNodes(treeNode, {
-//				id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)  
-//			});
-			addS("ztreeContent",'POST')	;		
-		return false;
-	});
+	var btnAdd = $("#addBtn_"+treeNode.tId);
+	var btnRemove = $("#"+treeNode.tId+"#_remove");
+	if (btnAdd) {
+		btnAdd.bind("click", 
+				function(){
+							thistreeNode = treeNode
+							addS("ztreeContent",'POST')	;	
+							return false;
+						 });
+	     }
 };
+//用于当鼠标移出节点时
 function removeHoverDom(treeId, treeNode) {
-	console.log("removeHoverDom");
-
 	$("#addBtn_"+treeNode.tId).unbind().remove();
 };
 
 
-
 function selectAll() {
-	console.log("selectAll");
-
 	var zTree = $.fn.zTree.getZTreeObj("treeDemo");
 	zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
 }
 function submitan() {
 	var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
 	var nodes = treeObj.getCheckedNodes(true);
-	v = "";
+	v = [];
 	n ="";
+	// 获取选中节点的值
 	for (var i = 0; i < nodes.length; i++) {
-		v += nodes[i].id+ ",";
-		// 获取选中节点的值
+		//v += nodes[i].id+ ",";
+		v.push(nodes[i].id);
 		n +=nodes[i].name+ ",";
 	}
 	if (v.length > 0) {
-		v = v.substring(0, v.length - 1);
+		//v = v.substring(0, v.length - 1);
 		n = n.substring(0, n.length - 1);
 	}
+	treemap.ids=v;
+	treemap.names=n;
 	return treemap;
 }

@@ -3,6 +3,8 @@
 	<script  src="/theme/zTree/js/jquery.ztree.core-3.5.js"						 th:src="@{/theme/zTree/js/jquery.ztree.core-3.5.js}"></script>
 	<script  src="/theme/zTree/js/jquery.ztree.excheck-3.5.js"					 th:src="@{/theme/zTree/js/jquery.ztree.excheck-3.5.js}"></script>
 	<script  src="/theme/zTree/js/jquery.ztree.exedit-3.5.js"					 th:src="@{/theme/zTree/js/jquery.ztree.exedit-3.5.js}"></script>
+
+
 <style type="text/css">
 .ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
 	</style>
@@ -10,10 +12,9 @@
 	/*<![CDATA[*/	
 	var linktodept_tree        = /*[[@{/sys/UserPowerController!getDeptTreeList.json}]]*/		 ;//分配部门
 	var linkpowerDeptTreeList        = /*[[@{/sys/DeptTreeController!getDeptTreeList.json}]]*/		 ;//分配部门
-	var linkdelS 	 = /*[[@{/sys/DeptController!remove.json}]]*/	 ;//使用默认删除方法时参数必须
-	var linkaddS  = /*[[@{/sys/DeptController!to_add}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须 
-	var linkeditS    = /*[[@{/sys/DeptController!to_detail}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须 
-
+	var linkdelS 	 = /*[[@{/sys/DeptTreeController!remove.json}]]*/	 ;//使用默认删除方法时参数必须
+	var linkaddS  = /*[[@{/sys/DeptTreeController!to_add}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须 
+	var linkeditS    = /*[[@{/sys/DeptTreeController!to_detail}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须 
 	/*]]>*/
 </script>
  <script th:inline="javascript">
@@ -41,21 +42,19 @@
                         <col></col>
                         </colgroup> 
                        <tbody >
-	                       <tr> 
+	                      <!--  <tr> 
 	                       		<th width="15.5%">机构代码</th>
 									<td><input type="text"  id="dept_zzjgdm"   th:value="${dept_zzjgdm}"
 											class="input-normal input-wdl  " /></td>
 								<th width="15.5%">部门简称</th>
 									<td ><input type="text"  id="deptName" 	th:value="${deptName}"
 											class="input-normal input-wdl  " /></td>
-	                        </tr>
+	                        </tr> -->
                        </tbody>
                   </table>
                 	 <div class="search-btn fn-clear">
 	                     <button class="btn btn-normal"  id="searchButtons" type="button">查询</button>
 	                     <button class="btn btn-reset"   type="reset">重置</button>
-	                     <button class="btn btn-normal"  style="float: right" type="button" id="newS"
-	                     	onclick="addS(null,'POST')" >新增</button>
                 	 </div>
                </form>
 		</div> <!-- end 搜索面板开始-->
@@ -65,7 +64,7 @@
                   			<div class="zTreeDemoBackground left"  style="overflow: auto;width:40%;padding-left:20px;float:left;   " >
 									<ul id="treeDemo" class="ztree"></ul>
 							</div>
-							<div id="ztreeContent" style=" width:40%;float:left;    padding-left: 35px;"> 
+							<div id="ztreeContent" style=" overflow: auto;width:60%;float:left; padding-left: 35px;"> 
 							
 							</div>
 			 </div>

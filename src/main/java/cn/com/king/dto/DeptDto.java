@@ -8,6 +8,8 @@ package cn.com.king.dto;
 
 public class DeptDto {
 
+	
+	private String id;
 	private String deptId;
 
 	private Integer deptIndex;
@@ -125,6 +127,14 @@ public class DeptDto {
 
 	public void setDeptDesc(String deptDesc) {
 		this.deptDesc = deptDesc;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	

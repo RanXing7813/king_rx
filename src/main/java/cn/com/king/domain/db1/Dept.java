@@ -21,9 +21,19 @@ import javax.persistence.TemporalType;
 
 public class Dept implements Serializable {
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	private static final long serialVersionUID = 5119673746393145493L;
 
 	@Id
+	private String id;
+	
 	@Column(name = "dept_id")
 	private String deptId;
 

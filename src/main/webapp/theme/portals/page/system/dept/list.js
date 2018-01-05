@@ -57,11 +57,11 @@ function go(pages){
 	    	  		 $.each(obj,function(n,value){
 	      	 			 list += 
 	      		 		   '<tr >'+
-	      	  	 			 '<td class="fn-text-center"  >'+(n+1)+'<input type="hidden" name="checkbox" value="'+value.deptId+'"/></td>'+//序号
-	      	  	 			 '<td class="fn-text-center" title="'+value.dept_fullname+'"><a href="#" onclick="editS(\''+value.deptId+'\')" class="grid_a_blue"  >'+value.dept_fullname+'</a></td>'+
+	      	  	 			 '<td class="fn-text-center"  >'+(n+1)+'<input type="hidden" name="checkbox" value="'+value.id+'"/></td>'+//序号
+	      	  	 			 '<td class="fn-text-center" title="'+value.dept_fullname+'"><a href="#" onclick="editS(\''+value.id+'\')" class="grid_a_blue"  >'+value.dept_fullname+'</a></td>'+
 	      	  	 			 '<td class="fn-text-center" title="'+value.deptName+'">'+value.deptName+'</td>'+
 	      	  	 			 '<td class="fn-text-center" title="'+value.dept_zzjgdm+'">'+value.dept_zzjgdm+'</td>'+
-	      	  	 			 '<td class="fn-text-center"><a href="#" onclick="delS(\''+value.deptId+'\')" class="grid_a_button">删除</a></td>'+
+	      	  	 			 '<td class="fn-text-center"><a href="#" onclick="delS(\''+value.id+'\')" class="grid_a_button">删除</a></td>'+
 	      	  			   '</tr>'
 	    	   	 		  })
 	    	   	 		  $("#grid").html(list);

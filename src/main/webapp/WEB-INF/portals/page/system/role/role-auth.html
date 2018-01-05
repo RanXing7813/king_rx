@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/> 
+<title>肇庆市信息资源共享平台</title>
+	<link rel="stylesheet" type="text/css" href="/theme/portals/css/normalize.css"  th:href="@{/theme/portals/css/normalize.css}"/>
+	<link rel="stylesheet" type="text/css" href="/theme/portals/css/base.css"  th:href="@{/theme/portals/css/base.css}"/>
+	<link rel="stylesheet" type="text/css" href="/theme/portals/css/channel_style.css"  th:href="@{/theme/portals/css/channel_style.css}"/>
+	<link rel="stylesheet" type="text/css" href="/theme/portals/css/exchange_style.css" th:href="@{/theme/portals/css/exchange_style.css}" />
+	<link rel="stylesheet" type="text/css" href="/theme/portals/css/catalog_style.css"  th:href="@{/theme/portals/css/catalog_style.css}"/>
+
+	<script type="text/javascript" src="/theme/portals/js/jquery-1.11.2.min.js"  th:src="@{/theme/portals/js/jquery-1.11.2.min.js}"></script>
+	<script type="text/javascript" src="/theme/portals/js/lhgdialog/lhgdialog.js" th:src="@{/theme/portals/js/lhgdialog/lhgdialog.js}"></script>
+	<script type="text/javascript" src="/theme/portals/js/handlebars-1.0.0.beta.6.js" th:src="@{/theme/portals/js/handlebars-1.0.0.beta.6.js}"></script>
+	<script type="text/javascript" src="/theme/portals/js/lhgdialog/prettify.js" th:src="@{/theme/portals/js/lhgdialog/prettify.js}"></script>
+	<script type="text/javascript" src="/theme/portals/js/lhgdialog/demo.js" th:src="@{/theme/portals/js/lhgdialog/demo.js}"></script>
+	<!-- 目录树获取 -->
+	<script type="text/javascript" src="/theme/portals/js/tplbase.js"			 th:src="@{/theme/portals/js/tplbase.js}"></script>
+	<!-- 自定义js -->
+	<script type="text/javascript" src="/theme/My97DatePicker/WdatePicker.js"    th:src="@{/theme/My97DatePicker/WdatePicker.js}"></script>
+	<!-- 复写一个div遮罩，提示框js -->
+	<script type="text/javascript" src="/theme/portals/overrideAlert.js" 		 th:src="@{/theme/portals/overrideAlert.js}"></script>
+	<!-- 动态获取页面宽高js -->
+	<script type="text/javascript" src="/theme/portals/page_width_height.js" 	 th:src="@{/theme/portals/page_width_height.js}"></script>
+	<!-- 分页js -->
+	<script type="text/javascript" src="/theme/portals/paging_map.js"	 		 th:src="@{/theme/portals/paging_map.js}"></script>
+	<script type="text/javascript" src="/theme/portals/publicS.js"	 		 	 th:src="@{/theme/portals/publicS.js}"></script>
+	<script type="text/javascript" src="/theme/portals/layouts/headers.js"  	 th:src="@{/theme/portals/layouts/headers.js}"></script>
+	<!--ztree  -->
+	
+	<link rel="stylesheet" href="/theme/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" th:href="@{/theme/zTree/css/zTreeStyle/zTreeStyle.css}"/>
+	<link  	 href="/theme/zTree/css/demo.css" type="text/css" 					 th:href="@{/theme/zTree/css/demo.css}"/>
+	<link    href="/theme/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" 	 th:href="@{/theme/zTree/css/zTreeStyle/zTreeStyle.css}"/>
+	<script  src="/theme/zTree/js/jquery-1.4.4.min.js"							 th:src="@{/theme/zTree/js/jquery-1.4.4.min.js}"></script>
+	<script  src="/theme/zTree/js/jquery.ztree.core-3.5.js"						 th:src="@{/theme/zTree/js/jquery.ztree.core-3.5.js}"></script>
+	<script  src="/theme/zTree/js/jquery.ztree.excheck-3.5.js"					 th:src="@{/theme/zTree/js/jquery.ztree.excheck-3.5.js}"></script>
+
+<!--end  -->
+</head>
+<script th:inline="javascript" >
+/*<![CDATA[*/
+var api = frameElement.api, W = api.opener;	
+	
+$(document).ready(function(){
+		go();// 获取菜单list 
+});        
+//list数据 
+function go(page){
+	var map={};
+	var idss= /*[[${_roleId}]]*/;
+		map.id="'"+idss+"'";
+		map.type=/*[[${_type}]]*/;
+  $.ajax({
+         url : "../sys/RoleController!role-authMenus.json",
+         dataType: "json", 
+         data:{
+       	  models : JSON.stringify(map)
+         },
+         type:"POST",
+         success: function(result) { if(result==null)   return;
+				var setting = {
+					check: {
+						enable: true
+					},
+					data: {
+						simpleData: {
+							enable: true
+						}
+					}
+				};
+				//console.log(result);
+				var zNodes =result.list;
+				var code;
+				function showCode(str) {
+					if (!code) code = $("#code");
+					code.empty();
+					code.append("<li>"+str+"</li>");
+				}
+				$(document).ready(function(){
+					$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+					 var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+					 treeObj.expandAll(true);//展开所有节点
+				});
+         }
+       });
+}
+
+// 得到父页面 属性 
+
+api.button({
+	 name: '分配确认',
+     callback: auth,
+     focus: true
+},
+{
+    name: '取消',
+}); 
+//callback方法 
+ function auth(){
+	var map={};
+		var ids= /*[[${_roleId}]]*/;
+		map.id="'"+ids+"'";
+	 if(ids.length>0 && submitan().length>0){
+		 map.menuIds=submitan(); 
+		//console.log(submitan());
+		  $.ajax({
+		         url : "../sys/RoleController!role-authMenus-save.json",
+		         dataType: "json", 
+		         async: false,
+		         data:{
+		       	  models : JSON.stringify(map)
+		         },
+		         type:"POST",
+		         success: function(result) { if(result==null)   return; 
+		         }
+		  });
+     }else{
+    	  $.MsgBox.Alert("温馨提示", "未选择角色!!!");
+    	 
+     }
+		
+		 
+ }
+ function submitan(){
+        var treeObj=$.fn.zTree.getZTreeObj("treeDemo"),
+        nodes=treeObj.getCheckedNodes(true),
+        v="";
+        for(var i=0;i<nodes.length;i++){
+       	 v+=nodes[i].id + ",";
+        //获取选中节点的值
+        }
+        if(v.length>0){
+        	v=v.substring(0,v.length-1); 
+        }
+        //W.document.getElementById('xx').value = v;//给父页面id 传值 
+        return v;
+ }
+ 
+
+ 
+ 
+ 
+ 
+/*]]>*/
+</script>
+<body style="background:white;">
+          <div class="content-rightwrap" id="tablelist" style="  padding-bottom:0px;  margin-bottom:0px; ">
+                 <div style="margin-left: 0px ">
+					<h4 class="operatepannel-title">
+						<font id="titleId">设置</font>
+					</h4>
+					 <div class="search-list fn-clear">
+	                       <!--<h4 >查询条件</h4>-->
+	   				<div class="content_wrap" >
+						<span style="color: red">请谨慎操作!数据不会保存历史信息,将重新分配用户部门信息!</span> <br />
+						<div class="zTreeDemoBackground left">
+							<ul id="treeDemo" class="ztree"></ul>
+						</div>
+					</div>
+				</div> 
+        	</div>
+		</div>
+</body>
+</html>

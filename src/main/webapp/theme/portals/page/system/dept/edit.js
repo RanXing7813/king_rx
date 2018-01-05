@@ -3,6 +3,7 @@ $(function() {
 			 flag_S='Y';
 			 $("#"+menusId).click();
 		});
+		
 });
 	
 	

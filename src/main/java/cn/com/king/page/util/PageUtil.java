@@ -28,15 +28,15 @@ public class PageUtil {
 	private String message;
     
     public String getOrderStr() {  
-        orderStr = "";  
-        if (StringUtils.isNotEmpty(order)) {  
-            String[] orders = order.split(",");  
-            String[] sorts = sort.split(",");  
-            for (int i = 0; i < sorts.length; i++) {  
-                orderStr += sorts[i] + " " + orders[i] + ", ";  
-            }  
-            orderStr = orderStr.endsWith(", ") ? orderStr.substring(0, orderStr.length() - 2) : orderStr;  
-        }  
+//        orderStr = "";  
+//        if (StringUtils.isNotEmpty(order)) {  
+//            String[] orders = order.split(",");  
+//            String[] sorts = sort.split(",");  
+//            for (int i = 0; i < sorts.length; i++) {  
+//                orderStr += sorts[i] + " " + orders[i] + ", ";  
+//            }  
+//            orderStr = orderStr.endsWith(", ") ? orderStr.substring(0, orderStr.length() - 2) : orderStr;  
+//        }  
         return orderStr;  
     }  
     

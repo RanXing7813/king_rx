@@ -13,7 +13,7 @@ public interface RoleService {
 
 	public Map getPage(final Map searchParameters ,String salt);
 	public void save(RoleDto dto);
-	public void deleteRole(String roleId);
+//	public void deleteRole(String roleId);
 	public RoleDto findDtoById(String id, String salt);
 	public List<Menus> getMenus(String id);
 	public void saveAuthMenus(Map searchParameters);

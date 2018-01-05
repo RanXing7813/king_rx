@@ -42,9 +42,14 @@ import javassist.bytecode.LocalVariableAttribute;
 import javassist.bytecode.MethodInfo;
 
 @Aspect
-@Component("LogCotroller")
-@EnableAspectJAutoProxy(proxyTargetClass=true)
+@Component
+@EnableAspectJAutoProxy//(proxyTargetClass=true)  //cglib
 public class LogCotroller {
+	
+	public LogCotroller(){
+		
+	}
+	
 //	private LogUtils logUtils;
 //	public LogUtils getLogUtils() {
 //		return logUtils;

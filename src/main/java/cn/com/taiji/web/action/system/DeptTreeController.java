@@ -72,10 +72,9 @@ public class DeptTreeController  extends BaseAction {
 	* @throws
 	 */
 	@RequestMapping(value = ReqMapping+"to_add", method = { RequestMethod.POST })
-	public String toAdd(Model model, Dept cf){
+	public String toAdd(Model model, DeptDto cf){
 		cf.setDept_fullname("新增页面");
-		cf.setDeptState("0");//禁用
-		cf.setParentId("centerdb");
+		cf.setDeptState("1");//禁用
 		model.addAttribute("dto", cf);
 		return "portals/page/system/depttree/edit";
 	}
@@ -111,8 +110,10 @@ public class DeptTreeController  extends BaseAction {
 	public Object  newDetail(Model model, PageUtil pageUtil,@ModelAttribute(value="dto") DeptDto dto, HttpServletRequest request){
 	    	try {
 		    UserDto userDto =	(UserDto) request.getSession().getAttribute("user");  
-			String str = deptTreeService.saveDept(dto, userDto);
-			pageUtil.setMessage(str);
+			String ID = deptTreeService.saveDept(dto, userDto);
+			pageUtil.setMessage("SUCCESS");
+			pageUtil.setOrderStr(ID);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				pageUtil.setMessage("保存失败");

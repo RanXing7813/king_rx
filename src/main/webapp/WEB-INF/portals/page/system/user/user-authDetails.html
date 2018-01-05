@@ -1,8 +1,11 @@
-<link  href="/theme/portals/js/zTree/css/demo.css" type="text/css" />
-<link rel="stylesheet" href="/theme/portals/js/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" />
-<script  src="/theme/portals/js/zTree/js/jquery-1.4.4.min.js"></script>
-<script  src="/theme/portals/js/zTree/js/jquery.ztree.core-3.5.js"></script>
-<script  src="/theme/portals/js/zTree/js/jquery.ztree.excheck-3.5.js"></script>
+	<link rel="stylesheet" href="/theme/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" th:href="@{/theme/zTree/css/zTreeStyle/zTreeStyle.css}"/>
+	<link  	 href="/theme/zTree/css/demo.css" type="text/css" 					 th:href="@{/theme/zTree/css/demo.css}"/>
+	<link    href="/theme/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" 	 th:href="@{/theme/zTree/css/zTreeStyle/zTreeStyle.css}"/>
+	<script  src="/theme/zTree/js/jquery-1.4.4.min.js"							 th:src="@{/theme/zTree/js/jquery-1.4.4.min.js}"></script>
+	<script  src="/theme/zTree/js/jquery.ztree.core-3.5.js"						 th:src="@{/theme/zTree/js/jquery.ztree.core-3.5.js}"></script>
+	<script  src="/theme/zTree/js/jquery.ztree.excheck-3.5.js"					 th:src="@{/theme/zTree/js/jquery.ztree.excheck-3.5.js}"></script>
+	<script  src="/theme/zTree/js/jquery.ztree.exhide-3.5.js"					 th:src="@{/theme/zTree/js/jquery.ztree.exhide-3.5.js}"></script>
+	<script  src="/theme/zTree/js/jquery.ztree.exhide-3.5.min.js"></script>
 <script th:inline="javascript">
 	/*<![CDATA[*/
 	//得到父页面 属性 	
@@ -31,14 +34,8 @@
 					},
 					data : {
 						simpleData : {
-							enable : true,
-							idKey: "ID",
-							pIdKey: "PID",
-						},
-						key: {
-							name: "NAME"
+							enable : true
 						}
-						
 					},
 					callback : {
 						beforeCheck : zTreeBeforeCheck,
@@ -55,11 +52,6 @@
 				}
 				$(document).ready(function() {
 					$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-					 var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-					 var nodes = treeObj.getNodes();
-		             for (var i = 0; i < nodes.length; i++) { //设置节点展开  只展开一级节点
-		                treeObj.expandNode(nodes[i], true, false, true);
-		             }
 					//alert(submitan());
 					go2(submitan(), "默认")
 				});
@@ -73,9 +65,9 @@
 	//点击文本信息 触发 	
 	function onClick(event, treeId, treeNode, clickFlag) {
 		// alert(treeNode.id);//点击直接返回节点对象treeNode
-		if (getCurrentRoot(treeNode) != treeNode.ID) {
-			var roleId = "'" + treeNode.ID + "'";
-			var name = treeNode.NAME;
+		if (getCurrentRoot(treeNode) != treeNode.id) {
+			var roleId = "'" + treeNode.id + "'";
+			var name = treeNode.name;
 			go2(roleId, name);
 		}
 	};
@@ -85,7 +77,7 @@
 			var parentNode = treeNode.getParentNode();
 			return getCurrentRoot(parentNode);
 		} else {
-			return treeNode.ID;
+			return treeNode.id;
 		}
 	}
 	//获取选中的 左边树节点 
@@ -95,14 +87,14 @@
 		nodes = treeObj.getCheckedNodes(true);
 		v = "";
 		for (var i = 0; i < nodes.length; i++) {
-			v += "'" + nodes[i].ID + "',";
+			v += "'" + nodes[i].id + "',";
 			//获取选中节点的值
 		}
 		if (v.length > 0) {
 			v = v.substring(0, v.length - 1);
 		}
 		//W.document.getElementById('xx').value = v;//给父页面id 传值 
-		//alert(v);
+		// alert(v);
 		return v;
 	}
 	//加载第二颗树  获取目录 列表 
@@ -147,9 +139,7 @@
 	/*]]>*/
 </script>
 <div class="content_wrap" style="overflow: hidden; width: 700px; height: 600px;">
-	<form modelAttribute="dto" th:object="${dto}" id="roleForm" style="display: none">
-		<input type="text" name="remark" id="userId" th:value="${dto.remark}" th:field="*{remark}" />
-	</form>
+		<input type="hidden" id="userId" th:value="${dto}"   />
 	<div>
 		<table style="width: 100%">
 			<tr>

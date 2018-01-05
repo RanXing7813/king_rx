@@ -23,7 +23,6 @@ function loadS(href, divId, type, status) {
                 	$("#"+divId+" input,checkbox,select,textarea").attr("readonly","readonly");
                 }
                 
-                
             }
         });
 }
@@ -65,6 +64,9 @@ function delS(id) {
 	 }
 }
 
+function doSomethingS(){
+	
+}
 /**
  * 异常提示
  * @param num

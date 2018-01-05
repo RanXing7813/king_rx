@@ -11,11 +11,17 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!--导入具体的视图配置 -->
-	<import resource="mvc-view-config.xml" />
+	<!-- <import resource="mvc-view-config.xml" /> -->
 
 	<!--自动扫描并注册注释为@Controller和@Service的POJOS -->
 	<context:component-scan base-package="cn.com.king" />
-	<context:component-scan base-package="cn.com.taiji.web" />
+	<context:component-scan base-package="cn.com.taiji.web" >
+		<!-- <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" /> -->
+	</context:component-scan>
+			
+	
+	
+	
 <!-- 	<bean id="initFilter" class="cn.com.king.web.action.log.InitFilter"    init-method="CSH" lazy-init="true"/>  
  -->	<mvc:annotation-driven/> 
 	<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->  
