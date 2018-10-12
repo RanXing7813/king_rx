@@ -4,12 +4,15 @@
 	map.name = '';
 	var flag_S;//判断不进入 首页list  'Y'不进入首页不清空map信息,  'N'进入首页
 	var menusId;
+	var menusName;
+	
 	function tabList(pId, id, name) {
 		
 		if(id==null||id==''){
 			alert("正在建设中。。。");
 		}else{
 			menusId = id + "_";
+			menusName = name;
 			map.name = name;
 			var url = "getBackPage?pId=" + pId + "&id=" + id;
 			if (flag_S == 'Y') {

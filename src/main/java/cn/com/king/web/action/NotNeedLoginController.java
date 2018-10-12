@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cn.com.king.annotation.NeedntLogin;
+
 
 @Controller
-@RequestMapping(value="/rsm/rsm")
+//@RequestMapping(value="/rsm/rsm")
 public class NotNeedLoginController {
 
 	
@@ -31,7 +33,8 @@ public class NotNeedLoginController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping({"","/index"})
+	@NeedntLogin
+	@RequestMapping({"/index"})
 	public String homePage2(Model model,@RequestParam(value = "models", required = false) String models) {
 		
 		System.out.println("-----首页");

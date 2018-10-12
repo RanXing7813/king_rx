@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/> 
+    <title>Jeecg 快速开发平台</title>
+    <meta name="keywords" content="JEECG,后台bootstrap框架,会员中心主题,后台HTML,响应式后台"/>
+    <meta name="description" content="JEECG是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术"/>
+    
+	<script type="text/javascript" src="/theme/easyui/jquery-1.8.0.min.js" th:href="@{/theme/easyui/jquery-1.8.0.min.js}"></script>   
+	
+	 <link rel="stylesheet" type="text/css" href="/theme/easyui/themes/default/easyui.css" 	th:href="@{/theme/easyui/themes/default/easyui.css}"/>   
+	<link rel="stylesheet" type="text/css" href="../theme/easyui/themes/icon.css" 			th:href="@{/theme/easyui/themes/icon.css}"/>   
+	<link rel="stylesheet" type="text/css" href="../theme/easyui/demo/demo.css" 			th:href="@{/theme/easyui/demo/demo.css}"/>
+	<link rel="stylesheet" type="text/css" href="../theme/easyui/themes/color.css" 			th:href="@{/theme/easyui/themes/color.css}"/>
+	<!-- src="../static/js/myJs.js" -->
+	<script type="text/javascript" src="/theme/easyui/jquery.min.js" 				  th:src="@{/theme/easyui/jquery.min.js}"></script>
+	<script type="text/javascript" src="/theme/easyui/jquery.easyui.min.js"  		  th:src="@{/theme/easyui/jquery.easyui.min.js}" ></script>  
+	<script type="text/javascript" src="/theme/easyui/locale/easyui-lang-zh_CN.js" 	  th:src="@{/theme/easyui/locale/easyui-lang-zh_CN.js}" ></script>
+	
+</head>
+
+<body class="easyui-layout">
+	<!-- begin of sidebar -->
+	<div class="wu-sidebar"
+		data-options="region:'west',split:true,border:true,title:'机构信息'">
+		<div class="easyui-accordion" data-options="border:false,fit:true">
+
+			<div title="" data-options="iconCls:'icon-wrench'"
+				style="padding: 5px;">
+				<ul class="wu-side-tree" id="wu-side-tree">
+
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- end of sidebar -->
+	<!-- begin of main -->
+	<div class="wu-main" data-options="region:'center'">
+		<div id="wu-tabs" class="easyui-tabs"
+			data-options="border:false,fit:true"></div>
+	</div>
+	<!-- end of main -->
+
+	<script type="text/javascript">
+		/**
+		* Name 载入树形菜单 
+		*/
+		$('#wu-side-tree').tree({
+			url:'../tree/deptAllTreeView',
+			cache:false,
+			onClick:function(node){
+				$('#wu-side-tree').tree('toggle', node.target);
+				var url = node.id;
+				if(url==null || url == ""){
+					return false;
+				}
+				else{
+					addTab("信息类信息", "/tinfoclass/tinfoclass_resClassifyList"+url, '', true);
+				}
+			},
+			onLoadSuccess:function(node, data){
+				var title="信息类信息", href="/tinfoclass/tinfoclass_resClassifyList",iconCls= '',iframe= true;
+				var tabPanel = $('#wu-tabs');
+				var content = '<iframe scrolling="auto" frameborder="0"  src="'+ href +'" style="width:100%;height:100%;"></iframe>';
+				if(!tabPanel.tabs('exists',title)){
+					if(iframe){
+						tabPanel.tabs('add',{
+							title:title,
+							content:content,
+							iconCls:iconCls,
+							fit:true,
+							cls:'pd3',
+							closable:true
+						});
+					}
+					else{
+						tabPanel.tabs('add',{
+							title:title,
+							href:href,
+							iconCls:iconCls,
+							fit:true,
+							cls:'pd3',
+							closable:true
+						});
+					}
+				}
+			}
+		});
+		/**
+		* Name 添加菜单选项
+		* Param title 名称
+		* Param href 链接
+		* Param iconCls 图标样式
+		* Param iframe 链接跳转方式（true为iframe，false为href）
+		*/	
+		function addTab(title, href, iconCls, iframe){
+			var tabPanel = $('#wu-tabs');
+			var content = '<iframe scrolling="auto" frameborder="0"  src="'+ href +'" style="width:100%;height:100%;"></iframe>';
+			if(!tabPanel.tabs('exists',title)){
+				if(iframe){
+					tabPanel.tabs('add',{
+						title:title,
+						content:content,
+						iconCls:iconCls,
+						fit:true,
+						cls:'pd3',
+						closable:true
+					});
+				}
+				else{
+					tabPanel.tabs('add',{
+						title:title,
+						href:href,
+						iconCls:iconCls,
+						fit:true,
+						cls:'pd3',
+						closable:true
+					});
+				}
+			}
+			else
+			{
+				tabPanel.tabs('select',title);
+				var tab = $('#wu-tabs').tabs('getSelected');  // get selected panel
+				$('#wu-tabs').tabs('update', {
+					tab: tab,
+					options: {
+						title:title,
+						content:content,
+					}
+				});
+			}
+		}
+		/**
+		* Name 移除菜单选项
+		*/
+		function removeTab(){
+			var tabPanel = $('#wu-tabs');
+			var tab = tabPanel.tabs('getSelected');
+			if (tab){
+				var index = tabPanel.tabs('getTabIndex', tab);
+				tabPanel.tabs('close', index);
+			}
+		}
+		
+	</script>
+</body>
+</html>

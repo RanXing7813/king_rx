@@ -50,6 +50,7 @@ function go(pages){
 	//			 $('#grid').html(myTemplate(result));
 		    	  var list = '';
 		    	  $("#grid").html(list);
+		    	  console.log(list);
 	    	  	  var obj = result.queryObj;
 	    	  	  if(obj==undefined){
 	    	  		result.total = 0;

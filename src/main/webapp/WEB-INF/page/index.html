@@ -19,6 +19,10 @@
 	<script type="text/javascript" src="/theme/easyui/jquery.easyui.min.js"  		  th:src="@{/theme/easyui/jquery.easyui.min.js}" ></script>  
 	<script type="text/javascript" src="/theme/easyui/locale/easyui-lang-zh_CN.js" 	  th:src="@{/theme/easyui/locale/easyui-lang-zh_CN.js}" ></script>
 	
+	<script type="text/javascript" src="theme/portals/js/lhgdialog/lhgdialog.js"  th:src="@{/theme/portals/js/lhgdialog/lhgdialog.js}"></script>
+	<script type="text/javascript" th:src="@{/theme/portals/js/handlebars.js}"></script>
+	<script type="text/javascript" src="theme/portals/js/lhgdialog/prettify.js" th:src="@{/theme/portals/js/lhgdialog/prettify.js}"></script>
+	<script type="text/javascript" src="theme/portals/js/lhgdialog/demo.js" th:src="@{/theme/portals/js/lhgdialog/demo.js}"></script>
 </head>
 
 
@@ -33,12 +37,14 @@
     	<!-- 布局  -->
         <div class="easyui-layout" id="cc" data-options="fit:true">  
         	<!-- 左边菜单栏 --> 
-            <div data-options="region:'west',title:'west Title',split:true"      style="width:180px"> 
+            <div data-options="region:'west',title:'west Title',split:true"      style="width:280px"> 
            	 	左边菜单栏
            	 	<ul>
            	 		<li><a href="javascript:ff()">点我加载list1页面</a></li>
            	 		<li><a href="javascript:dd()">点我加载list2页面</a></li>
-           	 	
+           	 		<li><a href="javascript:treeDeptAll()">点我弹出treeDeplAll页面</a></li>
+           	 		<li><a href="javascript:treeDeptFristNode()">点我弹出treeDeptFristNode页面</a></li>
+           	 		<li><a href="../login/IndexController!to_index">点我弹出treeDeptFristNode页面</a></li>
            	 	</ul>
             </div>   
             <div data-options="region:'south'" style="height:30px;">页底</div>
@@ -100,5 +106,6 @@ var linkNewData = /*[[@{/login/IndexController!newData.json}]]*/
     );  */
 /*]]>*/
 </script>
+<script type="text/javascript" src="/theme/page/treeDemo.js" th:src="@{/theme/page/treeDemo.js?v=1}" />
 <script type="text/javascript" src="/theme/page/index.js" th:src="@{/theme/page/index.js?v=1}" />
 </html>

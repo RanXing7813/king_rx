@@ -21,7 +21,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<!-- 注解事务 -->
-	<tx:annotation-driven transaction-manager="jdbcTransactionManager" proxy-target-class="false"/>
+	<!-- <tx:annotation-driven transaction-manager="jdbcTransactionManager" proxy-target-class="false"/> -->
 	
 	<!-- 启用事务 -->
     <tx:advice id="txAdvice" transaction-manager="jdbcTransactionManager" >

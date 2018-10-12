@@ -113,7 +113,7 @@ public class HomeController {
 		//登录完成后将验证码进行清空
 		httpSession.setAttribute("verifycode", null);
 		httpSession.setAttribute("user", userDto);
-		//httpSession.setMaxInactiveInterval(5);
+		httpSession.setMaxInactiveInterval(5);
 		httpSession.setAttribute("LogindeptId",userDto.getDeptId());
 		httpSession.setAttribute("LogindeptName",userDto.getUserName());
 		//获得菜单列表,并判断是否存在管理员的角色

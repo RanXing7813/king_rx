@@ -1,0 +1,94 @@
+<link rel="stylesheet" href="/theme/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css"     th:href="@{/theme/zTree/css/zTreeStyle/zTreeStyle.css}" />
+	<script  src="/theme/zTree/js/jquery.ztree.core-3.5.js"						 th:src="@{/theme/zTree/js/jquery.ztree.core-3.5.js}"></script>
+	<script  src="/theme/zTree/js/jquery.ztree.excheck-3.5.js"					 th:src="@{/theme/zTree/js/jquery.ztree.excheck-3.5.js}"></script>
+	<script  src="/theme/zTree/js/jquery.ztree.exedit-3.5.js"					 th:src="@{/theme/zTree/js/jquery.ztree.exedit-3.5.js}"></script>
+<style type="text/css">
+.ztree li span.button.add 
+{margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.diy03_ico_open{background: url('/theme/zTree/img/icon-3.png') 0 0 no-repeat;  margin-right:2px;  vertical-align:top; *vertical-align:middle; background-size: 16px 16px;}
+.ztree li span.button.diy03_ico_close{background: url('/theme/zTree/img/icon-3.png') 0 0 no-repeat;  margin-right:2px;  vertical-align:top; *vertical-align:middle; background-size: 16px 16px;}
+.ztree li span.button.diy03_ico_docu{background: url('/theme/zTree/img/icon-3.png') 0 0 no-repeat;  margin-right:2px;  vertical-align:top; *vertical-align:middle; background-size: 16px 16px;}
+.ztree li span.button.diy02_ico_open{background: url('/theme/zTree/img/icon-4.png') 0 0 no-repeat;  margin-right:2px;  vertical-align:top; *vertical-align:middle; background-size: 16px 16px;}
+.ztree li span.button.diy02_ico_close{background: url('/theme/zTree/img/icon-4.png') 0 0 no-repeat;  margin-right:2px;  vertical-align:top; *vertical-align:middle; background-size: 16px 16px;}
+
+/* 取消节点的展开关闭  样式 */
+/* .ztree li span.button.center_close{background-position:-92px -18px}
+.ztree li span.button.bottom_ope{background-position:-92px -18px}
+.ztree li span.button.bottom_close{background-position:-92px -18px} */
+</style>
+
+<script type="text/javascript" src="/theme/portals/page/system/code/code_list.js"></script>
+<script th:inline="javascript">
+	/*<![CDATA[*/	
+	$("#titleId").text(menusName);
+	var linkgo      			  = /*[[@{/sys/CodeController!getCodeTreeList.json}]]*/		 ; 
+	var linkaddS  				  = /*[[@{/sys/CodeController!to_add}]]*/		 ;	   //使用默认新增方法onclick="addS(null,'POST')"时参数必须 
+	var linkeditS   			  = /*[[@{/sys/CodeController!to_detail}]]*/	 ;	   //使用默认新增方法onclick="editS(null,'POST')"时参数必须 
+	var linkdelS 				  = /*[[@{/sys/CodeController!remove.json}]]*/	 ;	   //使用默认删除方法时参数必须
+	var linkupdS 				  = /*[[@{/sys/CodeController!updState.json}]]*/ ;	   //使用默认删除方法时参数必须
+	var linkonclickS 			  = /*[[@{/sys/CodeController!to_list}]]*/ ;	   //使用默认删除方法时参数必须
+	/*]]>*/
+</script>
+<!-- tablelist -->
+<div class="operatewrap">
+  <h4 class="operatepannel-title" ><font id="titleId">菜单管理</font>   
+  	<em>字典新增操作为,1:鼠标移动到根节点点击新增,将在树下生产一条字典数据(等级类型-高中低) &nbsp;  &nbsp; 2:鼠标移动到新增的数据上点击新增数据并保存,将生成一条子数据</em>
+	<em>字典查看操作为, 鼠标点击新增的数据(等级类型-高中低)的文字,即可在右侧查看其子数据</em>
+  </h4>
+                        
+    <!--通用的列表-->
+    <div class="ui-list fn-clear">
+           <!--搜索面板开始-->
+          <div class="search-list">
+             	<form >
+                  <table class="search-tab">
+                     <colgroup><!--注意用colgrounp标签组定义表格的每列宽度不可删除-->
+                        <col width="140"></col>
+                        <col></col>
+                        <col width="140"></col>
+                        <col></col>
+                        </colgroup> 
+                       <tbody >
+	                      <!--  <tr> 
+	                       		<th width="15.5%">机构代码</th>
+									<td><input type="text"  id="dept_zzjgdm"   th:value="${dept_zzjgdm}"
+											class="input-normal input-wdl  " /></td>
+								<th width="15.5%">部门简称</th>
+									<td ><input type="text"  id="deptName" 	th:value="${deptName}"
+											class="input-normal input-wdl  " /></td>
+	                        </tr> -->
+                       </tbody>
+                  </table>
+                	<!--  <div class="search-btn fn-clear">
+	                     <button class="btn btn-normal"  id="searchButtons" type="button">查询</button>
+	                     <button class="btn btn-reset"   type="reset">重置</button>
+                	 </div> -->
+               </form>
+		</div> <!-- end 搜索面板开始-->
+		  <!--通用上的信息列表-->
+          <div class="list-normal">
+              <div class="listmain" id="listmain" >
+                  			<div class="zTreeDemoBackground left"  style="overflow: auto;width:40%;padding-left:20px;float:left;   " >
+									<ul id="treeDemo" class="ztree"></ul>
+							</div>
+							<div id="ztreeContent" style=" overflow: auto;width:60%;float:left; padding-left: 35px;"> 
+									
+							</div>
+			 </div>
+          </div><!--end 通用上的信息列表-->
+          
+             
+    </div><!-- end 通用的列表-->
+    
+</div><!-- end tablelist -->    
+<SCRIPT type="text/javascript">
+		//<!--
+		var setting;var zNodes;
+		var log, className = "dark";
+		$(document).ready(function(){
+			go();
+			$(".zTreeDemoBackground").css("height",document.body.clientHeight-200);
+			$("#ztreeContent").css("height",document.body.clientHeight-200);
+		});
+		//-->
+</SCRIPT>

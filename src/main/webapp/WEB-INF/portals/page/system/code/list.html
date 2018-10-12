@@ -1,0 +1,26 @@
+ <script th:inline="javascript">
+/*<![CDATA[*/
+var linkgoS2 = /*[[@{/sys/CodeController!getCodeTreeList}]]*/   ;//使用默认查询方法go(map.page)时参数必须
+/*]]>*/
+</script>
+    <!--通用的列表-->
+    <div class="ui-list fn-clear">
+		  <!--通用上的信息列表-->
+          <div class="list-normal">
+              <div class="listmain" id="listmain" >
+                   <table class="list-tab"  id="list-tab"  >
+					<thead id="girdThead">
+						<tr role="row">
+							<td  class="fn-text-center" >字典名称</td>
+							<td  class="fn-text-center" >字典字符值</td>
+							<td  class="fn-text-center" >字典数字值</td>
+							<td  class="fn-text-center" >操作 </td>
+						</tr>
+					</thead>
+					<tbody role="alert" aria-live="polite" aria-relevant="all" id="grid"  class="discolor">
+					</tbody>
+				</table>
+			 </div>
+          </div><!--end 通用上的信息列表-->
+    </div><!-- end 通用的列表-->
+<script src="/theme/portals/page/system/code/list.js" th:src="@{/theme/portals/page/system/code/list.js}"></script>

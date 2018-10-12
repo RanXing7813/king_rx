@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/> 
+    <title>Jeecg 快速开发平台</title>
+    <meta name="keywords" content="JEECG,后台bootstrap框架,会员中心主题,后台HTML,响应式后台"/>
+    <meta name="description" content="JEECG是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术"/>
+    
+	<script type="text/javascript" src="/theme/easyui/jquery-1.8.0.min.js" th:href="@{/theme/easyui/jquery-1.8.0.min.js}"></script>   
+	
+	 <link rel="stylesheet" type="text/css" href="/theme/easyui/themes/default/easyui.css" 	th:href="@{/theme/easyui/themes/default/easyui.css}"/>   
+	<link rel="stylesheet" type="text/css" href="../theme/easyui/themes/icon.css" 			th:href="@{/theme/easyui/themes/icon.css}"/>   
+	<link rel="stylesheet" type="text/css" href="../theme/easyui/demo/demo.css" 			th:href="@{/theme/easyui/demo/demo.css}"/>
+	<link rel="stylesheet" type="text/css" href="../theme/easyui/themes/color.css" 			th:href="@{/theme/easyui/themes/color.css}"/>
+	<!-- src="../static/js/myJs.js" -->
+	<script type="text/javascript" src="/theme/easyui/jquery.min.js" 				  th:src="@{/theme/easyui/jquery.min.js}"></script>
+	<script type="text/javascript" src="/theme/easyui/jquery.easyui.min.js"  		  th:src="@{/theme/easyui/jquery.easyui.min.js}" ></script>  
+	<script type="text/javascript" src="/theme/easyui/locale/easyui-lang-zh_CN.js" 	  th:src="@{/theme/easyui/locale/easyui-lang-zh_CN.js}" ></script>
+	
+</head>
+
+<body class="easyui-layout">
+	<h2>Lazy Load Tree Nodes</h2>
+	<p>Get full hierarchical tree data but lazy load nodes level by level.</p>
+	<div style="margin:20px 0;"></div>
+	<div class="easyui-panel" style="padding:5px">
+		<ul  id="tt"  ></ul>
+	</div>
+</body>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		//data-options="url:'../tree/deptAllTreeView',method:'get',loadFilter:myLoadFilter"
+		$('#tt').tree({
+			url:'../tree/deptFristNodeTreeView',
+			cache:false,
+			method:'get',
+			loadFilter:myLoadFilter
+		});
+		
+		
+		
+		
+		//此方法自动传递 id=** 参数到后台
+		function myLoadFilter(data, parent){
+			var state = $.data(this, 'tree');
+		    function setData(){
+		    	var serno = 1;
+		        var todo = [];
+		        for(var i=0; i<data.length; i++){
+		            todo.push(data[i]);
+		        }
+		        while(todo.length){
+		            var node = todo.shift();
+		            if (node.id == undefined){
+		            	node.id = '_node_' + (serno++);
+		            }
+		            if (node.children){
+		                node.state = 'closed';
+		                node.children1 = node.children;
+		                node.children = undefined;
+		                todo = todo.concat(node.children1);
+		            }
+		        }
+		        state.tdata = data;
+		    }
+		    function find(id){
+		    	var data = state.tdata;
+		    	var cc = [data];
+		    	while(cc.length){
+		    		var c = cc.shift();
+		    		for(var i=0; i<c.length; i++){
+		    			var node = c[i];
+		    			if (node.id == id){
+		    				return node;
+		    			} else if (node.children1){
+		    				cc.push(node.children1);
+		    			}
+		    		}
+		    	}
+		    	return null;
+		    }
+		    
+		       setData();
+		  
+		      var t = $(this);
+		    var opts = t.tree('options');
+		     opts.onBeforeExpand = function(node){
+		    	if(node.pid=='0'){
+		    		var n = find(node.id);
+		    		if (n==null){return}
+		    		
+		    		if (n.children && n.children.length){return}
+			    	if (n.children1){
+			    		var filter = opts.loadFilter;
+			    		opts.loadFilter = function(data){return data;};
+			    		t.tree('append',{
+			    			parent:node.target,
+			    			data:n.children1
+			    		});
+			    		opts.loadFilter = filter;
+			    		n.children = n.children1;
+			    	}
+		    	}
+		    };  /*   */
+			return data;
+		}
+		/*]]>*/
+		</script>
+</html>

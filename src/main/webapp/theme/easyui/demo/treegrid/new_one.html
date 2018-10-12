@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Basic TreeGrid - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../demo.css">
+	<script type="text/javascript" src="../../jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>Basic TreeGrid</h2>
+	<p>TreeGrid allows you to expand or collapse group rows.</p>
+	<div style="margin:20px 0;"></div>
+<!--	<table title="Folder Browser" class="easyui-treegrid" style="width:700px;height:250px"
+			data-options="
+				url: 'treegrid_data1.json',
+				method: 'get',
+				rownumbers: true,
+				idField: 'id',
+				treeField: 'name'
+			">
+		<thead>
+			<tr>
+				<th data-options="field:'name'" width="220">Name</th>
+				<th data-options="field:'size'" width="100" align="right">Size</th>
+				<th data-options="field:'date'" width="150">Modified Date</th>
+			</tr>
+		</thead>
+	</table>
+-->
+<table id="tt" style="width:600px;height:400px"></table>  
+<script>
+$('#tt').treegrid({    
+    url:'treegrid_data1.json',    
+    idField:'id',    
+    treeField:'name',   
+	fit:true,               //网格自动撑满
+    fitColumns:true,        //设置为 true，则会自动扩大或缩小列的尺寸以适应网格的宽度并且防止水平滚动。
+    columns:[[    
+        {title:'Task Name',field:'name',width:180},    
+	    {field:'size',title:'size',width:60,align:'right'},    
+        {field:'date',title:'date',width:80},    
+        {field:'end',title:'End Date',width:80}    
+    ]]    
+}); 
+2018/1/9
+</script>
+</body>
+</html>

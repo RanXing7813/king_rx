@@ -66,8 +66,8 @@
 						<td>
 							<div class="control-group">
 								<div class="controls ">
-									<input type="text" th:value="${dto.parentId}"  th:field="*{parentId}" />
-									<input type="text"   id = "parentName"  />
+									<input type="text" th:value="${dto.parentId}"  th:field="*{parentId}"  readonly="readonly"/>
+									<input type="text"   id = "parentName" readonly="readonly" />
 									<div id="parentIdTip" class="put_sty"></div>
 								</div>
 							</div>
@@ -208,7 +208,15 @@
 		if($("#menuId").val().length==0) {
 			$("#parentId").val(thistreeNode.id);
 		    $("#parentName").val(thistreeNode.name);
+		 }else{
+			 var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+			    nodes = zTree.getNodesByParam("id", thistreeNode.pId, null);
+			    if(nodes.length>0){
+			    	
+				 $("#parentName").val(nodes[0].name);
+			    }
 		 }
+		 
 });
 	
 /*]]>*/

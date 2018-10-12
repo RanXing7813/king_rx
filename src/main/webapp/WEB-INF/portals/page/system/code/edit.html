@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/> 
+<title>肇庆市信息资源共享平台</title>
+	<link rel="stylesheet" type="text/css" href="/theme/portals/css/normalize.css"  th:href="@{/theme/portals/css/normalize.css}"/>
+	<link rel="stylesheet" type="text/css" href="/theme/portals/css/base.css"  th:href="@{/theme/portals/css/base.css}"/>
+	<link rel="stylesheet" type="text/css" href="/theme/portals/css/channel_style.css"  th:href="@{/theme/portals/css/channel_style.css}"/>
+	<link rel="stylesheet" type="text/css" href="/theme/portals/css/exchange_style.css" th:href="@{/theme/portals/css/exchange_style.css}" />
+	<link rel="stylesheet" type="text/css" href="/theme/portals/css/catalog_style.css"  th:href="@{/theme/portals/css/catalog_style.css}"/>
+
+	<script type="text/javascript" src="/theme/portals/js/jquery-1.11.2.min.js"  th:src="@{/theme/portals/js/jquery-1.11.2.min.js}"></script>
+	<script type="text/javascript" src="/theme/portals/js/lhgdialog/lhgdialog.js" th:src="@{/theme/portals/js/lhgdialog/lhgdialog.js}"></script>
+	<script type="text/javascript" src="/theme/portals/js/handlebars-1.0.0.beta.6.js" th:src="@{/theme/portals/js/handlebars-1.0.0.beta.6.js}"></script>
+	<script type="text/javascript" src="/theme/portals/js/lhgdialog/prettify.js" th:src="@{/theme/portals/js/lhgdialog/prettify.js}"></script>
+	<script type="text/javascript" src="/theme/portals/js/lhgdialog/demo.js" th:src="@{/theme/portals/js/lhgdialog/demo.js}"></script>
+	<!-- 复写一个div遮罩，提示框js -->
+	<script type="text/javascript" src="/theme/portals/overrideAlert.js" 		 th:src="@{/theme/portals/overrideAlert.js}"></script>
+	<!-- 动态获取页面宽高js -->
+	<script type="text/javascript" src="/theme/portals/page_width_height.js" 	 th:src="@{/theme/portals/page_width_height.js}"></script>
+	<script type="text/javascript" src="/theme/portals/publicS.js"	 		 	 th:src="@{/theme/portals/publicS.js}"></script>
+	<script type="text/javascript" src="/theme/portals/layouts/headers.js"  	 th:src="@{/theme/portals/layouts/headers.js}"></script>
+	<!--ztree  -->
+	
+	<link rel="stylesheet" href="/theme/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" th:href="@{/theme/zTree/css/zTreeStyle/zTreeStyle.css}"/>
+	<link  	 href="/theme/zTree/css/demo.css" type="text/css" 					 th:href="@{/theme/zTree/css/demo.css}"/>
+	<link    href="/theme/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" 	 th:href="@{/theme/zTree/css/zTreeStyle/zTreeStyle.css}"/>
+	<script  src="/theme/zTree/js/jquery.ztree.core-3.5.js"						 th:src="@{/theme/zTree/js/jquery.ztree.core-3.5.js}"></script>
+	<script  src="/theme/zTree/js/jquery.ztree.excheck-3.5.js"					 th:src="@{/theme/zTree/js/jquery.ztree.excheck-3.5.js}"></script>
+
+<!--end  -->
+<!--表单验证样式-->
+<link rel="stylesheet"
+	href="/theme/js/jsnew/validator-0.7.3/jquery.validator.css"
+	th:href='@{/theme/js/jsnew/validator-0.7.3/jquery.validator.css}' />
+<script src="/theme/js/jsnew/formValidator-4.0.1.min.js"
+	th:src='@{/theme/js/jsnew/formValidator-4.0.1.min.js}'></script>
+<script src="/theme/js/jsnew/formValidatorRegex.js"
+	th:src='@{/theme/js/jsnew/formValidatorRegex.js}'></script>
+<!--表单验证样式-->
+</head>
+<body style="background:white;">
+<h4 class="operatepannel-title">
+	<!-- <font id="titleId">数据建设</font> -->
+	<font th:if="${dto.id!=null}">字典管理 - 编辑页面</font> <font
+		th:if="${dto.id==null}">字典管理 - 新增页面</font>
+</h4>
+<!--通用的列表-->
+<div class="ui-list fn-clear">
+	<!--搜索面板开始-->
+	<div class="search-list">
+		<!--<h4 >查询条件</h4>-->
+		<form id="menuForm" class="form-horizontal" method="post" modelAttribute="dto" th:object="${dto}">
+		
+			<input type="hidden" th:value="${dto.id}" 	 th:field="*{id}" />
+			<input type="hidden" th:value="${dto.level}" 	 th:field="*{level}" />
+			
+			
+		 	<table class="search-tab">
+				<colgroup>
+					<col width="140"></col>
+					<col></col>
+					<col width="140"></col>
+					<col></col>
+				</colgroup>
+				<tbody>
+					<tr>
+						<th><span style="color: red">*</span>&nbsp;字典名称</th>
+						<td>
+							<div class="control-group">
+								<div class="controls ">
+									<input type="text" th:value="${dto.code_show_name}"
+										th:field="*{code_show_name}" />
+									<div id="code_show_nameTip" class="put_sty"></div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th><span style="color: red">*</span>&nbsp;字典值-字符串类型</th>
+						<td>
+							<div class="control-group">
+								<div class="controls ">
+									<input type="text" th:value="${dto.code_varchar_value}"
+										th:field="*{code_varchar_value}" />
+									<div id="code_varchar_valueTip" class="put_sty"></div>
+								</div>
+							</div>
+						</td>
+					</tr>
+						<tr>
+						<th><span style="color: red">*</span>&nbsp;字典值-数字类型</th>
+						<td>
+							<div class="control-group">
+								<div class="controls ">
+									<input type="text" th:value="${dto.code_int_value}"
+										th:field="*{code_int_value}" />
+									<div id="code_show_nameTip" class="put_sty"></div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>父节点编号</th>
+						<td>
+							<div class="control-group">
+								<div class="controls ">
+									<input type="text" th:value="${dto.parent_id}"  th:field="*{parent_id}" readonly="readonly"/>
+									<input type="text"   id = "parentName" th:value="${parentName}" readonly="readonly" />
+									<div id="parent_idTip" class="put_sty"></div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>字典排序号</th>
+						<td>
+							<div class="control-group">
+								<div class="controls ">
+									<input id="orderId" type="text" th:value="${dto.code_index}"
+										th:field="*{code_index}"  />
+									<div id="code_indexTip" class="put_sty"></div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					 <tr  >
+							<th>状态</th>
+							<td><label for="a"><input type="radio"
+									name="state" th:value="Y" id="a"
+									th:checked="${dto.state=='Y'}" />启用</label> <label for="b"><input
+									type="radio" name="state" th:value="N" id="b"
+									th:checked="${dto.state=='N'}" />停用</label></td>
+									
+						</tr> 
+					<tr>
+						<th>备注</th>
+						<td>
+							<div class="control-group">
+								<div class="controls ">
+									<input type="text" th:value="${dto.remark}"
+										th:field="*{remark}"  />
+									<div id="remarkTip" class="put_sty"></div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>  
+					<div class="form-actions" style="text-align: center;">
+						<a href="#"><input class="btn btn-normal"  id="next"  type="button" value="保存" /></a>	
+							<input id="back" class="btn btn-normal" type="button" value="返 回" /> 					
+					</div>
+		</form>
+	</div>
+</div>
+
+<script th:inline="javascript">
+	/*<![CDATA[*/
+    var api = frameElement.api, W = api.opener;	 //api 内容页中调用窗口实例对象的接口  W加载窗口组件页面的window对象
+		var thistreeNode = W.thistreeNode;
+	var linksaveS   		   = /*[[@{/sys/CodeController!new}]]*/		 ;//使用默认新增方法onclick="addS(null,'POST')"时参数必须  
+
+	if(thistreeNode.id=='0' ){//只有新增设计到level字段,  编辑不管
+		$("#level").val(1);
+	}else{
+		$("#level").val(2);
+	}
+	
+	
+	function onClick(){//当返回false 不执行关闭操作
+		var statu=false;
+		if($("#menuName").val() == ""){
+			$("#menuName").focus();
+		}else{
+			$.ajax({
+				url:'yw_MenuSave.json',
+				type:'POST',
+				data:$("#form").serialize(),
+				dataType:'json',
+				async:false,
+				success:function(){
+					statu=true;
+				}	
+			})
+			 }
+		return statu;
+	}
+	
+	$.formValidator.initConfig({  submitButtonID:"next",debug:true,submitOnce:true, 
+		 onSuccess:  function() {
+		/**
+		 * 短暂提示
+		 * @param	{String}	提示内容
+		 * @param   {Number}    显示时间 (默认1.5秒)
+		 * @param	{String}	提示图标 (注意要加扩展名)
+		 * @param   {Function}  提示关闭时执行的回调函数
+		 */
+		 $.dialog.tips('数据加载中...',10 ,'loading.gif');
+		 errorS(10000);//连接超时提醒
+	      	 $.post(linksaveS,$("#menuForm").serialize(),function(result){
+	      		 
+	      		 		console.log(result);
+	      		 
+	      			 clearInterval(timerS);//成功清除连接超时
+					 if(result==null)   return;
+					 $.dialog.tips('',0,false);
+		 	         var message = result.message ; 
+					 if( typeof(message)!='undefined'&&  message !='' && message !='SUCCESS'  ){
+						 $.MsgBox.Alert("温馨提示", message+"!!!");
+						 $("#next").removeAttr("disabled");  
+						 $("#back").removeAttr("disabled");
+					 }else if(message == 'SUCCESS' && $("#id").val().length==0) {
+						 //新增
+						W.$.MsgBox.Alert("温馨提示", "数据保存成功!!!");
+						    if(thistreeNode.id=='0'){
+						    	  var zTree = W.$.fn.zTree.getZTreeObj("treeDemo");
+									zTree.addNodes(thistreeNode, {
+										id:result.orderStr, pId:thistreeNode.id, name: $("#code_show_name").val()  ,iconSkin: "diy03"
+									});
+									
+									
+									 $("#ztreeContent").html("");
+						    }
+						 
+						  
+					 }else if($("#id").val().length>0) {
+						 //编辑
+						 W.$.MsgBox.Alert("温馨提示", "数据保存成功!!!");
+						 var zTree = W.$.fn.zTree.getZTreeObj("treeDemo");
+						    nodes = zTree.getNodesByParam("id", thistreeNode.id, null);
+						    nodes[0].name=    $("input[name='code_show_name']").val();
+							zTree.updateNode(nodes[0]);
+							 $("#ztreeContent").html("");
+					 }
+					 
+					 api.close();
+				}); 
+	      	 
+          }
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	$(function() {
+		$("#back").click( function(){
+			 $("#ztreeContent").html("");
+			 api.close();
+//			 flag_S='Y';
+//			 $("#"+menusId).click();
+		});		
+		
+		 //新增
+		if($("#id").val().length==0) {
+			$("#parent_id").val(thistreeNode.id);
+		    $("#parentName").val(thistreeNode.name);
+		 }
+});
+	
+/*]]>*/
+</script>
+</body>
+</html>

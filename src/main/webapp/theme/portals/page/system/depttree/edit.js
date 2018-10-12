@@ -5,10 +5,22 @@ $(function() {
 //			 $("#"+menusId).click();
 		});		
 		
+//		if($("#id").val().length==0) {
+//			 //新增
+//			$("#parentId").val(thistreeNode.id);
+//		 }
+		 //新增
 		if($("#id").val().length==0) {
-			 //新增
 			$("#parentId").val(thistreeNode.id);
+		    $("#parentName").val(thistreeNode.name);
+		 }else{
+			 var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+			    nodes = zTree.getNodesByParam("id", thistreeNode.pId, null);
+			    if(nodes.length>0){
+					 $("#parentName").val(nodes[0].name);
+			    }
 		 }
+		
 });
 	
 	

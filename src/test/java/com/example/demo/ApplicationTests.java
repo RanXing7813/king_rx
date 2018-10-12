@@ -50,7 +50,7 @@ public class ApplicationTests {
 	  	@Test
 		public void run() {
 //	  		roleService.deleteRole("09e4175ba1294bebb242cf6fe382c66c", null);
-//	  		System.out.println(666);
+	  		System.out.println(666);
 //	 // 		loginService.add("8");
 //	  		
 //	  		loginService.updateS();

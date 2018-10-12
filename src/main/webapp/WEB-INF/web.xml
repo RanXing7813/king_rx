@@ -30,9 +30,53 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
   
-  <servlet-mapping>
+<servlet-mapping>
     <servlet-name>sampleSevlet</servlet-name>
     <url-pattern>/</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.jpg</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.png</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.gif</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.js</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.css</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.xls</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.doc</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.ico</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.mp4</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.apk</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.swf</url-pattern>
   </servlet-mapping>
   
   <!-- <listener> 
@@ -57,10 +101,10 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
   
- <!--  <welcome-file-list>
+ <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
-  
+  <!--  
   <error-page>
     <exception-type>java.lang.Exception</exception-type>
     <location>/views/error/error.html</location>
